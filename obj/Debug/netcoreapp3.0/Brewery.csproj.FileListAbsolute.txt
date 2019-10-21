@@ -1,0 +1,11 @@
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.exe
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.deps.json
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.runtimeconfig.json
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.runtimeconfig.dev.json
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.dll
+C:\Users\andre\source\repos\Brewery\bin\Debug\netcoreapp3.0\Brewery.pdb
+C:\Users\andre\source\repos\Brewery\obj\Debug\netcoreapp3.0\Brewery.csprojAssemblyReference.cache
+C:\Users\andre\source\repos\Brewery\obj\Debug\netcoreapp3.0\Brewery.AssemblyInfoInputs.cache
+C:\Users\andre\source\repos\Brewery\obj\Debug\netcoreapp3.0\Brewery.AssemblyInfo.cs
+C:\Users\andre\source\repos\Brewery\obj\Debug\netcoreapp3.0\Brewery.dll
+C:\Users\andre\source\repos\Brewery\obj\Debug\netcoreapp3.0\Brewery.pdb
