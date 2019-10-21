@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29326.143
+VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brewery", "Brewery.csproj", "{5DEC18D0-41F8-46CB-A888-359A92A9838A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beer", "Beer.csproj", "{AD91266B-0A5A-43FB-8DCF-5B67DF9B7F3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5DEC18D0-41F8-46CB-A888-359A92A9838A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DEC18D0-41F8-46CB-A888-359A92A9838A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DEC18D0-41F8-46CB-A888-359A92A9838A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DEC18D0-41F8-46CB-A888-359A92A9838A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD91266B-0A5A-43FB-8DCF-5B67DF9B7F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD91266B-0A5A-43FB-8DCF-5B67DF9B7F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD91266B-0A5A-43FB-8DCF-5B67DF9B7F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD91266B-0A5A-43FB-8DCF-5B67DF9B7F3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {94E02483-41FB-4AE2-A208-E6218BCAC51E}
+		SolutionGuid = {AB3AF956-DED0-457E-BF98-3D2427744F18}
 	EndGlobalSection
 EndGlobal
