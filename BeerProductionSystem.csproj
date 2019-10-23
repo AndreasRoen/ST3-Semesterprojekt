@@ -61,12 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aquaintence\ILogicFacade.cs" />
+    <Compile Include="Aquaintence\IPersistenceFacade.cs" />
+    <Compile Include="BusinessLayer\BatchModule\IBatchController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseController.cs" />
+    <Compile Include="PersistenceLayer\MachineModule\IMachineReadData.cs" />
+    <Compile Include="PersistenceLayer\MachineModule\IMachineWriteData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PresentationLayer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
