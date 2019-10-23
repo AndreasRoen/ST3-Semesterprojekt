@@ -8,5 +8,11 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     interface IBatchController
     {
+
+        public bool CreateBatch();
+
+        public bool CreateBatchReport ();
+
+        public bool ChechBatchParameter ();
     }
 }
