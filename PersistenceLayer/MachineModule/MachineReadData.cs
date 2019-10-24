@@ -9,35 +9,34 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 {
     class MachineReadData : IMachineReadData
     {
-        public Opc.UaFx.OpcValue ReadBatchID(OpcClient accessPoint)
+        public float ReadBatchID(OpcClient accessPoint)
         {
-            const string NodeId = "ns=6;s=::Program:Cube.Status.Parameter[0].Value";
-            return accessPoint.ReadNode(NodeId);
+            return (float)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[0].Value").Value;
         }
 
         public ushort ReadBatchSize(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[1].Value");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[1].Value").Value;
         }
 
         public bool ReadCommandChangeRequest(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.CmdChangeRequest");
+            return (bool)accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.CmdChangeRequest").Value;
         }
 
         public int ReadControlCommand(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.CntrlCmd");
+            return (int)accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.CntrlCmd").Value;
         }
 
         public int ReadCurrentState(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.StateCurrent");
+            return (int)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.StateCurrent").Value;
         }
 
         public ushort ReadDefectProducts(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:product.bad");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:product.bad").Value;
         }
 
         public float ReadDesiredMachineSpeed(OpcClient accessPoint)
@@ -47,7 +46,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public float ReadHumidity(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[2].Value");
+            return (float)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[2].Value").Value;
         }
 
         public float ReadMachineSpeed(OpcClient accessPoint)
@@ -57,27 +56,27 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public ushort ReadNextBatchID(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[0].Value");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[0].Value").Value;
         }
 
         public ushort ReadNextBatchProductType(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[1].Value");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[1].Value").Value;
         }
 
         public ushort ReadNextBatchSize(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[2].Value");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:Cube.Command.Parameter[2].Value").Value;
         }
 
         public float ReadNormalizedMachineSpeed(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.CurMachSpeed");
+            return (float)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.CurMachSpeed").Value;
         }
 
         public ushort ReadProducedProducts(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:product.produced");
+            return (ushort)accessPoint.ReadNode("ns=6;s=::Program:product.produced").Value;
         }
 
         public ushort ReadProductID(OpcClient accessPoint)
@@ -87,7 +86,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public int ReadStopReasonID(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Admin.StopReason.ID");
+            return (int)accessPoint.ReadNode("ns=6;s=::Program:Cube.Admin.StopReason.ID").Value;
         }
 
         public int ReadStopReasonValue(OpcClient accessPoint)
@@ -97,12 +96,17 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public float ReadTemperature(OpcClient accessPoint)
         {
-             return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[3].Value");
+             return (float)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[3].Value").Value;
         }
 
         public float ReadVibration(OpcClient accessPoint)
         {
-            return accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[4].Value");
+            return (float)accessPoint.ReadNode("ns=6;s=::Program:Cube.Status.Parameter[4].Value").Value;
+        }
+
+        ushort IMachineReadData.ReadBatchID(OpcClient accessPoint)
+        {
+            throw new NotImplementedException();
         }
     }
 }
