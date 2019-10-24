@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchController.cs" />
     <Compile Include="BusinessLayer\BatchModule\BatchReportModel.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchController.cs" />
     <Compile Include="Form1.cs">
