@@ -13,9 +13,9 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
         {
         }
 
-        public void WriteControlCommand(OpcClient accessPoint, int command)
+        public void WriteControlCommand(OpcClient accessPoint, int commandValue)
         {
-            accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.CntrlCmd", command);
+            accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.CntrlCmd", commandValue);
             WriteCommandChangeRequest(accessPoint);
         }
 
