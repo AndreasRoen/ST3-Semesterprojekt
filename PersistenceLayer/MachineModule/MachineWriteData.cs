@@ -9,6 +9,8 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 {
     class MachineWriteData : IMachineWriteData
     {
+        private Dictionary<string, string> nodeDictionary;
+
         public MachineWriteData()
         {
         }
