@@ -13,7 +13,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
         {
         }
 
-        public void WriteCommand(OpcClient accessPoint, int command)
+        public void WriteControlCommand(OpcClient accessPoint, int command)
         {
             accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.CntrlCmd", command);
             WriteCommandChangeRequest(accessPoint);

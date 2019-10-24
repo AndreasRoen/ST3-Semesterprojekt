@@ -7,7 +7,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
     {
         void WriteDesiredMachineSpeed(OpcClient accessPoint, float speed);
 
-        void WriteCommand(OpcClient accessPoint, int commandValue);
+        void WriteControlCommand(OpcClient accessPoint, int commandValue);
 
         void WriteCommandChangeRequest(OpcClient accessPoint);
 
