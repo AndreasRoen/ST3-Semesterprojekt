@@ -8,6 +8,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
     interface IDatabaseController
     {
-        public bool saveBatchReport();
+        bool SaveBatchReport();
     }
 }
