@@ -8,13 +8,13 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchReportModel
     {
-        private ushort batchID { get; set; }
-        private ushort productType { get; set; }
-        private ushort amountOfProductsTotal { get; set; }
-        private ushort amountOfProductsAcceptable { get; set; }
-        private ushort amountOfProductsDefect { get; set; }
-        private Dictionary<String, int> amountOfTimeInStates { get; set; }
-        private List<float> loggingOfTemperature { get; set; }
-        private List<float> loggingOfHumidity { get; set; }
+        public ushort BatchID { get; set; }
+        public ushort ProductType { get; set; }
+        public ushort AmountOfProductsTotal { get; set; }
+        public ushort AmountOfProductsAcceptable { get; set; }
+        public ushort AmountOfProductsDefect { get; set; }
+        public Dictionary<int, int> AmountOfTimeInStates { get; set; }
+        public List<float> LoggingOfTemperature { get; set; }
+        public List<float> LoggingOfHumidity { get; set; }
     }
 }

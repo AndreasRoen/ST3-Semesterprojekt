@@ -342,3 +342,7 @@ healthchecksdb
 .vs/BeerProductionSystem/v16/.suo
 *.cache
 *.cache
+.vs/BeerProductionSystem/v16/.suo
+*.ide
+*.cache
+*.cache

@@ -11,8 +11,8 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         public bool CreateBatch();
 
-        public bool CreateBatchReport ();
+        public bool CreateBatchReport();
 
-        public bool ChechBatchParameter ();
+        public bool ChechBatchParameter();
     }
 }
