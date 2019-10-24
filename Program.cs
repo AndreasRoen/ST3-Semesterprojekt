@@ -21,25 +21,26 @@ namespace BeerProductionSystem
             Debug.WriteLine("Test test");
 
             OpcClient accessPoint;
-            string serverURL = "opc.tcp://192.168.0.122:4840";  //Physical PLC
-            //string serverURL = "opc.tcp://127.0.0.1:4840";      //Simulated PLC
+            //string serverURL = "opc.tcp://192.168.0.122:4840";  //Physical PLC
+            string serverURL = "opc.tcp://127.0.0.1:4840";      //Simulated PLC
 
             using (accessPoint = new OpcClient(serverURL))
             {
                 //Connect to server
                 accessPoint.Connect();
 
+                //IMachineReadData read = new MachineReadData();
                 IMachineWriteData write = new MachineWriteData();
                 System.Threading.Thread.Sleep(1000);
 
-
+                //Debug.WriteLine(read.ReadBatchID(accessPoint));
                 //ushort i = 1;
                 //write.WriteNextBatchID(accessPoint, 2000);
                 //write.WriteNextBatchProductType(accessPoint, 0);
                 //write.WriteNextBatchSize(accessPoint, 1000);
                 //write.WriteDesiredMachineSpeed(accessPoint, 500);
 
-                write.WriteControlCommand(accessPoint, 1);    //Reset
+                //write.WriteControlCommand(accessPoint, 1);    //Reset
                 //write.WriteControlCommand(accessPoint, 2);    //Start
                 //write.WriteControlCommand(accessPoint, 3);    //Stop
                 //write.WriteControlCommand(accessPoint, 4);    //Abort
