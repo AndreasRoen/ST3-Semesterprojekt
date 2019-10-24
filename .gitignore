@@ -340,4 +340,6 @@ ASALocalRun/
 healthchecksdb
 *.cache
 
-obj/
+.vs/BeerProductionSystem/v16/.suo
+*.ide
+
