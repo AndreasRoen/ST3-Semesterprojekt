@@ -29,19 +29,19 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
             accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.MachSpeed", speed);
         }
 
-        public void WriteNextBatchID(OpcClient accessPoint, ushort batchID)
+        public void WriteNextBatchID(OpcClient accessPoint, float batchID)
         {
-            throw new NotImplementedException();
+            accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.Parameter[0].Value", batchID);
         }
 
-        public void WriteNextBatchProductType(OpcClient accessPoint, ushort productTypeValue)
+        public void WriteNextBatchProductType(OpcClient accessPoint, float productTypeValue)
         {
-            throw new NotImplementedException();
+            accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.Parameter[1].Value", productTypeValue);
         }
 
-        public void WriteNextBatchSize(OpcClient accessPoint, ushort batchSize)
+        public void WriteNextBatchSize(OpcClient accessPoint, float batchSize)
         {
-            throw new NotImplementedException();
+            accessPoint.WriteNode("ns=6;s=::Program:Cube.Command.Parameter[2].Value", batchSize);
         }
     }
 }

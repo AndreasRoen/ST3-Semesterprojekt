@@ -11,10 +11,10 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         void WriteCommandChangeRequest(OpcClient accessPoint);
 
-        void WriteNextBatchID(OpcClient accessPoint, ushort batchID);
+        void WriteNextBatchID(OpcClient accessPoint, float batchID);
 
-        void WriteNextBatchProductType(OpcClient accessPoint, ushort productTypeValue);
+        void WriteNextBatchProductType(OpcClient accessPoint, float productTypeValue);
 
-        void WriteNextBatchSize(OpcClient accessPoint, ushort batchSize);
+        void WriteNextBatchSize(OpcClient accessPoint, float batchSize);
     }
 }

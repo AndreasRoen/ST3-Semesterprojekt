@@ -21,27 +21,30 @@ namespace BeerProductionSystem
             Debug.WriteLine("Test test");
 
             OpcClient accessPoint;
-            using (accessPoint = new OpcClient("opc.tcp://127.0.0.1:4840"))
+            string serverURL = "opc.tcp://192.168.0.122:4840";  //Physical PLC
+            //string serverURL = "opc.tcp://127.0.0.1:4840";      //Simulated PLC
+
+            using (accessPoint = new OpcClient(serverURL))
             {
                 //Connect to server
                 accessPoint.Connect();
 
                 IMachineWriteData write = new MachineWriteData();
-                Random rnd = new Random();
-                while (true)
-                {
-                    //int num = Debug.ReadLine();
-                    //int i = rnd.Next(1, 6);
-                    //System.Threading.Thread.Sleep(1000); //Hang out for half a second (testing)
-                    write.WriteCommand(accessPoint, 3);
-                    //write.WriteCommandChangeRequest();
-                    //System.Threading.Thread.Sleep(1000); //Hang out for half a second (testing)
-                    //write.WriteCommand(2);
-                    //write.WriteCommandChangeRequest();
-                    //write.WriteDesiredMachineSpeed(i);
+                System.Threading.Thread.Sleep(1000);
 
-                }
-                //write.WriteDesiredMachineSpeed(100);
+
+                //ushort i = 1;
+                //write.WriteNextBatchID(accessPoint, 2000);
+                //write.WriteNextBatchProductType(accessPoint, 0);
+                //write.WriteNextBatchSize(accessPoint, 1000);
+                //write.WriteDesiredMachineSpeed(accessPoint, 500);
+
+                write.WriteControlCommand(accessPoint, 1);    //Reset
+                //write.WriteControlCommand(accessPoint, 2);    //Start
+                //write.WriteControlCommand(accessPoint, 3);    //Stop
+                //write.WriteControlCommand(accessPoint, 4);    //Abort
+                //write.WriteControlCommand(accessPoint, 5);    //Clear
+
 
             }
 
