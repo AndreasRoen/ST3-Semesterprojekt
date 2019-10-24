@@ -339,8 +339,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 *.cache
-.vs/BeerProductionSystem/v16/.suo
-*.ide
 
 .vs/BeerProductionSystem/v16/.suo
 *.ide
+
