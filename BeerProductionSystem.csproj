@@ -78,6 +78,7 @@
     <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseController.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineWriteData.cs" />
+	<Compile Include="PersistenceLayer\PersistenceFacade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
