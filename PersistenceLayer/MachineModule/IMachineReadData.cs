@@ -23,15 +23,13 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         ushort ReadBatchSize(OpcClient accessPoint);
 
-        ushort ReadProductID(OpcClient accessPoint);
-
         float ReadHumidity(OpcClient accessPoint);
 
         float ReadTemperature(OpcClient accessPoint);
 
         float ReadVibration(OpcClient accessPoint);
 
-        float ReadMachineSpeed(OpcClient accessPoint);
+        float ReadActualMachineSpeed(OpcClient accessPoint);
 
         float ReadNormalizedMachineSpeed(OpcClient accessPoint);
 
@@ -47,5 +45,20 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         ushort ReadNextBatchSize(OpcClient accessPoint);
 
+        float ReadBarleyAmount(OpcClient accessPoint);
+
+        float ReadHopsAmount(OpcClient accessPoint);
+
+        float ReadMaltAmount(OpcClient accesspoint);
+
+        float ReadWheatAmount(OpcClient accessPoint);
+
+        float ReadYeastAmount(OpcClient accessPoint);
+
+        bool ReadFlillingInventory(OpcClient accessPoint);
+
+        ushort ReadMaintanceCounter(OpcClient accessPoint);
+
+        ushort ReadMaintanceTrigger(OpcClient accessPoint);
     }
 }
