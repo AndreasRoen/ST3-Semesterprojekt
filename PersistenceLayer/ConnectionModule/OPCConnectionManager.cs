@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
     class OPCConnectionManager {
         public OpcClient AccessPoint { get; set; }
-        //string URL = "opc.tcp://192.168.0.122:4840";
+        //private readonly string URL = "opc.tcp://192.168.0.122:4840";
         private readonly string URL = "opc.tcp://127.0.0.1:4840";
         private bool connectionFailed=false;
         private int count = 0;
