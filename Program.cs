@@ -35,10 +35,10 @@ namespace BeerProductionSystem
 
                 //Debug.WriteLine(read.ReadBatchID(accessPoint));
                 //ushort i = 1;
-                //write.WriteNextBatchID(accessPoint, 2000);
-                //write.WriteNextBatchProductType(accessPoint, 0);
-                //write.WriteNextBatchSize(accessPoint, 1000);
-                //write.WriteDesiredMachineSpeed(accessPoint, 500);
+                write.WriteNextBatchID(accessPoint, 1);
+                write.WriteNextBatchProductType(accessPoint, 0);
+                write.WriteNextBatchSize(accessPoint, 30000);
+                write.WriteDesiredMachineSpeed(accessPoint, 600);
 
                 //write.WriteControlCommand(accessPoint, 1);    //Reset
                 //write.WriteControlCommand(accessPoint, 2);    //Start
