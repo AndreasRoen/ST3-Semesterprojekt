@@ -11,7 +11,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
     {
         private Dictionary<NodeID, string> nodeIDDictionary;
         private enum NodeID { ProducedProducts, DefectProducts, StopReasonID, StopReasonValue, CurrentState, BatchID, BatchSize, Humidity, Temperature, Vibration, ActualMachineSpeed, NormalizedSpeed, DesiredSpeed, ControlCommand, CommandChangeRequest, NextbacthID, NextBatchType, NextBatchSize, BarleyAmount, HopsAmount, MaltAmount, WheatAmount, YeastAmount, FillingInventory, MaintenanceCounter, MaintenanceTrigger }
-        
+
         public MachineReadData()
         {
             nodeIDDictionary = new Dictionary<NodeID, string>
@@ -156,7 +156,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public float ReadTemperature(OpcClient accessPoint)
         {
-             return (float)accessPoint.ReadNode(nodeIDDictionary[NodeID.Temperature]).Value;
+            return (float)accessPoint.ReadNode(nodeIDDictionary[NodeID.Temperature]).Value;
         }
 
         public float ReadVibration(OpcClient accessPoint)
