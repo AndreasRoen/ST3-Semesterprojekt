@@ -105,12 +105,12 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
             return (float)accessPoint.ReadNode(nodeIDDictionary[NodeID.Humidity]).Value;
         }
 
-        public ushort ReadMaintanceCounter(OpcClient accessPoint)
+        public ushort ReadMaintenanceCounter(OpcClient accessPoint)
         {
             return (ushort)accessPoint.ReadNode(nodeIDDictionary[NodeID.MaintenanceCounter]).Value;
         }
 
-        public ushort ReadMaintanceTrigger(OpcClient accessPoint)
+        public ushort ReadMaintenanceTrigger(OpcClient accessPoint)
         {
             return (ushort)accessPoint.ReadNode(nodeIDDictionary[NodeID.MaintenanceTrigger]).Value;
         }

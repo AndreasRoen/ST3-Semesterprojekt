@@ -57,8 +57,8 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         bool ReadFlillingInventory(OpcClient accessPoint);
 
-        ushort ReadMaintanceCounter(OpcClient accessPoint);
+        ushort ReadMaintenanceCounter(OpcClient accessPoint);
 
-        ushort ReadMaintanceTrigger(OpcClient accessPoint);
+        ushort ReadMaintenanceTrigger(OpcClient accessPoint);
     }
 }
