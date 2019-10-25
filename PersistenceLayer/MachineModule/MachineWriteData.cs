@@ -15,7 +15,6 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public MachineWriteData()
         {
-
             nodeIDDictionary = new Dictionary<NodeID, string>()
             {
                 { NodeID.ControlCommand, "ns=6;s=::Program:Cube.Command.CntrlCmd" },
@@ -24,7 +23,6 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
                 { NodeID.NextBatchID, "ns=6;s=::Program:Cube.Command.Parameter[0].Value" },
                 { NodeID.NextBatchProductType, "ns=6;s=::Program:Cube.Command.Parameter[1].Value" },
                 { NodeID.NextBatchSize, "ns=6;s=::Program:Cube.Command.Parameter[2].Value" },
-
             };
         }
 
