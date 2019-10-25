@@ -9,8 +9,8 @@ using System.Windows.Forms;
 namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
     class OPCConnectionManager {
         public OpcClient AccessPoint { get; set; }
-        //private readonly string URL = "opc.tcp://192.168.0.122:4840";
-        private readonly string URL = "opc.tcp://127.0.0.1:4840";
+       // private readonly string URL = "opc.tcp://192.168.0.122:4840"; //server
+       private readonly string URL = "opc.tcp://127.0.0.1:4840"; // simulation
         private bool connectionFailed=false;
         private int count = 0;
 
@@ -31,22 +31,23 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
         public void ConnectToServer() {
             try {
                 AccessPoint.Connect();
-            } catch (Exception ex) {
+            } 
+            catch (Exception ex) {
                 MessageBox.Show("Handled connect exeption. Reason: " + ex.Message);
-                connectionFailed = true;
             }
             if (connectionFailed == true && ++count < 3) {
+                System.Threading.Thread.Sleep(2000);
                 MessageBox.Show("Connection Failed, trying again");
-                ConnectToServer();
-                System.Threading.Thread.Sleep(5000);
-            }
-            else {MessageBox.Show("Unable to connect, please try again later");
+                AccessPoint.Connect();}
+            else if(connectionFailed==true) {MessageBox.Show("Unable to connect, please try again later");
                 }
+            MessageBox.Show("CONNECTED");
             }
         //disconnect and clean up
         public void DisconnectFromServer() {
             AccessPoint.Disconnect();
             AccessPoint.Dispose();
+            MessageBox.Show("Disconnected");
         }
 
     }
