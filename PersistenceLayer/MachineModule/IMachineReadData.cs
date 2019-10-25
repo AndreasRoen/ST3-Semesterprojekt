@@ -19,7 +19,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         int ReadCurrentState(OpcClient accessPoint);
 
-        ushort ReadBatchID(OpcClient accessPoint);
+        float ReadBatchID(OpcClient accessPoint);
 
         ushort ReadBatchSize(OpcClient accessPoint);
 
