@@ -338,8 +338,9 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-*.cache
 
 .vs/BeerProductionSystem/v16/.suo
 *.ide
 
+obj/Debug/BeerProductionSystem.csprojAssemblyReference.cache
+*.cache
