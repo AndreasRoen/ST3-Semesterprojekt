@@ -1,4 +1,5 @@
-﻿using Opc.UaFx.Client;
+﻿using Opc.UaFx;
+using Opc.UaFx.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
             try {
                 AccessPoint.Connect();
                 MessageBox.Show("CONNECTED"); // husk at fjern
-            } catch (Exception ex) {
+            } catch (OpcException ex) {
                 MessageBox.Show("Handled connect exeption. Reason: " + ex.Message); // husk at fjerne
             }
 
