@@ -4,6 +4,9 @@
 
         }
 
+        public bool SaveBatchReport() {
+            throw new System.NotImplementedException();
+        }
     }
 
 }
