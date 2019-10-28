@@ -7,11 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace BeerProductionSystem
-{
-    static class Program
-    {
+namespace BeerProductionSystem {
+    static class Program {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
