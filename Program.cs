@@ -11,8 +11,6 @@ namespace BeerProductionSystem {
         /// </summary>
         [STAThread]
         static void Main() {
-            
-
 
 
             Application.EnableVisualStyles();

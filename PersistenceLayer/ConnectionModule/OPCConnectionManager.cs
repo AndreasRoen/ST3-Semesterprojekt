@@ -31,17 +31,12 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
         public void ConnectToServer() {
             try {
                 AccessPoint.Connect();
+                MessageBox.Show("CONNECTED");
             } 
             catch (Exception ex) {
                 MessageBox.Show("Handled connect exeption. Reason: " + ex.Message);
             }
-            if (connectionFailed == true && ++count < 3) {
-                System.Threading.Thread.Sleep(2000);
-                MessageBox.Show("Connection Failed, trying again");
-                AccessPoint.Connect();}
-            else if(connectionFailed==true) {MessageBox.Show("Unable to connect, please try again later");
-                }
-            MessageBox.Show("CONNECTED");
+            
             }
         //disconnect and clean up
         public void DisconnectFromServer() {
