@@ -9,10 +9,10 @@ using System.Windows.Forms;
 namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
     class OPCConnectionManager {
         public OpcClient AccessPoint { get; set; }
-       // private readonly string URL = "opc.tcp://192.168.0.122:4840"; //server
-       private readonly string URL = "opc.tcp://127.0.0.1:4840"; // simulation
-        private bool connectionFailed=false;
-        private int count = 0;
+        // private readonly string URL = "opc.tcp://192.168.0.122:4840"; //server
+        private readonly string URL = "opc.tcp://127.0.0.1:4840"; // simulation
+        
+        
 
         public OPCConnectionManager() {
             AccessPoint = new OpcClient(URL);
@@ -22,27 +22,26 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule {
             var state = AccessPoint.State;
             string stat = state.ToString();
             if (stat == "Connected") {
-                MessageBox.Show("Connection is Active");
+                MessageBox.Show("Connection is Active"); //husk at fjerne
             } else {
-                MessageBox.Show("Not Connected");
+                MessageBox.Show("Not Connected"); // husk at fjerne
             }
         }
         //trying to connect up to 3 times.
         public void ConnectToServer() {
             try {
                 AccessPoint.Connect();
-                MessageBox.Show("CONNECTED");
-            } 
-            catch (Exception ex) {
-                MessageBox.Show("Handled connect exeption. Reason: " + ex.Message);
+                MessageBox.Show("CONNECTED"); // husk at fjern
+            } catch (Exception ex) {
+                MessageBox.Show("Handled connect exeption. Reason: " + ex.Message); // husk at fjerne
             }
-            
-            }
+
+        }
         //disconnect and clean up
         public void DisconnectFromServer() {
             AccessPoint.Disconnect();
             AccessPoint.Dispose();
-            MessageBox.Show("Disconnected");
+            MessageBox.Show("Disconnected"); // husk at fjerne
         }
 
     }
