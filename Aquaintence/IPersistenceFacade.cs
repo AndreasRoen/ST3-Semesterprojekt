@@ -11,6 +11,6 @@ namespace BeerProductionSystem.Aquaintence
     /// </summary>
     public interface IPersistenceFacade
     {
-
+        string GetUpdateData();
     }
 }

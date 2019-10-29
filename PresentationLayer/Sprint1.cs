@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BeerProductionSystem
+namespace BeerProductionSystem.PresentationLayer
 {
-    public partial class Form1 : Form
+    public partial class Sprint1 : Form
     {
-        public Form1()
+        public Sprint1()
         {
             InitializeComponent();
         }
