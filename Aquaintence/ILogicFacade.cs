@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BeerProductionSystem.Aquaintence
 {
-    interface ILogicFacade
+    public interface ILogicFacade
     {
+        string UpdateData();
     }
 }

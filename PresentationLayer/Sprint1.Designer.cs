@@ -1,7 +1,17 @@
-﻿namespace BeerProductionSystem
+﻿using BeerProductionSystem.Aquaintence;
+using System.Diagnostics;
+
+namespace BeerProductionSystem.PresentationLayer
 {
-    partial class Form1
+    partial class Sprint1
     {
+        private ILogicFacade logicFacade;
+
+        public Sprint1(ILogicFacade logicFacade)
+        {
+            this.logicFacade = logicFacade;
+        }
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -31,10 +41,9 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Text = "Sprint1";
         }
 
         #endregion
     }
 }
-
