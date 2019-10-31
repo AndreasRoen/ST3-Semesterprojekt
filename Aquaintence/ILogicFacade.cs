@@ -8,6 +8,6 @@ namespace BeerProductionSystem.Aquaintence
 {
     public interface ILogicFacade
     {
-        string UpdateData();
+        List<float> UpdateData();
     }
 }
