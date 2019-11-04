@@ -1,11 +1,13 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.PersistenceLayer.ConnectionModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.PersistenceLayer
 {
@@ -17,6 +19,7 @@ namespace BeerProductionSystem.PersistenceLayer
         private IMachineReadData machineReadData;
         private IMachineWriteData machineWriteData;
         private OPCConnectionManager opcConnection;
+        private IDatabaseController databaseController;
 
         public PersistenceFacade()
         {
@@ -24,6 +27,12 @@ namespace BeerProductionSystem.PersistenceLayer
             machineWriteData = new MachineWriteData();
             opcConnection = new OPCConnectionManager();
             opcConnection.ConnectToServer();
+            this.databaseController = new FileWriter();
+        }
+
+        public bool CreateBatchReport(BatchReportDTO batchReport)
+        {
+            return databaseController.SaveBatchReport(batchReport);
         }
 
         public string GetUpdateData()

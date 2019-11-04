@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchController : IBatchController
     {
-        private Type batchReport;
-        private Type batchModel;
+        private BatchReportModel batchReport;
+        private BatchModel batchModel;
 
-        public bool ChechBatchParameter ()
+        public bool CheckBatchParameter ()
         {
             throw new NotImplementedException();
         }
@@ -21,9 +22,9 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             throw new NotImplementedException();
         }
 
-        public bool CreateBatchReport ()
+        public BatchReportDTO GetBatchReportDTO()
         {
-            throw new NotImplementedException();
+            return batchReport.GetBatchReport();
         }
     }
 }

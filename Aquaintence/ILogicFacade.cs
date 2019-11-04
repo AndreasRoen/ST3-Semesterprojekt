@@ -9,5 +9,6 @@ namespace BeerProductionSystem.Aquaintence
     public interface ILogicFacade
     {
         string UpdateData();
+
     }
 }

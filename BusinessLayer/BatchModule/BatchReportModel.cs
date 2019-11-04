@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
@@ -16,5 +17,13 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public Dictionary<int, int> AmountOfTimeInStates { get; set; }
         public List<float> LoggingOfTemperature { get; set; }
         public List<float> LoggingOfHumidity { get; set; }
+
+        public BatchReportDTO GetBatchReport()
+        {
+            return new BatchReportDTO(BatchID, ProductType, AmountOfProductsTotal, AmountOfProductsAcceptable, AmountOfProductsDefect,
+                AmountOfTimeInStates, LoggingOfTemperature, LoggingOfHumidity);
+        }
     }
+
+   
 }
