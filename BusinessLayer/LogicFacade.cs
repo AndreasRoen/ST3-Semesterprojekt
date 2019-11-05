@@ -2,9 +2,19 @@
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
 using BeerProductionSystem.BusinessLayer.BatchModule;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.BusinessLayer
 {
+    enum Commands
+    {
+        RESET = 1,
+        START,
+        STOP,
+        ABORT,
+        CLEAR
+    }
+
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
@@ -17,14 +27,53 @@ namespace BeerProductionSystem.BusinessLayer
 
         }
 
-        public List<float> UpdateData()
+        public void SendAbortCommand()
         {
-            List<float> values =  persistenceFacade.GetUpdateData();
-            values[3] = 0;
-            values[4] = 0;
-            //values 3 og 4 skal hentes fra batch da de ikke ændres
-            values[7] = values[5] - values[6];
-            return values;
+            persistenceFacade.SendCommand((int)Commands.ABORT);
+        }
+
+        public void SendClearCommand()
+        {
+            persistenceFacade.SendCommand((int)Commands.CLEAR);
+        }
+
+        public void SendResetCommand()
+        {
+            persistenceFacade.SendCommand((int)Commands.RESET);
+        }
+
+        public void SendStartCommand()
+        {
+            persistenceFacade.SendCommand((int)Commands.START);
+        }
+
+        public void SendStopCommand()
+        {
+            persistenceFacade.SendCommand((int)Commands.STOP);
+        }
+
+        public void SetBatchSize(ushort size)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetProductionSpeed(ushort speed)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetProductType(int type)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public LiveRelevantDataDTO UpdateData()
+        {
+            LiveRelevantDataDTO dto = persistenceFacade.GetUpdateData();    //TODO read data from BatchModel
+            dto.BatchID = 0;
+            dto.BatchSize = 100;
+            dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
+            return dto;
         }
     }
 }

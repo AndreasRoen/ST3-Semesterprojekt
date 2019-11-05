@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -11,6 +12,8 @@ namespace BeerProductionSystem.Aquaintence
     /// </summary>
     public interface IPersistenceFacade
     {
-        List<float> GetUpdateData();
+        LiveRelevantDataDTO GetUpdateData();
+
+        void SendCommand(int command);
     }
 }
