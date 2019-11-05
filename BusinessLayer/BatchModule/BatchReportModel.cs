@@ -18,6 +18,18 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public List<float> LoggingOfTemperature { get; set; }
         public List<float> LoggingOfHumidity { get; set; }
 
+        public BatchReportModel(ushort batchID, ushort productType, ushort amountTotal)
+        {
+            this.BatchID = batchID;
+            this.ProductType = productType;
+            this.AmountOfProductsTotal = amountTotal;
+            this.AmountOfProductsAcceptable = 0;
+            this.AmountOfProductsDefect = 0;
+            this.AmountOfTimeInStates = new Dictionary<int, int>();
+            this.LoggingOfTemperature = new List<float>();
+            this.LoggingOfHumidity = new List<float>();
+        }
+
         public BatchReportDTO GetBatchReport()
         {
             return new BatchReportDTO(BatchID, ProductType, AmountOfProductsTotal, AmountOfProductsAcceptable, AmountOfProductsDefect,

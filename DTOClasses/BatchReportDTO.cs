@@ -28,7 +28,7 @@ namespace BeerProductionSystem.DTOClasses
             this.AmountOfProductsDefect = AmountOfProductsDefect;
             this.AmountOfTimeInStates = AmountOfTimeInStates;
             this.LoggingOfTemperature = LoggingOfTemperature;
-            this.LoggingOfHumidity = LoggingOfHumidity;
+            this.LoggingOfHumidity = LogginOfHumidity;
         }
 
 

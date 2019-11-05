@@ -13,7 +13,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 
         public bool SaveBatchReport(BatchReportDTO BatchReport)
         {
-            string path = Directory.GetCurrentDirectory() + "\\BatchReport_ID:" +  BatchReport.BatchID.ToString() + ".txt" ;
+            string path = AppDomain.CurrentDomain.BaseDirectory + "BatchReport_ID_" +  BatchReport.BatchID.ToString() + ".txt" ;
             string batchid = "Batch ID: " + BatchReport.BatchID.ToString();
             string productType = "Product ID: " + BatchReport.ProductType.ToString();
             string amountTotal = "Total amount of products: " + BatchReport.AmountOfProductsTotal.ToString();

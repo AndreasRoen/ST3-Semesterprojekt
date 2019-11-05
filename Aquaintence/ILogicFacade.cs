@@ -10,5 +10,7 @@ namespace BeerProductionSystem.Aquaintence
     {
         string UpdateData();
 
+        bool SaveBatchReport();
+
     }
 }
