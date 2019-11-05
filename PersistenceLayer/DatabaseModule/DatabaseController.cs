@@ -1,11 +1,18 @@
-﻿namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
+using BeerProductionSystem.DTOClasses;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
+
+namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
     class DatabaseController : IDatabaseController {
         public DatabaseController() {
 
         }
 
-        public bool SaveBatchReport() {
-            throw new System.NotImplementedException();
+        bool IDatabaseController.SaveBatchReport(BatchReportDTO batchReport)
+        {
+            throw new NotImplementedException();
         }
     }
 

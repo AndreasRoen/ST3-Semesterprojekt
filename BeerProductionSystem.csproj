@@ -66,13 +66,16 @@
   <ItemGroup>
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchController.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchReportModel.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchModel.cs" />
-    <Compile Include="BusinessLayer\BatchModule\IBatchController.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchManager.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchReportDTO.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchDTO.cs" />
+    <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
+    <Compile Include="DTOClasses\LiveRelevantDataDTO.cs" />
+    <Compile Include="DTOClasses\BatchReportDTO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\DatabaseController.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\FileWriter.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseController.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineWriteData.cs" />
@@ -80,13 +83,17 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
-    <Compile Include="PresentationLayer\Sprint1.cs">
+    <Compile Include="PresentationLayer\MachineStateEnum.cs" />
+    <Compile Include="PresentationLayer\UI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Sprint1.Designer.cs">
-      <DependentUpon>Sprint1.cs</DependentUpon>
+    <Compile Include="PresentationLayer\UI.Designer.cs">
+      <DependentUpon>UI.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="PresentationLayer\UI.resx">
+      <DependentUpon>UI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
