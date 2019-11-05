@@ -66,10 +66,10 @@
   <ItemGroup>
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchController.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchReportModel.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchModel.cs" />
-    <Compile Include="BusinessLayer\BatchModule\IBatchController.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchManager.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchReportDTO.cs" />
+    <Compile Include="BusinessLayer\BatchModule\BatchDTO.cs" />
+    <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
     <Compile Include="DTOClasses\LiveRelevantDataDTO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />

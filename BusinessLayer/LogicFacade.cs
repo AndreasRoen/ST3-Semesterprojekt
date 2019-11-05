@@ -1,4 +1,5 @@
 ﻿using BeerProductionSystem.Aquaintence;
+using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
 using BeerProductionSystem.BusinessLayer.BatchModule;
@@ -18,12 +19,12 @@ namespace BeerProductionSystem.BusinessLayer
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
-        private IBatchController batchController;
+        private IBatchManager batchManager;
 
         public LogicFacade()
         {
             persistenceFacade = new PersistenceFacade();
-            batchController = new BatchController();
+            batchManager = new BatchManager();
 
         }
 
@@ -54,18 +55,20 @@ namespace BeerProductionSystem.BusinessLayer
 
         public void SetBatchSize(ushort size)
         {
-            throw new System.NotImplementedException();
+            batchManager.GetBatchDTO().BatchSize = size;
         }
 
         public void SetProductionSpeed(ushort speed)
         {
-            throw new System.NotImplementedException();
+            batchManager.GetBatchDTO().ProductionSpeed = speed;
         }
 
-        public void SetProductType(int type)
+
+        public void SetProductType(float productType)
         {
-            throw new System.NotImplementedException();
+            batchManager.GetBatchDTO().ProductType = productType;
         }
+
 
         public LiveRelevantDataDTO UpdateData()
         {

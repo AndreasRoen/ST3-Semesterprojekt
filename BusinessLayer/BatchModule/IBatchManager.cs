@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
-    interface IBatchController
+    interface IBatchManager
     {
 
-        bool CreateBatch();
+        void CreateBatch();
 
-        bool CreateBatchReport();
+        void CreateBatchReport();
 
         bool ChechBatchParameter();
+
+        BatchDTO GetBatchDTO();
+
+        BatchReportDTO GetBatchReportDTO();
+        
     }
 }
