@@ -21,7 +21,7 @@ namespace BeerProductionSystem.Aquaintence
 
         void SendClearCommand();
 
-        void SetProductType(int type);
+        void SetProductType(float type);
 
         void SetProductionSpeed(ushort speed);
 

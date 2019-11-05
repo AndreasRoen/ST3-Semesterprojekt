@@ -16,7 +16,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         bool CheckBatchParameter();
 
-        BatchDTO GetBatchDTO();
+        Batch GetBatch();
 
         BatchReportDTO GetBatchReportDTO();
     }
