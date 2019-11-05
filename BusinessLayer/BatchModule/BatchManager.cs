@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchManager : IBatchManager
     {
-        private BatchDTO batchDTO;
-        private BatchReportDTO batchReportDTO;
+        private Batch batch;
+        private BatchReport batchReport;
 
         public BatchManager()
         {
@@ -22,15 +23,15 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             bool check = true;
             int[] maxSpeeds = new int[]{600, 300, 150, 200, 100, 125};
 
-            if(batchDTO.BatchSize < 0 || batchDTO.BatchSize > 65535)
+            if(batch.BatchSize < 0 || batch.BatchSize > 65535)
             {
                 check = false;
             }
-            else if(batchDTO.ProductType < 0 || batchDTO.ProductType > 5)
+            else if(batch.ProductType < 0 || batch.ProductType > 5)
             {
                 check = false;
             } 
-            else if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[(int)batchDTO.ProductType])
+            else if(batch.ProductionSpeed < 0 || batch.ProductionSpeed > maxSpeeds[(int)batch.ProductType])
             {
                 check = false;
             }
@@ -41,30 +42,35 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         public void CreateBatch ()
         {
-            BatchDTO batch = new BatchDTO();
-            this.batchDTO = batch;
+            Batch batch = new Batch();
+            this.batch = batch;
         }
 
         public void CreateBatch (ushort type, ushort id, ushort size, float speed)
         {
-            BatchDTO batch = new BatchDTO(type, id, size, speed);
-            this.batchDTO = batch;
+            Batch batch = new Batch(type, id, size, speed);
+            this.batch = batch;
         }
 
         public void CreateBatchReport ()
         {
-            BatchReportDTO batchReport = new BatchReportDTO();
-            this.batchReportDTO = batchReport;
+            BatchReport batchReport = new BatchReport();
+            this.batchReport = batchReport;
         }
 
-        public BatchDTO GetBatchDTO()
+        public Batch GetBatch()
         {
-            return this.batchDTO;
+            throw new NotImplementedException();
+        }
+
+        public Batch GetBatchDTO()
+        {
+            return this.batch;
         }
 
         public BatchReportDTO GetBatchReportDTO()
         {
-            return this.batchReportDTO;
+            return this.batchReport.GetBatchReportDTO();
         }
     }
 }

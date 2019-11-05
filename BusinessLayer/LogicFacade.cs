@@ -55,23 +55,23 @@ namespace BeerProductionSystem.BusinessLayer
 
         public void SetBatchSize(ushort size)
         {
-            batchManager.GetBatchDTO().BatchSize = size;
+            batchManager.GetBatch().BatchSize = size;
         }
 
         public void SetProductionSpeed(ushort speed)
         {
-            batchManager.GetBatchDTO().ProductionSpeed = speed;
+            batchManager.GetBatch().ProductionSpeed = speed;
         }
 
 
         public void SetProductType(float productType)
         {
-            batchManager.GetBatchDTO().ProductType = productType;
+            batchManager.GetBatch().ProductType = productType;
         }
 
         public bool checkBatchParameter()
         {
-            return batchManager.ChechBatchParameter();
+            return batchManager.CheckBatchParameter();
         }
 
         public LiveRelevantDataDTO UpdateData()
