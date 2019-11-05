@@ -14,13 +14,10 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         void CreateBatchReport();
 
-        bool ChechBatchParameter();
+        bool CheckBatchParameter();
 
         BatchDTO GetBatchDTO();
 
         BatchReportDTO GetBatchReportDTO();
-
-        bool CheckBatchParameter();
-
     }
 }

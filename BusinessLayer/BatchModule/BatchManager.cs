@@ -17,7 +17,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             CreateBatchReport();
         }
 
-        public bool ChechBatchParameter ()
+        public bool CheckBatchParameter()
         {
             bool check = true;
             int[] maxSpeeds = new int[]{600, 300, 150, 200, 100, 125};
@@ -30,13 +30,14 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             {
                 check = false;
             } 
-            else if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[batchDTO.ProductType])
+            else if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[(int)batchDTO.ProductType])
             {
                 check = false;
             }
             
             return check;
         }
+
 
         public void CreateBatch ()
         {
