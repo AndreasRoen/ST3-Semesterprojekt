@@ -27,5 +27,7 @@ namespace BeerProductionSystem.Aquaintence
 
         void SetBatchSize(ushort size);
 
+        bool checkBatchParameter();
+
     }
 }

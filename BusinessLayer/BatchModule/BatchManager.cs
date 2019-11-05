@@ -8,7 +8,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchManager : IBatchManager
     {
-        public BatchDTO batchDTO {get; set;}
+        private BatchDTO batchDTO;
         private BatchReportDTO batchReportDTO;
 
         public BatchManager()
@@ -19,7 +19,23 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         public bool ChechBatchParameter ()
         {
-            throw new NotImplementedException();
+            bool check = true;
+            int[] maxSpeeds = new int[]{600, 300, 150, 200, 100, 125};
+
+            if(batchDTO.BatchSize < 0 || batchDTO.BatchSize > 65535)
+            {
+                check = false;
+            }
+            else if(batchDTO.ProductType < 0 || batchDTO.ProductType > 5)
+            {
+                check = false;
+            } 
+            else if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[batchDTO.ProductType])
+            {
+                check = false;
+            }
+            
+            return check;
         }
 
         public void CreateBatch ()
@@ -28,9 +44,9 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             this.batchDTO = batch;
         }
 
-        public void CreateBatch (ushort a, ushort b, ushort c, float f)
+        public void CreateBatch (ushort type, ushort id, ushort size, float speed)
         {
-            BatchDTO batch = new BatchDTO(a,b,c,f);
+            BatchDTO batch = new BatchDTO(type, id, size, speed);
             this.batchDTO = batch;
         }
 

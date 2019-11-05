@@ -69,6 +69,10 @@ namespace BeerProductionSystem.BusinessLayer
             batchManager.GetBatchDTO().ProductType = productType;
         }
 
+        public bool checkBatchParameter()
+        {
+            return batchManager.ChechBatchParameter();
+        }
 
         public LiveRelevantDataDTO UpdateData()
         {
