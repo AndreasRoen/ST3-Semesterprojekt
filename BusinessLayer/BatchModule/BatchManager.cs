@@ -22,19 +22,19 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             bool check = true;
             int[] maxSpeeds = new int[]{600, 300, 150, 200, 100, 125};
 
-            if(batchDTO.ProductType < 0 || batchDTO.ProductType > 5)
-            {
-                check = false;
-            }
             if(batchDTO.BatchSize < 0 || batchDTO.BatchSize > 65535)
             {
                 check = false;
             }
-            if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[batchDTO.ProductType])
+            else if(batchDTO.ProductType < 0 || batchDTO.ProductType > 5)
+            {
+                check = false;
+            } 
+            else if(batchDTO.ProductionSpeed < 0 || batchDTO.ProductionSpeed > maxSpeeds[batchDTO.ProductType])
             {
                 check = false;
             }
-
+            
             return check;
         }
 
