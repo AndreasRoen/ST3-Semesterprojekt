@@ -13,6 +13,12 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         private BatchDTO batchDTO;
         private BatchReportDTO batchReportDTO;
 
+        public BatchManager()
+        {
+            CreateBatch();
+            CreateBatchReport();
+        }
+
         public bool ChechBatchParameter ()
         {
             throw new NotImplementedException();
@@ -22,7 +28,12 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         {
             BatchDTO batch = new BatchDTO();
             this.batchDTO = batch;
+        }
 
+        public void CreateBatch (ushort a, ushort b, ushort c, float f)
+        {
+            BatchDTO batch = new BatchDTO(a,b,c,f);
+            this.batchDTO = batch;
         }
 
         public void CreateBatchReport ()

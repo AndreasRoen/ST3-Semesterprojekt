@@ -9,5 +9,11 @@ namespace BeerProductionSystem.Aquaintence
     public interface ILogicFacade
     {
         string UpdateData();
+
+        void setSpeed(float speed);
+
+        void setSize(ushort size);
+
+        void setProductType(ushort productID);
     }
 }
