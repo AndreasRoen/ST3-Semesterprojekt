@@ -3,6 +3,7 @@ using BeerProductionSystem.DTOClasses;
 using BeerProductionSystem.PersistenceLayer.ConnectionModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace BeerProductionSystem.PersistenceLayer
         private IMachineWriteData machineWriteData;
         private OPCConnectionManager opcConnection;
         private OpcClient accessPoint;
+        private IDatabaseController databaseController;
+
 
         public PersistenceFacade()
         {
@@ -28,6 +31,12 @@ namespace BeerProductionSystem.PersistenceLayer
             opcConnection = new OPCConnectionManager();
             opcConnection.ConnectToServer();
             accessPoint = opcConnection.AccessPoint;
+            this.databaseController = new FileWriter();
+        }
+
+        public bool CreateBatchReport(BatchReportDTO batchReport)
+        {
+            return databaseController.SaveBatchReport(batchReport);
         }
 
         public LiveRelevantDataDTO GetUpdateData()

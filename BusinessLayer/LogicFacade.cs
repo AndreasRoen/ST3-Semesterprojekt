@@ -2,8 +2,8 @@
 using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
-using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.DTOClasses;
+
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -81,6 +81,12 @@ namespace BeerProductionSystem.BusinessLayer
             dto.BatchSize = 100;
             dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
             return dto;
+        }
+
+        public bool SaveBatchReport()
+        {
+            return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDTO());
+            
         }
     }
 }

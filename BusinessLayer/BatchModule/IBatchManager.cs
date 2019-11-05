@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeerProductionSystem.DTOClasses;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
@@ -18,6 +19,8 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         BatchDTO GetBatchDTO();
 
         BatchReportDTO GetBatchReportDTO();
-        
+
+        bool CheckBatchParameter();
+
     }
 }

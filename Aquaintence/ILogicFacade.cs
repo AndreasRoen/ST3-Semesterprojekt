@@ -29,5 +29,8 @@ namespace BeerProductionSystem.Aquaintence
 
         bool checkBatchParameter();
 
+        bool SaveBatchReport();
+
+
     }
 }
