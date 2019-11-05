@@ -1,4 +1,8 @@
-﻿using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DTOClasses;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
     class DatabaseController : IDatabaseController {
@@ -6,10 +10,9 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
 
         }
 
-
-        public bool SaveBatchReport(BatchReportDTO BatchReport)
+        bool IDatabaseController.SaveBatchReport(BatchReportDTO batchReport)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
