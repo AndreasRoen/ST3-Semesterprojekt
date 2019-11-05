@@ -8,9 +8,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchManager : IBatchManager
     {
-        private Type batchReport;
-        private Type batchModel;
-        private BatchDTO batchDTO;
+        public BatchDTO batchDTO {get; set;}
         private BatchReportDTO batchReportDTO;
 
         public BatchManager()

@@ -18,19 +18,19 @@ namespace BeerProductionSystem.BusinessLayer
 
         public void setProductType(ushort productID)
         {
-            batchManager.GetBatchDTO.setProductType(productID);
+            batchManager.GetBatchDTO().ProductType = productID;
             //TODO call machine with changes (or wait for start production button?)
         }
 
         public void setSize(ushort size)
         {
-            batchManager.GetBatchDTO.setSize(size);
+            batchManager.GetBatchDTO().BatchSize = size;
             //TODO call machine with changes (or wait for start productin button?)
         }
 
         public void setSpeed(float speed)
         {
-            batchManager.GetBatchDTO.setSpeed(speed);
+            batchManager.GetBatchDTO().ProductionSpeed = speed;
             //TODO call machine with changes (or wait for start production button?)
         }
 
