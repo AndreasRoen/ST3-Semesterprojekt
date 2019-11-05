@@ -10,6 +10,8 @@ namespace BeerProductionSystem.Aquaintence
     {
         string UpdateData();
 
+        bool checkBatchParameter();
+
         void setSpeed(float speed);
 
         void setSize(ushort size);
