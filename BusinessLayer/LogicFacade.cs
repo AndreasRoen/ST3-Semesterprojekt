@@ -43,8 +43,10 @@ namespace BeerProductionSystem.BusinessLayer
             persistenceFacade.SendCommand((int)Commands.RESET);
         }
 
-        public void SendStartCommand()
+        public void SendStartCommand(float productType, ushort productionSpeed, ushort batchSize)
         {
+            batchManager.CreateBatch(productType, productionSpeed, batchSize);  //TODO why have a batch object??
+            persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchManager.CurrentBatch.BatchID);
             persistenceFacade.SendCommand((int)Commands.START);
         }
 
@@ -53,21 +55,20 @@ namespace BeerProductionSystem.BusinessLayer
             persistenceFacade.SendCommand((int)Commands.STOP);
         }
 
-        public void SetBatchSize(ushort size)
-        {
-            batchManager.GetBatch().BatchSize = size;
-        }
+        //public void SetBatchSize(ushort size)
+        //{
+        //    batchManager.GetBatch().BatchSize = size;
+        //}
 
-        public void SetProductionSpeed(ushort speed)
-        {
-            batchManager.GetBatch().ProductionSpeed = speed;
-        }
+        //public void SetProductionSpeed(ushort speed)
+        //{
+        //    batchManager.GetBatch().ProductionSpeed = speed;
+        //}
 
-
-        public void SetProductType(float productType)
-        {
-            batchManager.GetBatch().ProductType = productType;
-        }
+        //public void SetProductType(float productType)
+        //{
+        //    batchManager.GetBatch().ProductType = productType;
+        //}
 
         public bool checkBatchParameter()
         {
@@ -86,7 +87,7 @@ namespace BeerProductionSystem.BusinessLayer
         public bool SaveBatchReport()
         {
             return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDTO());
-            
+
         }
     }
 }

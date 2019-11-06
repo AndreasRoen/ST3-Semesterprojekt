@@ -26,4 +26,14 @@ namespace BeerProductionSystem.PresentationLayer
         Deactivating,
         Activating
     }
+
+    enum ProductType
+    {
+        Pilsner,
+        Wheat,
+        IPA,
+        Stout,
+        Ale,
+        Alcohol_Free
+    }
 }

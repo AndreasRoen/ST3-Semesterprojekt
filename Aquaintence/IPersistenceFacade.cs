@@ -16,6 +16,8 @@ namespace BeerProductionSystem.Aquaintence
 
         void SendCommand(int command);
 
+        void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID);
+
         bool CreateBatchReport(BatchReportDTO batchReport);
 
     }

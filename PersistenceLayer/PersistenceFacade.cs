@@ -63,5 +63,14 @@ namespace BeerProductionSystem.PersistenceLayer
         {
             machineWriteData.WriteControlCommand(accessPoint, command);
         }
+
+        public void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID)
+        {
+            machineWriteData.WriteNextBatchProductType(accessPoint, productType);
+            machineWriteData.WriteDesiredMachineSpeed(accessPoint, productionSpeed);
+            machineWriteData.WriteNextBatchSize(accessPoint, batchSize);
+            machineWriteData.WriteNextBatchID(accessPoint, batchID);
+
+        }
     }
 }

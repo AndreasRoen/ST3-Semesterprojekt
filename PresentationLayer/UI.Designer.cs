@@ -41,10 +41,11 @@ namespace BeerProductionSystem.PresentationLayer
             this.components = new System.ComponentModel.Container();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.productionSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.currentStateLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownSize = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.batchSizeNumericUpDownSize = new System.Windows.Forms.NumericUpDown();
+            this.productTypeComboBox = new System.Windows.Forms.ComboBox();
             this.YeastLabel = new System.Windows.Forms.Label();
             this.progressBarWheat = new System.Windows.Forms.ProgressBar();
             this.progressBarMalt = new System.Windows.Forms.ProgressBar();
@@ -86,10 +87,10 @@ namespace BeerProductionSystem.PresentationLayer
             this.startBrn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updateData = new System.Windows.Forms.Timer(this.components);
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchSizeNumericUpDownSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHumidity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVibration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBatchID)).BeginInit();
@@ -99,7 +100,6 @@ namespace BeerProductionSystem.PresentationLayer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAcceptableProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduced)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemperature)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // tab1
@@ -115,11 +115,11 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.trackBar1);
+            this.tabPage1.Controls.Add(this.productionSpeedTrackBar);
             this.tabPage1.Controls.Add(this.currentStateLabel);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.numericUpDownSize);
-            this.tabPage1.Controls.Add(this.comboBoxType);
+            this.tabPage1.Controls.Add(this.batchSizeNumericUpDownSize);
+            this.tabPage1.Controls.Add(this.productTypeComboBox);
             this.tabPage1.Controls.Add(this.YeastLabel);
             this.tabPage1.Controls.Add(this.progressBarWheat);
             this.tabPage1.Controls.Add(this.progressBarMalt);
@@ -168,6 +168,15 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // productionSpeedTrackBar
+            // 
+            this.productionSpeedTrackBar.Location = new System.Drawing.Point(132, 116);
+            this.productionSpeedTrackBar.Maximum = 100;
+            this.productionSpeedTrackBar.Name = "productionSpeedTrackBar";
+            this.productionSpeedTrackBar.Size = new System.Drawing.Size(104, 45);
+            this.productionSpeedTrackBar.TabIndex = 77;
+            this.productionSpeedTrackBar.TickFrequency = 10;
+            // 
             // currentStateLabel
             // 
             this.currentStateLabel.AutoSize = true;
@@ -189,45 +198,44 @@ namespace BeerProductionSystem.PresentationLayer
             this.label1.TabIndex = 75;
             this.label1.Text = "Current State";
             // 
-            // numericUpDownSize
+            // batchSizeNumericUpDownSize
             // 
-            this.numericUpDownSize.Location = new System.Drawing.Point(335, 29);
-            this.numericUpDownSize.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownSize.Maximum = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Location = new System.Drawing.Point(335, 29);
+            this.batchSizeNumericUpDownSize.Margin = new System.Windows.Forms.Padding(2);
+            this.batchSizeNumericUpDownSize.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-            this.numericUpDownSize.Minimum = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownSize.Name = "numericUpDownSize";
-            this.numericUpDownSize.Size = new System.Drawing.Size(90, 20);
-            this.numericUpDownSize.TabIndex = 74;
-            this.numericUpDownSize.Value = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Name = "batchSizeNumericUpDownSize";
+            this.batchSizeNumericUpDownSize.Size = new System.Drawing.Size(90, 20);
+            this.batchSizeNumericUpDownSize.TabIndex = 74;
+            this.batchSizeNumericUpDownSize.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // comboBoxType
+            // productTypeComboBox
             // 
-            this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Items.AddRange(new object[] {
+            this.productTypeComboBox.FormattingEnabled = true;
+            this.productTypeComboBox.Items.AddRange(new object[] {
             "Pilsner",
             "Wheat",
             "IPA",
             "Stout",
             "Ale",
             "Alcohol Free"});
-            this.comboBoxType.Location = new System.Drawing.Point(132, 28);
-            this.comboBoxType.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(90, 21);
-            this.comboBoxType.TabIndex = 72;
-            this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.productType_SelectedIndexChanged);
+            this.productTypeComboBox.Location = new System.Drawing.Point(132, 28);
+            this.productTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.productTypeComboBox.Name = "productTypeComboBox";
+            this.productTypeComboBox.Size = new System.Drawing.Size(90, 21);
+            this.productTypeComboBox.TabIndex = 72;
             // 
             // YeastLabel
             // 
@@ -364,9 +372,9 @@ namespace BeerProductionSystem.PresentationLayer
             this.setSize.Location = new System.Drawing.Point(333, 11);
             this.setSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.setSize.Name = "setSize";
-            this.setSize.Size = new System.Drawing.Size(100, 13);
+            this.setSize.Size = new System.Drawing.Size(77, 13);
             this.setSize.TabIndex = 57;
-            this.setSize.Text = "Set production size:";
+            this.setSize.Text = "Set batch size:";
             // 
             // setType
             // 
@@ -642,16 +650,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(132, 116);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
-            this.trackBar1.TabIndex = 77;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.TrackBar_SetProductionSpeed);
-            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -664,7 +662,8 @@ namespace BeerProductionSystem.PresentationLayer
             this.tab1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchSizeNumericUpDownSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHumidity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVibration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBatchID)).EndInit();
@@ -674,7 +673,6 @@ namespace BeerProductionSystem.PresentationLayer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAcceptableProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduced)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemperature)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -724,11 +722,11 @@ namespace BeerProductionSystem.PresentationLayer
         private System.Windows.Forms.ProgressBar progressBarBarley;
         private System.Windows.Forms.ProgressBar progressBarYeast;
         private System.Windows.Forms.ProgressBar progressBarMaintenance;
-        private System.Windows.Forms.NumericUpDown numericUpDownSize;
-        private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.NumericUpDown batchSizeNumericUpDownSize;
+        private System.Windows.Forms.ComboBox productTypeComboBox;
         private System.Windows.Forms.Label currentStateLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer updateData;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar productionSpeedTrackBar;
     }
 }

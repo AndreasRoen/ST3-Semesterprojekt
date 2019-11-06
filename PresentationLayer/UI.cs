@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,12 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            logicFacade.SendStartCommand();
+            var productType = productTypeComboBox.SelectedItem.ToString();
+            //Debug.WriteLine(productType);
+            ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
+            ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
+
+            logicFacade.SendStartCommand(0, productionSpeed, batchSize);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
@@ -59,16 +65,6 @@ namespace BeerProductionSystem.PresentationLayer
             int currentState = data.CurrentState;
             var state = (MachineState)data.CurrentState;
             currentStateLabel.Text = state.ToString();
-        }
-
-        private void productType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TrackBar_SetProductionSpeed(object sender, EventArgs e)
-        {
-
         }
     }
 }

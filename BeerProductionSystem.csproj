@@ -83,7 +83,7 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
-    <Compile Include="PresentationLayer\MachineStateEnum.cs" />
+    <Compile Include="PresentationLayer\Enums.cs" />
     <Compile Include="PresentationLayer\UI.cs">
       <SubType>Form</SubType>
     </Compile>

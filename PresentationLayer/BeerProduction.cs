@@ -19,8 +19,8 @@ namespace BeerProductionSystem.PresentationLayer
             Application.SetCompatibleTextRenderingDefault(false);
             ILogicFacade logicFacade = new LogicFacade();
             UI s1 = new UI(logicFacade);
-            s1.Show();
-            Application.Run();
+            //s1.Show();
+            Application.Run(s1);
         }
     }
 }
