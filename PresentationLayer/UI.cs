@@ -66,5 +66,25 @@ namespace BeerProductionSystem.PresentationLayer
             var state = (MachineState)data.CurrentState;
             currentStateLabel.Text = state.ToString();
         }
+
+        private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
+        }
+
+        private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)   //TODO refactor
+        {
+            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+
+            productionSpeedTrackBar.Maximum = (int)maxSpeed;
+            maxProductionSpeedLabel.Text = ((int)maxSpeed).ToString();
+
+            Int32.TryParse(productionSpeedLabel.Text, out int currentSpeed);
+            if ((int)maxSpeed < currentSpeed)
+            {
+                productionSpeedLabel.Text = ((int)maxSpeed).ToString();
+            }
+        }
     }
 }

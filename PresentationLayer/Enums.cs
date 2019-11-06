@@ -36,4 +36,14 @@ namespace BeerProductionSystem.PresentationLayer
         Ale,
         Alcohol_Free
     }
+
+    enum ProductMaxSpeed  //TODO move out of presentation layer
+    {
+        Pilsner = 600,
+        Wheat = 300,
+        IPA = 150,
+        Stout = 200,
+        Ale = 100,
+        Alcohol_Free = 125
+    }
 }

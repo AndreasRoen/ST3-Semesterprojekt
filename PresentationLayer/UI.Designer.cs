@@ -10,6 +10,8 @@ namespace BeerProductionSystem.PresentationLayer
         public UI(ILogicFacade logicFacade) : this()
         {
             this.logicFacade = logicFacade;
+            //productTypeComboBox.SelectedIndex = 0;
+            productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
         }
 
         /// <summary>
@@ -41,6 +43,7 @@ namespace BeerProductionSystem.PresentationLayer
             this.components = new System.ComponentModel.Container();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.productionSpeedLabel = new System.Windows.Forms.Label();
             this.productionSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.currentStateLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -87,6 +90,8 @@ namespace BeerProductionSystem.PresentationLayer
             this.startBrn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updateData = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
@@ -115,6 +120,9 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.maxProductionSpeedLabel);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.productionSpeedLabel);
             this.tabPage1.Controls.Add(this.productionSpeedTrackBar);
             this.tabPage1.Controls.Add(this.currentStateLabel);
             this.tabPage1.Controls.Add(this.label1);
@@ -168,14 +176,30 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // productionSpeedLabel
+            // 
+            this.productionSpeedLabel.AutoSize = true;
+            this.productionSpeedLabel.Location = new System.Drawing.Point(245, 100);
+            this.productionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.productionSpeedLabel.Name = "productionSpeedLabel";
+            this.productionSpeedLabel.Size = new System.Drawing.Size(25, 13);
+            this.productionSpeedLabel.TabIndex = 78;
+            this.productionSpeedLabel.Text = "100";
+            this.productionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // productionSpeedTrackBar
             // 
+            this.productionSpeedTrackBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.productionSpeedTrackBar.LargeChange = 50;
             this.productionSpeedTrackBar.Location = new System.Drawing.Point(132, 116);
             this.productionSpeedTrackBar.Maximum = 100;
             this.productionSpeedTrackBar.Name = "productionSpeedTrackBar";
-            this.productionSpeedTrackBar.Size = new System.Drawing.Size(104, 45);
+            this.productionSpeedTrackBar.Size = new System.Drawing.Size(134, 45);
+            this.productionSpeedTrackBar.SmallChange = 10;
             this.productionSpeedTrackBar.TabIndex = 77;
             this.productionSpeedTrackBar.TickFrequency = 10;
+            this.productionSpeedTrackBar.Value = 100;
+            this.productionSpeedTrackBar.ValueChanged += new System.EventHandler(this.productionSpeedTrackBar_ValueChanged);
             // 
             // currentStateLabel
             // 
@@ -230,12 +254,14 @@ namespace BeerProductionSystem.PresentationLayer
             "IPA",
             "Stout",
             "Ale",
-            "Alcohol Free"});
+            "Alcohol_Free"});
             this.productTypeComboBox.Location = new System.Drawing.Point(132, 28);
             this.productTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.productTypeComboBox.Name = "productTypeComboBox";
             this.productTypeComboBox.Size = new System.Drawing.Size(90, 21);
             this.productTypeComboBox.TabIndex = 72;
+            this.productTypeComboBox.Text = " -Select Beer -";
+            this.productTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.productTypeComboBox_SelectedIndexChanged);
             // 
             // YeastLabel
             // 
@@ -382,9 +408,9 @@ namespace BeerProductionSystem.PresentationLayer
             this.setType.Location = new System.Drawing.Point(130, 11);
             this.setType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.setType.Name = "setType";
-            this.setType.Size = new System.Drawing.Size(102, 13);
+            this.setType.Size = new System.Drawing.Size(88, 13);
             this.setType.TabIndex = 56;
-            this.setType.Text = "Set production type:";
+            this.setType.Text = "Set product type:";
             // 
             // maintenanceLabel
             // 
@@ -650,6 +676,32 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(139, 148);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 79;
+            this.label2.Text = "0";
+            // 
+            // maxProductionSpeedLabel
+            // 
+            this.maxProductionSpeedLabel.AutoSize = true;
+            this.maxProductionSpeedLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.maxProductionSpeedLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.maxProductionSpeedLabel.Location = new System.Drawing.Point(241, 148);
+            this.maxProductionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.maxProductionSpeedLabel.Name = "maxProductionSpeedLabel";
+            this.maxProductionSpeedLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.maxProductionSpeedLabel.Size = new System.Drawing.Size(25, 13);
+            this.maxProductionSpeedLabel.TabIndex = 80;
+            this.maxProductionSpeedLabel.Text = "100";
+            this.maxProductionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -728,5 +780,8 @@ namespace BeerProductionSystem.PresentationLayer
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer updateData;
         private System.Windows.Forms.TrackBar productionSpeedTrackBar;
+        private System.Windows.Forms.Label productionSpeedLabel;
+        private System.Windows.Forms.Label maxProductionSpeedLabel;
+        private System.Windows.Forms.Label label2;
     }
 }
