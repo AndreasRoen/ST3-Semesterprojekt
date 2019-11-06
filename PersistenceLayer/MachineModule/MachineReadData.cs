@@ -10,7 +10,9 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
     class MachineReadData : IMachineReadData
     {
         private Dictionary<NodeID, string> nodeIDDictionary;
-        private enum NodeID { ProducedProducts, DefectProducts, StopReasonID, StopReasonValue, CurrentState, BatchID, BatchSize, Humidity, Temperature, Vibration, ActualMachineSpeed, NormalizedSpeed, DesiredSpeed, ControlCommand, CommandChangeRequest, NextbacthID, NextBatchType, NextBatchSize, BarleyAmount, HopsAmount, MaltAmount, WheatAmount, YeastAmount, FillingInventory, MaintenanceCounter, MaintenanceTrigger }
+        private enum NodeID { ProducedProducts, DefectProducts, StopReasonID, StopReasonValue, CurrentState, BatchID, BatchSize, Humidity, Temperature, 
+            Vibration, ActualMachineSpeed, NormalizedSpeed, DesiredSpeed, ControlCommand, CommandChangeRequest, NextBatchID, NextBatchType, NextBatchSize, 
+            BarleyAmount, HopsAmount, MaltAmount, WheatAmount, YeastAmount, FillingInventory, MaintenanceCounter, MaintenanceTrigger }
 
         public MachineReadData()
         {
@@ -31,7 +33,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
                 {NodeID.MaintenanceCounter, "ns=6;s=::Program:Maintenance.Counter" },
                 {NodeID.MaintenanceTrigger, "ns=6;s=::Program:Maintanence.Trigger" },
                 {NodeID.MaltAmount, "ns=6;s=::Program:Inventory.Malt" },
-                {NodeID.NextbacthID, "ns=6;s=::Program:Cube.Command.Parameter[0].Value" },
+                {NodeID.NextBatchID, "ns=6;s=::Program:Cube.Command.Parameter[0].Value" },
                 {NodeID.NextBatchSize, "ns=6;s=::Program:Cube.Command.Parameter[2].Value" },
                 {NodeID.NextBatchType, "ns=6;s=::Program:Cube.Command.Parameter[1].Value" },
                 {NodeID.NormalizedSpeed, "ns=6;s=::Program:Cube.Status.CurMachSpeed" },
@@ -122,7 +124,7 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
 
         public ushort ReadNextBatchID(OpcClient accessPoint)
         {
-            return (ushort)accessPoint.ReadNode(nodeIDDictionary[NodeID.NextbacthID]).Value;
+            return (ushort)accessPoint.ReadNode(nodeIDDictionary[NodeID.NextBatchID]).Value;
         }
         public ushort ReadNextBatchSize(OpcClient accessPoint)
         {

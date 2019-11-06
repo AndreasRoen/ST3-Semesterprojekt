@@ -3,7 +3,8 @@ using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
 using BeerProductionSystem.DTOClasses;
-
+using System.Diagnostics;
+using System;
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -25,7 +26,6 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
-
         }
 
         public void SendAbortCommand()
@@ -46,7 +46,8 @@ namespace BeerProductionSystem.BusinessLayer
         public void SendStartCommand(float productType, ushort productionSpeed, ushort batchSize)
         {
             batchManager.CreateBatch(productType, productionSpeed, batchSize);  //TODO why have a batch object??
-            persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchManager.CurrentBatch.BatchID);
+            ushort batchId = batchManager.CurrentBatch.BatchID;
+            persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
             persistenceFacade.SendCommand((int)Commands.START);
         }
 
@@ -55,21 +56,6 @@ namespace BeerProductionSystem.BusinessLayer
             persistenceFacade.SendCommand((int)Commands.STOP);
         }
 
-        //public void SetBatchSize(ushort size)
-        //{
-        //    batchManager.GetBatch().BatchSize = size;
-        //}
-
-        //public void SetProductionSpeed(ushort speed)
-        //{
-        //    batchManager.GetBatch().ProductionSpeed = speed;
-        //}
-
-        //public void SetProductType(float productType)
-        //{
-        //    batchManager.GetBatch().ProductType = productType;
-        //}
-
         public bool checkBatchParameter()
         {
             return batchManager.CheckBatchParameter();
@@ -77,8 +63,8 @@ namespace BeerProductionSystem.BusinessLayer
 
         public LiveRelevantDataDTO UpdateData()
         {
-            LiveRelevantDataDTO dto = persistenceFacade.GetUpdateData();    //TODO read data from BatchModel
-            dto.BatchID = 0;
+            LiveRelevantDataDTO dto = persistenceFacade.GetUpdateData();
+            dto.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
             dto.BatchSize = 100;
             dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
             return dto;
