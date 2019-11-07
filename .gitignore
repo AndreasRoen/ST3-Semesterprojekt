@@ -344,3 +344,5 @@ healthchecksdb
 
 obj/Debug/BeerProductionSystem.csprojAssemblyReference.cache
 *.cache
+
+obj/

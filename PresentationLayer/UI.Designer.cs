@@ -43,6 +43,8 @@ namespace BeerProductionSystem.PresentationLayer
             this.components = new System.ComponentModel.Container();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.productionSpeedLabel = new System.Windows.Forms.Label();
             this.productionSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.currentStateLabel = new System.Windows.Forms.Label();
@@ -90,8 +92,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.startBrn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updateData = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
@@ -175,6 +175,32 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // maxProductionSpeedLabel
+            // 
+            this.maxProductionSpeedLabel.AutoSize = true;
+            this.maxProductionSpeedLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.maxProductionSpeedLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.maxProductionSpeedLabel.Location = new System.Drawing.Point(241, 148);
+            this.maxProductionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.maxProductionSpeedLabel.Name = "maxProductionSpeedLabel";
+            this.maxProductionSpeedLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.maxProductionSpeedLabel.Size = new System.Drawing.Size(25, 13);
+            this.maxProductionSpeedLabel.TabIndex = 80;
+            this.maxProductionSpeedLabel.Text = "100";
+            this.maxProductionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(139, 148);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 79;
+            this.label2.Text = "0";
             // 
             // productionSpeedLabel
             // 
@@ -675,32 +701,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Enabled = true;
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(139, 148);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(13, 13);
-            this.label2.TabIndex = 79;
-            this.label2.Text = "0";
-            // 
-            // maxProductionSpeedLabel
-            // 
-            this.maxProductionSpeedLabel.AutoSize = true;
-            this.maxProductionSpeedLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.maxProductionSpeedLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.maxProductionSpeedLabel.Location = new System.Drawing.Point(241, 148);
-            this.maxProductionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.maxProductionSpeedLabel.Name = "maxProductionSpeedLabel";
-            this.maxProductionSpeedLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.maxProductionSpeedLabel.Size = new System.Drawing.Size(25, 13);
-            this.maxProductionSpeedLabel.TabIndex = 80;
-            this.maxProductionSpeedLabel.Text = "100";
-            this.maxProductionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // UI
             // 
