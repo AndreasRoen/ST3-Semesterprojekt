@@ -62,7 +62,6 @@ namespace BeerProductionSystem.PresentationLayer
             producedLabel.Text = data.ProducedProducts.ToString();
             defectLabel.Text = data.DefectProducts.ToString();
             acceptableLabel.Text = data.AcceptableProducts.ToString();
-            int currentState = data.CurrentState;
             var state = (MachineState)data.CurrentState;
             currentStateLabel.Text = state.ToString();
         }

@@ -65,7 +65,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             LiveRelevantDataDTO dto = persistenceFacade.GetUpdateData();
             dto.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
-            dto.BatchSize = 100;
+            dto.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
             dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
             return dto;
         }
