@@ -21,7 +21,7 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            var productType = productTypeComboBox.SelectedItem.ToString();
+            var productType = productTypeComboBox.SelectedItem.ToString();  //TODO handle nullRef exception 
             //Debug.WriteLine(productType);
             ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
             ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
@@ -103,8 +103,5 @@ namespace BeerProductionSystem.PresentationLayer
                 return cp;
             }
         }
-    }
-}
-
     }
 }
