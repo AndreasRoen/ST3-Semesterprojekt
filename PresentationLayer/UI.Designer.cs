@@ -733,61 +733,115 @@ namespace BeerProductionSystem.PresentationLayer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemperature)).EndInit();
             this.ResumeLayout(false);
 
-        }
-
+        }
+
+
+
         #endregion
 
-
-        private System.Windows.Forms.TabControl tab1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button abortBtn;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label wheatLabel;
-        private System.Windows.Forms.Label maltLabel;
-        private System.Windows.Forms.Label hopsLabel;
-        private System.Windows.Forms.Label BarleyLabel;
-        private System.Windows.Forms.Label setSpeed;
-        private System.Windows.Forms.Label setSize;
-        private System.Windows.Forms.Label setType;
-        private System.Windows.Forms.Label maintenanceLabel;
-        private System.Windows.Forms.Label defectLabel;
-        private System.Windows.Forms.Label acceptableLabel;
-        private System.Windows.Forms.Label producedLabel;
-        private System.Windows.Forms.Label productsPerMinuteLabel;
-        private System.Windows.Forms.Label batchSizeLabel;
-        private System.Windows.Forms.Label batchIDLabel;
-        private System.Windows.Forms.Label vibrationLabel;
-        private System.Windows.Forms.Label humidityLabel;
-        private System.Windows.Forms.Label temperatureLabel;
-        private System.Windows.Forms.PictureBox pictureBoxHumidity;
-        private System.Windows.Forms.PictureBox pictureBoxVibration;
-        private System.Windows.Forms.PictureBox pictureBoxBatchID;
-        private System.Windows.Forms.PictureBox pictureBoxAmountToProduce;
-        private System.Windows.Forms.PictureBox pictureBoxProductsPerMiunte;
-        private System.Windows.Forms.PictureBox pictureBoxDefectProducts;
-        private System.Windows.Forms.PictureBox pictureBoxAcceptableProducts;
-        private System.Windows.Forms.PictureBox pictureBoxProduced;
-        private System.Windows.Forms.PictureBox pictureBoxTemperature;
-        private System.Windows.Forms.Button clearBtn;
-        private System.Windows.Forms.Button resetBtn;
-        private System.Windows.Forms.Button stopBtn;
-        private System.Windows.Forms.Button startBrn;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label YeastLabel;
-        private System.Windows.Forms.NumericUpDown batchSizeNumericUpDownSize;
-        private System.Windows.Forms.ComboBox productTypeComboBox;
-        private System.Windows.Forms.Label currentStateLabel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer updateData;
-        private System.Windows.Forms.TrackBar productionSpeedTrackBar;
-        private System.Windows.Forms.Label productionSpeedLabel;
-        private System.Windows.Forms.Label maxProductionSpeedLabel;
-        private System.Windows.Forms.Label label2;
-        private VerticalProgressBar verticalProgressBarYeast;
-        private VerticalProgressBar verticalProgressBarWheat;
-        private VerticalProgressBar verticalProgressBarMalt;
-        private VerticalProgressBar verticalProgressBarHops;
-        private VerticalProgressBar verticalProgressBarBarley;
-        private VerticalProgressBar verticalProgressBarMaintenance;
+
+
+        private System.Windows.Forms.TabControl tab1;
+
+        private System.Windows.Forms.TabPage tabPage1;
+
+        private System.Windows.Forms.Button abortBtn;
+
+        private System.Windows.Forms.Label label19;
+
+        private System.Windows.Forms.Label wheatLabel;
+
+        private System.Windows.Forms.Label maltLabel;
+
+        private System.Windows.Forms.Label hopsLabel;
+
+        private System.Windows.Forms.Label BarleyLabel;
+
+        private System.Windows.Forms.Label setSpeed;
+
+        private System.Windows.Forms.Label setSize;
+
+        private System.Windows.Forms.Label setType;
+
+        private System.Windows.Forms.Label maintenanceLabel;
+
+        private System.Windows.Forms.Label defectLabel;
+
+        private System.Windows.Forms.Label acceptableLabel;
+
+        private System.Windows.Forms.Label producedLabel;
+
+        private System.Windows.Forms.Label productsPerMinuteLabel;
+
+        private System.Windows.Forms.Label batchSizeLabel;
+
+        private System.Windows.Forms.Label batchIDLabel;
+
+        private System.Windows.Forms.Label vibrationLabel;
+
+        private System.Windows.Forms.Label humidityLabel;
+
+        private System.Windows.Forms.Label temperatureLabel;
+
+        private System.Windows.Forms.PictureBox pictureBoxHumidity;
+
+        private System.Windows.Forms.PictureBox pictureBoxVibration;
+
+        private System.Windows.Forms.PictureBox pictureBoxBatchID;
+
+        private System.Windows.Forms.PictureBox pictureBoxAmountToProduce;
+
+        private System.Windows.Forms.PictureBox pictureBoxProductsPerMiunte;
+
+        private System.Windows.Forms.PictureBox pictureBoxDefectProducts;
+
+        private System.Windows.Forms.PictureBox pictureBoxAcceptableProducts;
+
+        private System.Windows.Forms.PictureBox pictureBoxProduced;
+
+        private System.Windows.Forms.PictureBox pictureBoxTemperature;
+
+        private System.Windows.Forms.Button clearBtn;
+
+        private System.Windows.Forms.Button resetBtn;
+
+        private System.Windows.Forms.Button stopBtn;
+
+        private System.Windows.Forms.Button startBrn;
+
+        private System.Windows.Forms.TabPage tabPage2;
+
+        private System.Windows.Forms.Label YeastLabel;
+
+        private System.Windows.Forms.NumericUpDown batchSizeNumericUpDownSize;
+
+        private System.Windows.Forms.ComboBox productTypeComboBox;
+
+        private System.Windows.Forms.Label currentStateLabel;
+
+        private System.Windows.Forms.Label label1;
+
+        private System.Windows.Forms.Timer updateData;
+
+        private System.Windows.Forms.TrackBar productionSpeedTrackBar;
+
+        private System.Windows.Forms.Label productionSpeedLabel;
+
+        private System.Windows.Forms.Label maxProductionSpeedLabel;
+
+        private System.Windows.Forms.Label label2;
+
+        private VerticalProgressBar verticalProgressBarYeast;
+
+        private VerticalProgressBar verticalProgressBarWheat;
+
+        private VerticalProgressBar verticalProgressBarMalt;
+
+        private VerticalProgressBar verticalProgressBarHops;
+
+        private VerticalProgressBar verticalProgressBarBarley;
+
+        private VerticalProgressBar verticalProgressBarMaintenance;
+
     }
 }
