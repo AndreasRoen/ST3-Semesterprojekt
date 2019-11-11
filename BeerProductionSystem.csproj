@@ -90,6 +90,9 @@
     <Compile Include="PresentationLayer\UI.Designer.cs">
       <DependentUpon>UI.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresentationLayer\VerticalProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="PresentationLayer\UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
