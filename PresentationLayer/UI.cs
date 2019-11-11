@@ -64,6 +64,12 @@ namespace BeerProductionSystem.PresentationLayer
             acceptableLabel.Text = data.AcceptableProducts.ToString();
             var state = (MachineState)data.CurrentState;
             currentStateLabel.Text = state.ToString();
+            verticalProgressBarBarley.Value = (int)data.Barley;
+            verticalProgressBarHops.Value = (int)data.Hops;
+            verticalProgressBarMalt.Value = (int)data.Malt;
+            verticalProgressBarWheat.Value = (int)data.Wheat;
+            verticalProgressBarYeast.Value = (int)data.Yeast;
+            verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
         }
 
         private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
@@ -83,6 +89,18 @@ namespace BeerProductionSystem.PresentationLayer
             if ((int)maxSpeed < currentSpeed)
             {
                 productionSpeedLabel.Text = ((int)maxSpeed).ToString();
+            }
+        }
+    }
+    public class VerticalProgressBar : ProgressBar
+    {
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style |= 0x04;
+                return cp;
             }
         }
     }
