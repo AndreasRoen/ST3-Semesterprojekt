@@ -1,4 +1,5 @@
 ﻿using BeerProductionSystem.Aquaintence;
+using System;
 using System.Diagnostics;
 
 namespace BeerProductionSystem.PresentationLayer
@@ -10,8 +11,10 @@ namespace BeerProductionSystem.PresentationLayer
         public UI(ILogicFacade logicFacade) : this()
         {
             this.logicFacade = logicFacade;
-            //productTypeComboBox.SelectedIndex = 0;
             productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
+
+            productTypeComboBox.DataSource = Enum.GetValues(typeof(ProductType));
+
         }
 
         /// <summary>
@@ -43,6 +46,12 @@ namespace BeerProductionSystem.PresentationLayer
             this.components = new System.ComponentModel.Container();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
             this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.productionSpeedLabel = new System.Windows.Forms.Label();
@@ -86,12 +95,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.startBrn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updateData = new System.Windows.Forms.Timer(this.components);
-            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
@@ -112,7 +115,7 @@ namespace BeerProductionSystem.PresentationLayer
             this.tab1.Controls.Add(this.tabPage1);
             this.tab1.Controls.Add(this.tabPage2);
             this.tab1.Location = new System.Drawing.Point(-1, -2);
-            this.tab1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tab1.Margin = new System.Windows.Forms.Padding(2);
             this.tab1.Name = "tab1";
             this.tab1.SelectedIndex = 0;
             this.tab1.Size = new System.Drawing.Size(710, 486);
@@ -168,13 +171,67 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.Controls.Add(this.stopBtn);
             this.tabPage1.Controls.Add(this.startBrn);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage1.Size = new System.Drawing.Size(702, 460);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // verticalProgressBarMaintenance
+            // 
+            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(598, 80);
+            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMaintenance.Maximum = 30000;
+            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
+            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(75, 336);
+            this.verticalProgressBarMaintenance.TabIndex = 86;
+            // 
+            // verticalProgressBarYeast
+            // 
+            this.verticalProgressBarYeast.Location = new System.Drawing.Point(494, 206);
+            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarYeast.Maximum = 35000;
+            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
+            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarYeast.TabIndex = 85;
+            // 
+            // verticalProgressBarWheat
+            // 
+            this.verticalProgressBarWheat.Location = new System.Drawing.Point(415, 206);
+            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarWheat.Maximum = 35000;
+            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
+            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarWheat.TabIndex = 84;
+            // 
+            // verticalProgressBarMalt
+            // 
+            this.verticalProgressBarMalt.Location = new System.Drawing.Point(334, 206);
+            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMalt.Maximum = 35000;
+            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
+            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarMalt.TabIndex = 83;
+            // 
+            // verticalProgressBarHops
+            // 
+            this.verticalProgressBarHops.Location = new System.Drawing.Point(254, 206);
+            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarHops.Maximum = 35000;
+            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
+            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarHops.TabIndex = 82;
+            // 
+            // verticalProgressBarBarley
+            // 
+            this.verticalProgressBarBarley.Location = new System.Drawing.Point(175, 206);
+            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarBarley.Maximum = 35000;
+            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
+            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarBarley.TabIndex = 81;
             // 
             // maxProductionSpeedLabel
             // 
@@ -251,7 +308,7 @@ namespace BeerProductionSystem.PresentationLayer
             // batchSizeNumericUpDownSize
             // 
             this.batchSizeNumericUpDownSize.Location = new System.Drawing.Point(335, 29);
-            this.batchSizeNumericUpDownSize.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.batchSizeNumericUpDownSize.Margin = new System.Windows.Forms.Padding(2);
             this.batchSizeNumericUpDownSize.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -274,15 +331,8 @@ namespace BeerProductionSystem.PresentationLayer
             // productTypeComboBox
             // 
             this.productTypeComboBox.FormattingEnabled = true;
-            this.productTypeComboBox.Items.AddRange(new object[] {
-            "Pilsner",
-            "Wheat",
-            "IPA",
-            "Stout",
-            "Ale",
-            "Alcohol_Free"});
             this.productTypeComboBox.Location = new System.Drawing.Point(132, 28);
-            this.productTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.productTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.productTypeComboBox.Name = "productTypeComboBox";
             this.productTypeComboBox.Size = new System.Drawing.Size(90, 21);
             this.productTypeComboBox.TabIndex = 72;
@@ -303,7 +353,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.abortBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.abortBtn.Location = new System.Drawing.Point(9, 153);
-            this.abortBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.abortBtn.Margin = new System.Windows.Forms.Padding(2);
             this.abortBtn.Name = "abortBtn";
             this.abortBtn.Size = new System.Drawing.Size(74, 32);
             this.abortBtn.TabIndex = 64;
@@ -494,7 +544,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxHumidity.Image = global::BeerProductionSystem.Properties.Resources.Humidity;
             this.pictureBoxHumidity.Location = new System.Drawing.Point(18, 321);
-            this.pictureBoxHumidity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxHumidity.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxHumidity.Name = "pictureBoxHumidity";
             this.pictureBoxHumidity.Size = new System.Drawing.Size(64, 62);
             this.pictureBoxHumidity.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -505,7 +555,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxVibration.Image = global::BeerProductionSystem.Properties.Resources.Vibration;
             this.pictureBoxVibration.Location = new System.Drawing.Point(18, 396);
-            this.pictureBoxVibration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxVibration.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxVibration.Name = "pictureBoxVibration";
             this.pictureBoxVibration.Size = new System.Drawing.Size(64, 58);
             this.pictureBoxVibration.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -516,7 +566,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxBatchID.Image = global::BeerProductionSystem.Properties.Resources.BatchID;
             this.pictureBoxBatchID.Location = new System.Drawing.Point(158, 321);
-            this.pictureBoxBatchID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxBatchID.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxBatchID.Name = "pictureBoxBatchID";
             this.pictureBoxBatchID.Size = new System.Drawing.Size(62, 65);
             this.pictureBoxBatchID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -527,7 +577,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxAmountToProduce.Image = global::BeerProductionSystem.Properties.Resources.AmountToProduce;
             this.pictureBoxAmountToProduce.Location = new System.Drawing.Point(291, 321);
-            this.pictureBoxAmountToProduce.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxAmountToProduce.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxAmountToProduce.Name = "pictureBoxAmountToProduce";
             this.pictureBoxAmountToProduce.Size = new System.Drawing.Size(74, 62);
             this.pictureBoxAmountToProduce.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -538,7 +588,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxProductsPerMiunte.Image = global::BeerProductionSystem.Properties.Resources.ProductsPerMinute;
             this.pictureBoxProductsPerMiunte.Location = new System.Drawing.Point(155, 396);
-            this.pictureBoxProductsPerMiunte.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxProductsPerMiunte.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProductsPerMiunte.Name = "pictureBoxProductsPerMiunte";
             this.pictureBoxProductsPerMiunte.Size = new System.Drawing.Size(65, 58);
             this.pictureBoxProductsPerMiunte.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -549,7 +599,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxDefectProducts.Image = global::BeerProductionSystem.Properties.Resources.DefectProducts;
             this.pictureBoxDefectProducts.Location = new System.Drawing.Point(291, 396);
-            this.pictureBoxDefectProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxDefectProducts.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxDefectProducts.Name = "pictureBoxDefectProducts";
             this.pictureBoxDefectProducts.Size = new System.Drawing.Size(74, 58);
             this.pictureBoxDefectProducts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -560,7 +610,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxAcceptableProducts.Image = global::BeerProductionSystem.Properties.Resources.AcceptableProducts;
             this.pictureBoxAcceptableProducts.Location = new System.Drawing.Point(432, 396);
-            this.pictureBoxAcceptableProducts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxAcceptableProducts.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxAcceptableProducts.Name = "pictureBoxAcceptableProducts";
             this.pictureBoxAcceptableProducts.Size = new System.Drawing.Size(76, 58);
             this.pictureBoxAcceptableProducts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -571,7 +621,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxProduced.Image = global::BeerProductionSystem.Properties.Resources.Produced;
             this.pictureBoxProduced.Location = new System.Drawing.Point(452, 321);
-            this.pictureBoxProduced.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxProduced.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProduced.Name = "pictureBoxProduced";
             this.pictureBoxProduced.Size = new System.Drawing.Size(56, 71);
             this.pictureBoxProduced.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -582,7 +632,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.pictureBoxTemperature.Image = global::BeerProductionSystem.Properties.Resources.Temperature;
             this.pictureBoxTemperature.Location = new System.Drawing.Point(18, 240);
-            this.pictureBoxTemperature.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxTemperature.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxTemperature.Name = "pictureBoxTemperature";
             this.pictureBoxTemperature.Size = new System.Drawing.Size(64, 63);
             this.pictureBoxTemperature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -593,7 +643,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.clearBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.clearBtn.Location = new System.Drawing.Point(9, 116);
-            this.clearBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearBtn.Margin = new System.Windows.Forms.Padding(2);
             this.clearBtn.Name = "clearBtn";
             this.clearBtn.Size = new System.Drawing.Size(74, 32);
             this.clearBtn.TabIndex = 36;
@@ -605,7 +655,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.resetBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.resetBtn.Location = new System.Drawing.Point(9, 80);
-            this.resetBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.resetBtn.Margin = new System.Windows.Forms.Padding(2);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(74, 32);
             this.resetBtn.TabIndex = 35;
@@ -617,7 +667,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.stopBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.stopBtn.Location = new System.Drawing.Point(9, 43);
-            this.stopBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stopBtn.Margin = new System.Windows.Forms.Padding(2);
             this.stopBtn.Name = "stopBtn";
             this.stopBtn.Size = new System.Drawing.Size(74, 32);
             this.stopBtn.TabIndex = 34;
@@ -629,7 +679,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             this.startBrn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.startBrn.Location = new System.Drawing.Point(9, 6);
-            this.startBrn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.startBrn.Margin = new System.Windows.Forms.Padding(2);
             this.startBrn.Name = "startBrn";
             this.startBrn.Size = new System.Drawing.Size(74, 32);
             this.startBrn.TabIndex = 33;
@@ -640,9 +690,9 @@ namespace BeerProductionSystem.PresentationLayer
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage2.Size = new System.Drawing.Size(702, 460);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
@@ -654,67 +704,13 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
             // 
-            // verticalProgressBarMaintenance
-            // 
-            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(598, 80);
-            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMaintenance.Maximum = 30000;
-            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
-            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(75, 336);
-            this.verticalProgressBarMaintenance.TabIndex = 86;
-            // 
-            // verticalProgressBarYeast
-            // 
-            this.verticalProgressBarYeast.Location = new System.Drawing.Point(494, 206);
-            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarYeast.Maximum = 35000;
-            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
-            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarYeast.TabIndex = 85;
-            // 
-            // verticalProgressBarWheat
-            // 
-            this.verticalProgressBarWheat.Location = new System.Drawing.Point(415, 206);
-            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarWheat.Maximum = 35000;
-            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
-            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarWheat.TabIndex = 84;
-            // 
-            // verticalProgressBarMalt
-            // 
-            this.verticalProgressBarMalt.Location = new System.Drawing.Point(334, 206);
-            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMalt.Maximum = 35000;
-            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
-            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarMalt.TabIndex = 83;
-            // 
-            // verticalProgressBarHops
-            // 
-            this.verticalProgressBarHops.Location = new System.Drawing.Point(254, 206);
-            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarHops.Maximum = 35000;
-            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
-            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarHops.TabIndex = 82;
-            // 
-            // verticalProgressBarBarley
-            // 
-            this.verticalProgressBarBarley.Location = new System.Drawing.Point(175, 206);
-            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarBarley.Maximum = 35000;
-            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
-            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarBarley.TabIndex = 81;
-            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(712, 483);
             this.Controls.Add(this.tab1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UI";
             this.Text = "Beer Production System";
             this.tab1.ResumeLayout(false);

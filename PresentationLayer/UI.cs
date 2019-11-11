@@ -21,12 +21,11 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            var productType = productTypeComboBox.SelectedItem.ToString();  //TODO handle nullRef exception 
-            //Debug.WriteLine(productType);
+            int productType = (int)productTypeComboBox.SelectedItem;
             ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
             ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
 
-            logicFacade.SendStartCommand(0, productionSpeed, batchSize);
+            logicFacade.SendStartCommand(productType, productionSpeed, batchSize);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
@@ -77,18 +76,21 @@ namespace BeerProductionSystem.PresentationLayer
             productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
         }
 
-        private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)   //TODO refactor
+        private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
-            Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+            string selectedProduct = ((ProductType)productTypeComboBox.SelectedItem).ToString();
 
-            productionSpeedTrackBar.Maximum = (int)maxSpeed;
-            maxProductionSpeedLabel.Text = ((int)maxSpeed).ToString();
+            // Convert enum ProductType to ProductMaxSpeed by name
+            ProductMaxSpeed productMaxSpeed = (ProductMaxSpeed)Enum.Parse(typeof(ProductMaxSpeed), selectedProduct);
+            int maxSpeed = (int)productMaxSpeed;
+
+            productionSpeedTrackBar.Maximum = maxSpeed;
+            maxProductionSpeedLabel.Text = maxSpeed.ToString();
 
             Int32.TryParse(productionSpeedLabel.Text, out int currentSpeed);
-            if ((int)maxSpeed < currentSpeed)
+            if (maxSpeed < currentSpeed)
             {
-                productionSpeedLabel.Text = ((int)maxSpeed).ToString();
+                productionSpeedLabel.Text = (maxSpeed).ToString();
             }
         }
     }
