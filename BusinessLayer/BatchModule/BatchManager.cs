@@ -16,6 +16,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public BatchManager()
         {
             this.batchID = 0;
+
         }
 
         public bool CheckBatchParameter()
@@ -40,9 +41,10 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         }
 
 
-        public void CreateBatch(float productType, ushort productionSpeed, ushort batchSize)
+        public void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize)
         {
             Batch batch = new Batch(productType, batchID, batchSize, productionSpeed);
+            CreateBatchReport(batchID, productType, batchSize);
             this.CurrentBatch = batch;
             batchID++;
         }
@@ -53,9 +55,9 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             this.CurrentBatch = batch;
         }
 
-        public void CreateBatchReport()
+        public void CreateBatchReport(ushort batchId, ushort productType, ushort amountOfProductsTotal)
         {
-            BatchReport batchReport = new BatchReport();
+            BatchReport batchReport = new BatchReport(batchID, productType, amountOfProductsTotal);
             this.batchReport = batchReport;
         }
 
@@ -67,6 +69,12 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public BatchReportDTO GetBatchReportDTO()
         {
             return this.batchReport.GetBatchReportDTO();
+        }
+
+        public void SaveTimeInState(int currentState, TimeSpan timeSpan)
+        {
+            batchReport.AddToDictionary(currentState, timeSpan);
+            
         }
     }
 }

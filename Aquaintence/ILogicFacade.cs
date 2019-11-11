@@ -13,7 +13,7 @@ namespace BeerProductionSystem.Aquaintence
 
         void SendResetCommand();
 
-        void SendStartCommand(float productType, ushort productionSpeed, ushort batchSize);
+        void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize);
 
         void SendStopCommand();
 

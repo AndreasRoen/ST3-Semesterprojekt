@@ -14,12 +14,12 @@ namespace BeerProductionSystem.DTOClasses
         public ushort AmountOfProductsTotal { get; }
         public ushort AmountOfProductsAcceptable { get; }
         public ushort AmountOfProductsDefect { get; }
-        public Dictionary<int, int> AmountOfTimeInStates { get; }
+        public Dictionary<int, TimeSpan> AmountOfTimeInStates { get; }
         public List<float> LoggingOfTemperature { get; }
         public List<float> LoggingOfHumidity { get; }
 
         public BatchReportDTO(ushort BatchID, ushort ProductType, ushort AmountOfProductsTotal, ushort AmountOfProductsAcceptable
-            , ushort AmountOfProductsDefect, Dictionary<int, int> AmountOfTimeInStates, List<float> LoggingOfTemperature, List<float> LogginOfHumidity)
+            , ushort AmountOfProductsDefect, Dictionary<int, TimeSpan> AmountOfTimeInStates, List<float> LoggingOfTemperature, List<float> LogginOfHumidity)
         {
             this.BatchID = BatchID;
             this.ProductType = ProductType;
