@@ -31,6 +31,6 @@ namespace BeerProductionSystem.Aquaintence
 
         bool SaveBatchReport();
 
-
+        int GetProductMaxSpeed(string productName);
     }
 }

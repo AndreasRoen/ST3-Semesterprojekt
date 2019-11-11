@@ -17,6 +17,16 @@ namespace BeerProductionSystem.BusinessLayer
         CLEAR
     }
 
+    enum ProductMaxSpeed  //TODO move out of presentation layer
+    {
+        Pilsner = 600,
+        Wheat = 300,
+        IPA = 150,
+        Stout = 200,
+        Ale = 100,
+        Alcohol_Free = 125
+    }
+
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
@@ -74,6 +84,11 @@ namespace BeerProductionSystem.BusinessLayer
         {
             return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDTO());
 
+        }
+
+        public int GetProductMaxSpeed(string productName)
+        {
+            throw new NotImplementedException();
         }
     }
 }
