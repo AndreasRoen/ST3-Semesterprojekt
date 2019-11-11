@@ -80,15 +80,16 @@ namespace BeerProductionSystem.PresentationLayer
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)   //TODO refactor
         {
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
-            Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+            int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
+           // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
 
-            productionSpeedTrackBar.Maximum = (int)maxSpeed;
-            maxProductionSpeedLabel.Text = ((int)maxSpeed).ToString();
+            productionSpeedTrackBar.Maximum = maxSpeed;
+            maxProductionSpeedLabel.Text = maxSpeed.ToString();
 
             Int32.TryParse(productionSpeedLabel.Text, out int currentSpeed);
-            if ((int)maxSpeed < currentSpeed)
+            if (maxSpeed < currentSpeed)
             {
-                productionSpeedLabel.Text = ((int)maxSpeed).ToString();
+                productionSpeedLabel.Text = (maxSpeed).ToString();
             }
         }
     }

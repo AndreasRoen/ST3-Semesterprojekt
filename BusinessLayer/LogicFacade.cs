@@ -88,7 +88,8 @@ namespace BeerProductionSystem.BusinessLayer
 
         public int GetProductMaxSpeed(string productName)
         {
-            throw new NotImplementedException();
+            Enum.TryParse(productName, out ProductMaxSpeed maxSpeed);
+            return (int)maxSpeed;
         }
     }
 }
