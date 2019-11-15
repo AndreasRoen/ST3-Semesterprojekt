@@ -51,7 +51,7 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void UpdateLiveRelevantData(object sender, EventArgs e)
         {
-            LiveRelevantDataDTO data = logicFacade.UpdateData();
+            LiveRelevantDataDO data = logicFacade.UpdateData();
 
             temperatureLabel.Text = data.Temperature.ToString();
             humidityLabel.Text = data.Humidity.ToString();

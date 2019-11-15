@@ -71,8 +71,8 @@
     <Compile Include="BusinessLayer\BatchModule\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
-    <Compile Include="DTOClasses\LiveRelevantDataDTO.cs" />
-    <Compile Include="DTOClasses\BatchReportDTO.cs" />
+    <Compile Include="DOClasses\LiveRelevantDataDO.cs" />
+    <Compile Include="DOClasses\BatchReportDO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\DatabaseController.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\FileWriter.cs" />

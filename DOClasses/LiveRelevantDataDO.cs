@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BeerProductionSystem.DTOClasses
 {
-    public class LiveRelevantDataDTO
+    /// <summary>
+    /// Data object created in the persistence layer
+    /// </summary>
+    public class LiveRelevantDataDO
     {
         public float Temperature { get; }
         public float Humidity { get; }
@@ -25,7 +28,7 @@ namespace BeerProductionSystem.DTOClasses
         public ushort MaintainenceMeter { get; }
         public int CurrentState { get; }
 
-        public LiveRelevantDataDTO(float temperature, float humidity, float vibration, float actualMachineSpeed, ushort producedProducts, ushort defectProducts, float barley, float hops, float malt, float wheat, float yeast, ushort maintainenceMeter, int currentState)
+        public LiveRelevantDataDO(float temperature, float humidity, float vibration, float actualMachineSpeed, ushort producedProducts, ushort defectProducts, float barley, float hops, float malt, float wheat, float yeast, ushort maintainenceMeter, int currentState)
         {
             Temperature = temperature;
             Humidity = humidity;

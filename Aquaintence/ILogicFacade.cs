@@ -9,7 +9,7 @@ namespace BeerProductionSystem.Aquaintence
 {
     public interface ILogicFacade
     {
-        LiveRelevantDataDTO UpdateData();
+        LiveRelevantDataDO UpdateData();
 
         void SendResetCommand();
 

@@ -71,9 +71,9 @@ namespace BeerProductionSystem.BusinessLayer
             return batchManager.CheckBatchParameter();
         }
 
-        public LiveRelevantDataDTO UpdateData()
+        public LiveRelevantDataDO UpdateData()
         {
-            LiveRelevantDataDTO dto = persistenceFacade.GetUpdateData();
+            LiveRelevantDataDO dto = persistenceFacade.GetUpdateData();
             dto.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
             dto.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
             dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);

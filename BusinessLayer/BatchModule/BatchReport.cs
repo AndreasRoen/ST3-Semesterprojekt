@@ -32,9 +32,9 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         
         public BatchReport() : this(0,0,0,0,0,new Dictionary<int,int>(), new List<float>(), new List<float>()) {}
 
-        public BatchReportDTO GetBatchReportDTO()
+        public BatchReportDO GetBatchReportDTO()
         {
-            return new BatchReportDTO(BatchID, ProductType, AmountOfProductsTotal, AmountOfProductsAcceptable, AmountOfProductsDefect,
+            return new BatchReportDO(BatchID, ProductType, AmountOfProductsTotal, AmountOfProductsAcceptable, AmountOfProductsDefect,
                 AmountOfTimeInStates, LoggingOfTemperature, LoggingOfHumidity);
         }
     }
