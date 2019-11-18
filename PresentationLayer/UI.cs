@@ -25,7 +25,7 @@ namespace BeerProductionSystem.PresentationLayer
             ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
             ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
 
-            logicFacade.SendStartCommand(productType, productionSpeed, batchSize);
+            logicFacade.SendStartCommand((ushort) productType, productionSpeed, batchSize);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void UpdateLiveRelevantData(object sender, EventArgs e)
         {
-            LiveRelevantDataDTO data = logicFacade.UpdateData();
+            LiveRelevantDataDO data = logicFacade.UpdateData();
 
             temperatureLabel.Text = data.Temperature.ToString();
             humidityLabel.Text = data.Humidity.ToString();
@@ -78,11 +78,11 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedProduct = ((ProductType)productTypeComboBox.SelectedItem).ToString();
 
-            // Convert enum ProductType to ProductMaxSpeed by name
-            ProductMaxSpeed productMaxSpeed = (ProductMaxSpeed)Enum.Parse(typeof(ProductMaxSpeed), selectedProduct);
-            int maxSpeed = (int)productMaxSpeed;
+            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
+           // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+
 
             productionSpeedTrackBar.Maximum = maxSpeed;
             maxProductionSpeedLabel.Text = maxSpeed.ToString();
@@ -91,18 +91,6 @@ namespace BeerProductionSystem.PresentationLayer
             if (maxSpeed < currentSpeed)
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
-            }
-        }
-    }
-    public class VerticalProgressBar : ProgressBar
-    {
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.Style |= 0x04;
-                return cp;
             }
         }
     }

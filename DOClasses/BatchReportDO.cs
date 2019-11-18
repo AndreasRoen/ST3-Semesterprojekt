@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BeerProductionSystem.DTOClasses
 {
-    public class BatchReportDTO
+    /// <summary>
+    /// Data object created in the business layer
+    /// </summary>
+    public class BatchReportDO
     {
 
         public ushort BatchID { get; }
@@ -18,8 +21,10 @@ namespace BeerProductionSystem.DTOClasses
         public List<float> LoggingOfTemperature { get; }
         public List<float> LoggingOfHumidity { get; }
 
-        public BatchReportDTO(ushort BatchID, ushort ProductType, ushort AmountOfProductsTotal, ushort AmountOfProductsAcceptable
+
+        public BatchReportDO(ushort BatchID, ushort ProductType, ushort AmountOfProductsTotal, ushort AmountOfProductsAcceptable
             , ushort AmountOfProductsDefect, Dictionary<int, TimeSpan> AmountOfTimeInStates, List<float> LoggingOfTemperature, List<float> LogginOfHumidity)
+
         {
             this.BatchID = BatchID;
             this.ProductType = ProductType;

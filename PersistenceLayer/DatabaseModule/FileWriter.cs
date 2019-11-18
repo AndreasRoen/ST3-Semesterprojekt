@@ -11,7 +11,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
     class FileWriter : IDatabaseController
     {
 
-        public bool SaveBatchReport(BatchReportDTO BatchReport)
+        public bool SaveBatchReport(BatchReportDO BatchReport)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "BatchReport_ID_" +  BatchReport.BatchID.ToString() + ".txt" ;
             string batchid = "Batch ID: " + BatchReport.BatchID.ToString();

@@ -9,7 +9,7 @@ namespace BeerProductionSystem.Aquaintence
 {
     public interface ILogicFacade
     {
-        LiveRelevantDataDTO UpdateData();
+        LiveRelevantDataDO UpdateData();
 
         void SendResetCommand();
 
@@ -31,6 +31,6 @@ namespace BeerProductionSystem.Aquaintence
 
         bool SaveBatchReport();
 
-
+        int GetProductMaxSpeed(string productName);
     }
 }

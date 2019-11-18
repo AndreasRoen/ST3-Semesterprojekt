@@ -20,6 +20,8 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         void SaveTimeInState(int currentState, TimeSpan timeSpan);
 
-        BatchReportDTO GetBatchReportDTO();
+
+        BatchReportDO GetBatchReportDO();
+
     }
 }
