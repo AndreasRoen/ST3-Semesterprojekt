@@ -12,11 +12,13 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         Batch CurrentBatch { get; set; }
 
-        void CreateBatch(float productType, ushort productionSpeed, ushort batchSize);
+        void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize);
 
-        void CreateBatchReport();
+        void CreateBatchReport(ushort batchId, ushort productType, ushort amountOfProductsTotal);
 
         bool CheckBatchParameter();
+
+        void SaveTimeInState(int currentState, TimeSpan timeSpan);
 
         BatchReportDTO GetBatchReportDTO();
     }
