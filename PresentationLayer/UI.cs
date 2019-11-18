@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,11 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            logicFacade.SendStartCommand();
+            int productType = (int)productTypeComboBox.SelectedItem;
+            ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
+            ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
+
+            logicFacade.SendStartCommand((ushort) productType, productionSpeed, batchSize);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
@@ -45,7 +50,7 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void UpdateLiveRelevantData(object sender, EventArgs e)
         {
-            LiveRelevantDataDTO data = logicFacade.UpdateData();
+            LiveRelevantDataDO data = logicFacade.UpdateData();
 
             temperatureLabel.Text = data.Temperature.ToString();
             humidityLabel.Text = data.Humidity.ToString();
@@ -56,19 +61,37 @@ namespace BeerProductionSystem.PresentationLayer
             producedLabel.Text = data.ProducedProducts.ToString();
             defectLabel.Text = data.DefectProducts.ToString();
             acceptableLabel.Text = data.AcceptableProducts.ToString();
-            int currentState = data.CurrentState;
             var state = (MachineState)data.CurrentState;
             currentStateLabel.Text = state.ToString();
+            verticalProgressBarBarley.Value = (int)data.Barley;
+            verticalProgressBarHops.Value = (int)data.Hops;
+            verticalProgressBarMalt.Value = (int)data.Malt;
+            verticalProgressBarWheat.Value = (int)data.Wheat;
+            verticalProgressBarYeast.Value = (int)data.Yeast;
+            verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
         }
 
-        private void productType_SelectedIndexChanged(object sender, EventArgs e)
+        private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
         {
-
+            productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
         }
 
-        private void TrackBar_SetProductionSpeed(object sender, EventArgs e)
+        private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
+           // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+
+
+            productionSpeedTrackBar.Maximum = maxSpeed;
+            maxProductionSpeedLabel.Text = maxSpeed.ToString();
+
+            Int32.TryParse(productionSpeedLabel.Text, out int currentSpeed);
+            if (maxSpeed < currentSpeed)
+            {
+                productionSpeedLabel.Text = (maxSpeed).ToString();
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
 
         }
 
-        bool IDatabaseController.SaveBatchReport(BatchReportDTO batchReport)
+        bool IDatabaseController.SaveBatchReport(BatchReportDO batchReport)
         {
             throw new NotImplementedException();
         }

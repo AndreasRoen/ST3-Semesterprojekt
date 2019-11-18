@@ -34,14 +34,14 @@ namespace BeerProductionSystem.PersistenceLayer
             this.databaseController = new FileWriter();
         }
 
-        public bool CreateBatchReport(BatchReportDTO batchReport)
+        public bool CreateBatchReport(BatchReportDO batchReport)
         {
             return databaseController.SaveBatchReport(batchReport);
         }
 
-        public LiveRelevantDataDTO GetUpdateData()
+        public LiveRelevantDataDO GetUpdateData()
         {
-            LiveRelevantDataDTO dto = new LiveRelevantDataDTO(
+            LiveRelevantDataDO dto = new LiveRelevantDataDO(
                 machineReadData.ReadTemperature(accessPoint),
                 machineReadData.ReadHumidity(accessPoint),
                 machineReadData.ReadVibration(accessPoint),
@@ -62,6 +62,15 @@ namespace BeerProductionSystem.PersistenceLayer
         public void SendCommand(int command)
         {
             machineWriteData.WriteControlCommand(accessPoint, command);
+        }
+
+        public void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID)
+        {
+            machineWriteData.WriteNextBatchProductType(accessPoint, productType);
+            machineWriteData.WriteDesiredMachineSpeed(accessPoint, productionSpeed);
+            machineWriteData.WriteNextBatchSize(accessPoint, batchSize);
+            machineWriteData.WriteNextBatchID(accessPoint, batchID);
+
         }
     }
 }

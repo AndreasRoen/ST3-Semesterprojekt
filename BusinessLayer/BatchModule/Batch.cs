@@ -13,6 +13,6 @@
             BatchSize = batchSize;
             ProductionSpeed = productionSpeed;
         }
-        public Batch() : this(0,0,0,0) {}
+        //public Batch() : this(0,0,0,0) {}
     }
 }

@@ -71,8 +71,8 @@
     <Compile Include="BusinessLayer\BatchModule\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
-    <Compile Include="DTOClasses\LiveRelevantDataDTO.cs" />
-    <Compile Include="DTOClasses\BatchReportDTO.cs" />
+    <Compile Include="DOClasses\LiveRelevantDataDO.cs" />
+    <Compile Include="DOClasses\BatchReportDO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\DatabaseController.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\FileWriter.cs" />
@@ -83,12 +83,15 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
-    <Compile Include="PresentationLayer\MachineStateEnum.cs" />
+    <Compile Include="PresentationLayer\Enums.cs" />
     <Compile Include="PresentationLayer\UI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PresentationLayer\UI.Designer.cs">
       <DependentUpon>UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayer\VerticalProgressBar.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="PresentationLayer\UI.resx">

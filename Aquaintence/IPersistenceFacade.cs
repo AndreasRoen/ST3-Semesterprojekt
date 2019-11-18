@@ -12,11 +12,13 @@ namespace BeerProductionSystem.Aquaintence
     /// </summary>
     public interface IPersistenceFacade
     {
-        LiveRelevantDataDTO GetUpdateData();
+        LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);
 
-        bool CreateBatchReport(BatchReportDTO batchReport);
+        void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID);
+
+        bool CreateBatchReport(BatchReportDO batchReport);
 
     }
 }

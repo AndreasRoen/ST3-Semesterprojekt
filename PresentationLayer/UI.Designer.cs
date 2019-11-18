@@ -1,4 +1,5 @@
 ﻿using BeerProductionSystem.Aquaintence;
+using System;
 using System.Diagnostics;
 
 namespace BeerProductionSystem.PresentationLayer
@@ -10,6 +11,10 @@ namespace BeerProductionSystem.PresentationLayer
         public UI(ILogicFacade logicFacade) : this()
         {
             this.logicFacade = logicFacade;
+            productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
+
+            productTypeComboBox.DataSource = Enum.GetValues(typeof(ProductType));
+
         }
 
         /// <summary>
@@ -41,17 +46,21 @@ namespace BeerProductionSystem.PresentationLayer
             this.components = new System.ComponentModel.Container();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.productionSpeedLabel = new System.Windows.Forms.Label();
+            this.productionSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.currentStateLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownSize = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.batchSizeNumericUpDownSize = new System.Windows.Forms.NumericUpDown();
+            this.productTypeComboBox = new System.Windows.Forms.ComboBox();
             this.YeastLabel = new System.Windows.Forms.Label();
-            this.progressBarWheat = new System.Windows.Forms.ProgressBar();
-            this.progressBarMalt = new System.Windows.Forms.ProgressBar();
-            this.progressBarHops = new System.Windows.Forms.ProgressBar();
-            this.progressBarBarley = new System.Windows.Forms.ProgressBar();
-            this.progressBarYeast = new System.Windows.Forms.ProgressBar();
-            this.progressBarMaintenance = new System.Windows.Forms.ProgressBar();
             this.abortBtn = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.wheatLabel = new System.Windows.Forms.Label();
@@ -86,10 +95,10 @@ namespace BeerProductionSystem.PresentationLayer
             this.startBrn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updateData = new System.Windows.Forms.Timer(this.components);
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchSizeNumericUpDownSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHumidity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVibration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBatchID)).BeginInit();
@@ -99,7 +108,6 @@ namespace BeerProductionSystem.PresentationLayer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAcceptableProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduced)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemperature)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // tab1
@@ -115,18 +123,21 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.trackBar1);
+            this.tabPage1.Controls.Add(this.verticalProgressBarMaintenance);
+            this.tabPage1.Controls.Add(this.verticalProgressBarYeast);
+            this.tabPage1.Controls.Add(this.verticalProgressBarWheat);
+            this.tabPage1.Controls.Add(this.verticalProgressBarMalt);
+            this.tabPage1.Controls.Add(this.verticalProgressBarHops);
+            this.tabPage1.Controls.Add(this.verticalProgressBarBarley);
+            this.tabPage1.Controls.Add(this.maxProductionSpeedLabel);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.productionSpeedLabel);
+            this.tabPage1.Controls.Add(this.productionSpeedTrackBar);
             this.tabPage1.Controls.Add(this.currentStateLabel);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.numericUpDownSize);
-            this.tabPage1.Controls.Add(this.comboBoxType);
+            this.tabPage1.Controls.Add(this.batchSizeNumericUpDownSize);
+            this.tabPage1.Controls.Add(this.productTypeComboBox);
             this.tabPage1.Controls.Add(this.YeastLabel);
-            this.tabPage1.Controls.Add(this.progressBarWheat);
-            this.tabPage1.Controls.Add(this.progressBarMalt);
-            this.tabPage1.Controls.Add(this.progressBarHops);
-            this.tabPage1.Controls.Add(this.progressBarBarley);
-            this.tabPage1.Controls.Add(this.progressBarYeast);
-            this.tabPage1.Controls.Add(this.progressBarMaintenance);
             this.tabPage1.Controls.Add(this.abortBtn);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.wheatLabel);
@@ -168,6 +179,111 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // verticalProgressBarMaintenance
+            // 
+            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(598, 80);
+            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMaintenance.Maximum = 30000;
+            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
+            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(75, 336);
+            this.verticalProgressBarMaintenance.TabIndex = 86;
+            // 
+            // verticalProgressBarYeast
+            // 
+            this.verticalProgressBarYeast.Location = new System.Drawing.Point(494, 206);
+            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarYeast.Maximum = 35000;
+            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
+            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarYeast.TabIndex = 85;
+            // 
+            // verticalProgressBarWheat
+            // 
+            this.verticalProgressBarWheat.Location = new System.Drawing.Point(415, 206);
+            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarWheat.Maximum = 35000;
+            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
+            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarWheat.TabIndex = 84;
+            // 
+            // verticalProgressBarMalt
+            // 
+            this.verticalProgressBarMalt.Location = new System.Drawing.Point(334, 206);
+            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMalt.Maximum = 35000;
+            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
+            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarMalt.TabIndex = 83;
+            // 
+            // verticalProgressBarHops
+            // 
+            this.verticalProgressBarHops.Location = new System.Drawing.Point(254, 206);
+            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarHops.Maximum = 35000;
+            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
+            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarHops.TabIndex = 82;
+            // 
+            // verticalProgressBarBarley
+            // 
+            this.verticalProgressBarBarley.Location = new System.Drawing.Point(175, 206);
+            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarBarley.Maximum = 35000;
+            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
+            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarBarley.TabIndex = 81;
+            // 
+            // maxProductionSpeedLabel
+            // 
+            this.maxProductionSpeedLabel.AutoSize = true;
+            this.maxProductionSpeedLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.maxProductionSpeedLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.maxProductionSpeedLabel.Location = new System.Drawing.Point(241, 148);
+            this.maxProductionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.maxProductionSpeedLabel.Name = "maxProductionSpeedLabel";
+            this.maxProductionSpeedLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.maxProductionSpeedLabel.Size = new System.Drawing.Size(25, 13);
+            this.maxProductionSpeedLabel.TabIndex = 80;
+            this.maxProductionSpeedLabel.Text = "100";
+            this.maxProductionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(139, 148);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 79;
+            this.label2.Text = "0";
+            // 
+            // productionSpeedLabel
+            // 
+            this.productionSpeedLabel.AutoSize = true;
+            this.productionSpeedLabel.Location = new System.Drawing.Point(245, 100);
+            this.productionSpeedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.productionSpeedLabel.Name = "productionSpeedLabel";
+            this.productionSpeedLabel.Size = new System.Drawing.Size(25, 13);
+            this.productionSpeedLabel.TabIndex = 78;
+            this.productionSpeedLabel.Text = "100";
+            this.productionSpeedLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // productionSpeedTrackBar
+            // 
+            this.productionSpeedTrackBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.productionSpeedTrackBar.LargeChange = 50;
+            this.productionSpeedTrackBar.Location = new System.Drawing.Point(132, 116);
+            this.productionSpeedTrackBar.Maximum = 100;
+            this.productionSpeedTrackBar.Name = "productionSpeedTrackBar";
+            this.productionSpeedTrackBar.Size = new System.Drawing.Size(134, 45);
+            this.productionSpeedTrackBar.SmallChange = 10;
+            this.productionSpeedTrackBar.TabIndex = 77;
+            this.productionSpeedTrackBar.TickFrequency = 10;
+            this.productionSpeedTrackBar.Value = 100;
+            this.productionSpeedTrackBar.ValueChanged += new System.EventHandler(this.productionSpeedTrackBar_ValueChanged);
+            // 
             // currentStateLabel
             // 
             this.currentStateLabel.AutoSize = true;
@@ -189,45 +305,39 @@ namespace BeerProductionSystem.PresentationLayer
             this.label1.TabIndex = 75;
             this.label1.Text = "Current State";
             // 
-            // numericUpDownSize
+            // batchSizeNumericUpDownSize
             // 
-            this.numericUpDownSize.Location = new System.Drawing.Point(335, 29);
-            this.numericUpDownSize.Margin = new System.Windows.Forms.Padding(2);
-            this.numericUpDownSize.Maximum = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Location = new System.Drawing.Point(335, 29);
+            this.batchSizeNumericUpDownSize.Margin = new System.Windows.Forms.Padding(2);
+            this.batchSizeNumericUpDownSize.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-            this.numericUpDownSize.Minimum = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownSize.Name = "numericUpDownSize";
-            this.numericUpDownSize.Size = new System.Drawing.Size(90, 20);
-            this.numericUpDownSize.TabIndex = 74;
-            this.numericUpDownSize.Value = new decimal(new int[] {
+            this.batchSizeNumericUpDownSize.Name = "batchSizeNumericUpDownSize";
+            this.batchSizeNumericUpDownSize.Size = new System.Drawing.Size(90, 20);
+            this.batchSizeNumericUpDownSize.TabIndex = 74;
+            this.batchSizeNumericUpDownSize.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // comboBoxType
+            // productTypeComboBox
             // 
-            this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Items.AddRange(new object[] {
-            "Pilsner",
-            "Wheat",
-            "IPA",
-            "Stout",
-            "Ale",
-            "Alcohol Free"});
-            this.comboBoxType.Location = new System.Drawing.Point(132, 28);
-            this.comboBoxType.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(90, 21);
-            this.comboBoxType.TabIndex = 72;
-            this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.productType_SelectedIndexChanged);
+            this.productTypeComboBox.FormattingEnabled = true;
+            this.productTypeComboBox.Location = new System.Drawing.Point(132, 28);
+            this.productTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.productTypeComboBox.Name = "productTypeComboBox";
+            this.productTypeComboBox.Size = new System.Drawing.Size(90, 21);
+            this.productTypeComboBox.TabIndex = 72;
+            this.productTypeComboBox.Text = " -Select Beer -";
+            this.productTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.productTypeComboBox_SelectedIndexChanged);
             // 
             // YeastLabel
             // 
@@ -238,54 +348,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.YeastLabel.Size = new System.Drawing.Size(34, 13);
             this.YeastLabel.TabIndex = 71;
             this.YeastLabel.Text = "Yeast";
-            // 
-            // progressBarWheat
-            // 
-            this.progressBarWheat.Location = new System.Drawing.Point(415, 206);
-            this.progressBarWheat.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarWheat.Name = "progressBarWheat";
-            this.progressBarWheat.Size = new System.Drawing.Size(75, 67);
-            this.progressBarWheat.TabIndex = 70;
-            // 
-            // progressBarMalt
-            // 
-            this.progressBarMalt.Location = new System.Drawing.Point(335, 206);
-            this.progressBarMalt.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarMalt.Name = "progressBarMalt";
-            this.progressBarMalt.Size = new System.Drawing.Size(75, 67);
-            this.progressBarMalt.TabIndex = 69;
-            // 
-            // progressBarHops
-            // 
-            this.progressBarHops.Location = new System.Drawing.Point(254, 206);
-            this.progressBarHops.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarHops.Name = "progressBarHops";
-            this.progressBarHops.Size = new System.Drawing.Size(75, 67);
-            this.progressBarHops.TabIndex = 68;
-            // 
-            // progressBarBarley
-            // 
-            this.progressBarBarley.Location = new System.Drawing.Point(168, 206);
-            this.progressBarBarley.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarBarley.Name = "progressBarBarley";
-            this.progressBarBarley.Size = new System.Drawing.Size(75, 67);
-            this.progressBarBarley.TabIndex = 67;
-            // 
-            // progressBarYeast
-            // 
-            this.progressBarYeast.Location = new System.Drawing.Point(494, 206);
-            this.progressBarYeast.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarYeast.Name = "progressBarYeast";
-            this.progressBarYeast.Size = new System.Drawing.Size(75, 67);
-            this.progressBarYeast.TabIndex = 66;
-            // 
-            // progressBarMaintenance
-            // 
-            this.progressBarMaintenance.Location = new System.Drawing.Point(598, 139);
-            this.progressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
-            this.progressBarMaintenance.Name = "progressBarMaintenance";
-            this.progressBarMaintenance.Size = new System.Drawing.Size(75, 263);
-            this.progressBarMaintenance.TabIndex = 65;
             // 
             // abortBtn
             // 
@@ -341,7 +403,7 @@ namespace BeerProductionSystem.PresentationLayer
             // BarleyLabel
             // 
             this.BarleyLabel.AutoSize = true;
-            this.BarleyLabel.Location = new System.Drawing.Point(184, 189);
+            this.BarleyLabel.Location = new System.Drawing.Point(196, 189);
             this.BarleyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.BarleyLabel.Name = "BarleyLabel";
             this.BarleyLabel.Size = new System.Drawing.Size(36, 13);
@@ -364,9 +426,9 @@ namespace BeerProductionSystem.PresentationLayer
             this.setSize.Location = new System.Drawing.Point(333, 11);
             this.setSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.setSize.Name = "setSize";
-            this.setSize.Size = new System.Drawing.Size(100, 13);
+            this.setSize.Size = new System.Drawing.Size(77, 13);
             this.setSize.TabIndex = 57;
-            this.setSize.Text = "Set production size:";
+            this.setSize.Text = "Set batch size:";
             // 
             // setType
             // 
@@ -374,9 +436,9 @@ namespace BeerProductionSystem.PresentationLayer
             this.setType.Location = new System.Drawing.Point(130, 11);
             this.setType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.setType.Name = "setType";
-            this.setType.Size = new System.Drawing.Size(102, 13);
+            this.setType.Size = new System.Drawing.Size(88, 13);
             this.setType.TabIndex = 56;
-            this.setType.Text = "Set production type:";
+            this.setType.Text = "Set product type:";
             // 
             // maintenanceLabel
             // 
@@ -642,16 +704,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(132, 116);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
-            this.trackBar1.TabIndex = 77;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.TrackBar_SetProductionSpeed);
-            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -664,7 +716,8 @@ namespace BeerProductionSystem.PresentationLayer
             this.tab1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchSizeNumericUpDownSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHumidity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxVibration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBatchID)).EndInit();
@@ -674,61 +727,117 @@ namespace BeerProductionSystem.PresentationLayer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAcceptableProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduced)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemperature)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
+
+
         #endregion
 
 
+
         private System.Windows.Forms.TabControl tab1;
+
         private System.Windows.Forms.TabPage tabPage1;
+
         private System.Windows.Forms.Button abortBtn;
+
         private System.Windows.Forms.Label label19;
+
         private System.Windows.Forms.Label wheatLabel;
+
         private System.Windows.Forms.Label maltLabel;
+
         private System.Windows.Forms.Label hopsLabel;
+
         private System.Windows.Forms.Label BarleyLabel;
+
         private System.Windows.Forms.Label setSpeed;
+
         private System.Windows.Forms.Label setSize;
+
         private System.Windows.Forms.Label setType;
+
         private System.Windows.Forms.Label maintenanceLabel;
+
         private System.Windows.Forms.Label defectLabel;
+
         private System.Windows.Forms.Label acceptableLabel;
+
         private System.Windows.Forms.Label producedLabel;
+
         private System.Windows.Forms.Label productsPerMinuteLabel;
+
         private System.Windows.Forms.Label batchSizeLabel;
+
         private System.Windows.Forms.Label batchIDLabel;
+
         private System.Windows.Forms.Label vibrationLabel;
+
         private System.Windows.Forms.Label humidityLabel;
+
         private System.Windows.Forms.Label temperatureLabel;
+
         private System.Windows.Forms.PictureBox pictureBoxHumidity;
+
         private System.Windows.Forms.PictureBox pictureBoxVibration;
+
         private System.Windows.Forms.PictureBox pictureBoxBatchID;
+
         private System.Windows.Forms.PictureBox pictureBoxAmountToProduce;
+
         private System.Windows.Forms.PictureBox pictureBoxProductsPerMiunte;
+
         private System.Windows.Forms.PictureBox pictureBoxDefectProducts;
+
         private System.Windows.Forms.PictureBox pictureBoxAcceptableProducts;
+
         private System.Windows.Forms.PictureBox pictureBoxProduced;
+
         private System.Windows.Forms.PictureBox pictureBoxTemperature;
+
         private System.Windows.Forms.Button clearBtn;
+
         private System.Windows.Forms.Button resetBtn;
+
         private System.Windows.Forms.Button stopBtn;
+
         private System.Windows.Forms.Button startBrn;
+
         private System.Windows.Forms.TabPage tabPage2;
+
         private System.Windows.Forms.Label YeastLabel;
-        private System.Windows.Forms.ProgressBar progressBarWheat;
-        private System.Windows.Forms.ProgressBar progressBarMalt;
-        private System.Windows.Forms.ProgressBar progressBarHops;
-        private System.Windows.Forms.ProgressBar progressBarBarley;
-        private System.Windows.Forms.ProgressBar progressBarYeast;
-        private System.Windows.Forms.ProgressBar progressBarMaintenance;
-        private System.Windows.Forms.NumericUpDown numericUpDownSize;
-        private System.Windows.Forms.ComboBox comboBoxType;
+
+        private System.Windows.Forms.NumericUpDown batchSizeNumericUpDownSize;
+
+        private System.Windows.Forms.ComboBox productTypeComboBox;
+
         private System.Windows.Forms.Label currentStateLabel;
+
         private System.Windows.Forms.Label label1;
+
         private System.Windows.Forms.Timer updateData;
-        private System.Windows.Forms.TrackBar trackBar1;
+
+        private System.Windows.Forms.TrackBar productionSpeedTrackBar;
+
+        private System.Windows.Forms.Label productionSpeedLabel;
+
+        private System.Windows.Forms.Label maxProductionSpeedLabel;
+
+        private System.Windows.Forms.Label label2;
+
+        private VerticalProgressBar verticalProgressBarYeast;
+
+        private VerticalProgressBar verticalProgressBarWheat;
+
+        private VerticalProgressBar verticalProgressBarMalt;
+
+        private VerticalProgressBar verticalProgressBarHops;
+
+        private VerticalProgressBar verticalProgressBarBarley;
+
+        private VerticalProgressBar verticalProgressBarMaintenance;
+
     }
 }

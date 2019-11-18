@@ -9,11 +9,11 @@ namespace BeerProductionSystem.Aquaintence
 {
     public interface ILogicFacade
     {
-        LiveRelevantDataDTO UpdateData();
+        LiveRelevantDataDO UpdateData();
 
         void SendResetCommand();
 
-        void SendStartCommand();
+        void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize);
 
         void SendStopCommand();
 
@@ -21,16 +21,16 @@ namespace BeerProductionSystem.Aquaintence
 
         void SendClearCommand();
 
-        void SetProductType(float type);
+        //void SetProductType(float type);
 
-        void SetProductionSpeed(ushort speed);
+        //void SetProductionSpeed(ushort speed);
 
-        void SetBatchSize(ushort size);
+        //void SetBatchSize(ushort size);
 
         bool checkBatchParameter();
 
         bool SaveBatchReport();
 
-
+        int GetProductMaxSpeed(string productName);
     }
 }

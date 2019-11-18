@@ -11,7 +11,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
     class FileWriter : IDatabaseController
     {
 
-        public bool SaveBatchReport(BatchReportDTO BatchReport)
+        public bool SaveBatchReport(BatchReportDO BatchReport)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "BatchReport_ID_" +  BatchReport.BatchID.ToString() + ".txt" ;
             string batchid = "Batch ID: " + BatchReport.BatchID.ToString();
@@ -27,10 +27,10 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
             return true;
         }
 
-        private string GetTimeinStates(Dictionary<int, int> states)
+        private string GetTimeinStates(Dictionary<int, TimeSpan> states)
         {
             string stateLines = "";
-            foreach (KeyValuePair<int, int> state in states)
+            foreach (KeyValuePair<int, TimeSpan> state in states)
             {
                 stateLines = states + "Time in state " + state.Key.ToString() + ": " + state.Value.ToString() + ", \t";
             }
