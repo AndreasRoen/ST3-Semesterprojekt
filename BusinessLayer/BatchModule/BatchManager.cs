@@ -66,7 +66,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             return this.CurrentBatch;
         }
 
-        public BatchReportDO GetBatchReportDTO()
+        public BatchReportDO GetBatchReportDO()
         {
             return this.batchReport.GetBatchReportDTO();
         }

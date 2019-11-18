@@ -85,9 +85,9 @@ namespace BeerProductionSystem.BusinessLayer
             return dto;
         }
 
-        public void UpdateTimeInState(LiveRelevantDataDTO dto)
+        public void UpdateTimeInState(LiveRelevantDataDO liveRelevantDataDO)
         {
-            if (!dto.CurrentState.Equals(currentState))
+            if (!liveRelevantDataDO.CurrentState.Equals(currentState))
             {
                 AmountOfTimeInState(currentState, startTime);
                 startTime = DateTime.Now;
@@ -101,7 +101,7 @@ namespace BeerProductionSystem.BusinessLayer
         }
         public bool SaveBatchReport()
         {
-            return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDTO());
+            return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDO());
 
         }
 
