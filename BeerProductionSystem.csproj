@@ -85,6 +85,10 @@
     <Compile Include="DOClasses\BatchReportDO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\DatabaseController.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DTOClasses\BatchReportDTO.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DTOClasses\DataContext.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DTOClasses\EnvironmentalLogDTO.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DTOClasses\StateLogDTO.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\FileWriter.cs" />
     <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseController.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineReadData.cs" />

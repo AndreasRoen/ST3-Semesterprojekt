@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,12 @@ using System.Threading.Tasks;
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
 {
     [Table("StateLog")]
-    public class StateLogDTO
+    public partial class StateLogDTO
     {
+        [Key]
         public int StateLogID { get; set; }
 
-        public BatchReportDTO BatchReport { get; set; }
+        public int BatchReportID { get; set; }
 
         public float? DeactivatedState { get; set; }
         public float? ClearingState { get; set; }
@@ -32,5 +34,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
         public float? DeactivatingState { get; set; }
         public float? ActivatingState { get; set; }
 
+        public virtual BatchReportDTO BatchReport { get; set; }
     }
 }

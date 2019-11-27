@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,20 @@ using System.Threading.Tasks;
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
 {
     [Table("EnvironmentalLog")]
-    public class EnvironmentalLogDTO
+    public partial class EnvironmentalLogDTO
     {
+        [Key]
         public int EnvironmentalLogID { get; set; }
         
-        public BatchReportDTO BatchReport { get; set; }
+        public int BatchReportID { get; set; }
 
-        public float Temperature { get; set; }
-        public float Vibration { get; set; }
-        public float Humidity { get; set; }
+        public double Temperature { get; set; }
+        public double Vibration { get; set; }
+        public double Humidity { get; set; }
+
+        [Column(TypeName = "datetime2")]
         public DateTime Time { get; set; }
         
+        public virtual BatchReportDTO BatchReport { get; set; }
     }
 }
