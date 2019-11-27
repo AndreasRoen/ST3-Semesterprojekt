@@ -10,5 +10,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
     interface IDatabaseController
     {
         bool SaveBatchReport(BatchReportDO batchReport);
+
+        bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
     }
 }

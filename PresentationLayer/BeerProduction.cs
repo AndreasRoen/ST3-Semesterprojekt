@@ -1,5 +1,7 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.BusinessLayer;
+using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
@@ -16,7 +18,11 @@ namespace BeerProductionSystem.PresentationLayer
     {
         static void Main()
         {
-            Test();
+            //TestSaveBatchReport();
+            TestUpdateBatchReport();
+
+
+
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //ILogicFacade logicFacade = new LogicFacade();
@@ -27,26 +33,20 @@ namespace BeerProductionSystem.PresentationLayer
 
         }
 
-        public static void Test()
+        public static void TestSaveBatchReport()
         {
-            using (DataContext context = new DataContext())
-            {
-                BatchReportDTO report = new BatchReportDTO
-                {
-                    BatchReportID = 1,
-                    ProductType = 0,
-                    TotalAmount = 100,
-                    AcceptableAmount = 0,
-                    DefectAmount = 10,
-                    MachineSpeed = 200,
-                    ProductionEndTime = System.DateTime.Now,
-                    ProductionStartTime = System.DateTime.Now,
-                    
-                };
+            BatchReportDO testDO = new BatchReportDO(1, 1000, 600);
 
-                context.BatchReports.Add(report);
-                context.SaveChanges();
-            }
+            DatabaseController testData = new DatabaseController();
+            testData.SaveBatchReport(testDO);
+            
+        }
+
+        public static void TestUpdateBatchReport()
+        {
+            LiveRelevantDataDO liveRelevantData = new LiveRelevantDataDO((float)20.2, (float)3.5, (float)0.8, 100, 30, 5, 0, 0, 0, 0, 0, 0, 0);
+            DatabaseController testData = new DatabaseController();
+            testData.UpdateBatchReport(liveRelevantData);
         }
     }
 }
