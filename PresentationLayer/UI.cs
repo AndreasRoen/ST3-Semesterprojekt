@@ -93,5 +93,10 @@ namespace BeerProductionSystem.PresentationLayer
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
         }
+        // Making sure all forms close when the user closes the main form
+        private void UI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
