@@ -29,9 +29,14 @@ namespace BeerProductionSystem.PersistenceLayer
             machineReadData = new MachineReadData();
             machineWriteData = new MachineWriteData();
             opcConnection = new OPCConnectionManager();
-            opcConnection.ConnectToServer();
-            accessPoint = opcConnection.AccessPoint;
             this.databaseController = new FileWriter();
+        }
+
+        public bool ConnectToMachine(string machineName)
+        {
+            bool isSuccess = opcConnection.ConnectToServer(machineName);
+            accessPoint = opcConnection.AccessPoint;
+            return isSuccess;
         }
 
         public bool CreateBatchReport(BatchReportDO batchReport)

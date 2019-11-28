@@ -9,6 +9,8 @@ namespace BeerProductionSystem.Aquaintence
 {
     public interface ILogicFacade
     {
+        bool ConnectToMachine(string machineName);
+
         LiveRelevantDataDO UpdateData();
 
         void SendResetCommand();

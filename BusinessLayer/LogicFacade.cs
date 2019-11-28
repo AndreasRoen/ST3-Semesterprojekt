@@ -17,7 +17,7 @@ namespace BeerProductionSystem.BusinessLayer
         CLEAR
     }
 
-    enum ProductMaxSpeed  //TODO move out of presentation layer
+    enum ProductMaxSpeed
     {
         Pilsner = 600,
         Wheat = 300,
@@ -38,6 +38,11 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
+        }
+
+        public bool ConnectToMachine(string machineName)
+        {
+            return persistenceFacade.ConnectToMachine(machineName);
         }
 
         public void SendAbortCommand()

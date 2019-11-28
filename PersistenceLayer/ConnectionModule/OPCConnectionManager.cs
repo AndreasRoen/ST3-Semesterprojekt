@@ -12,15 +12,11 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
     class OPCConnectionManager
     {
         public OpcClient AccessPoint { get; set; }
-        // private readonly string URL = "opc.tcp://192.168.0.122:4840"; //server
-        private readonly string URL = "opc.tcp://127.0.0.1:4840"; // simulation
+        private readonly string PHYSICALURL = "opc.tcp://192.168.0.122:4840"; //server
+        private readonly string SIMULATIONURL = "opc.tcp://127.0.0.1:4840"; // simulation
 
+        public OPCConnectionManager() { }
 
-
-        public OPCConnectionManager()
-        {
-            AccessPoint = new OpcClient(URL);
-        }
         // server state was either connected or created, but "created" didn't sound like it wasn't connected
         public void CheckConnection()
         {
@@ -35,20 +31,28 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
                 MessageBox.Show("Not Connected"); // husk at fjerne
             }
         }
-        //trying to connect up to 3 times.
-        public void ConnectToServer()
+
+        public bool ConnectToServer(string machineName)
         {
+            string url = SetMachineAddress(machineName);
+            AccessPoint = new OpcClient(url);
+
             try
             {
                 AccessPoint.Connect();
-                MessageBox.Show("CONNECTED"); // husk at fjern
+                return true;    //Connected
             }
             catch (OpcException ex)
             {
-                MessageBox.Show("Handled connect exeption. Reason: " + ex.Message); // husk at fjerne
+                return false;   //Not Connected
             }
-
         }
+
+        private string SetMachineAddress(string machineName)
+        {
+            return machineName == "Physical Machine" ? PHYSICALURL : SIMULATIONURL;
+        }
+
         //disconnect and clean up
         public void DisconnectFromServer()
         {
@@ -56,6 +60,5 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
             AccessPoint.Dispose();
             MessageBox.Show("Disconnected"); // husk at fjerne
         }
-
     }
 }

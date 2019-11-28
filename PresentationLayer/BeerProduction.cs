@@ -17,10 +17,10 @@ namespace BeerProductionSystem.PresentationLayer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ILogicFacade logicFacade = new LogicFacade();
-            UI s1 = new UI(logicFacade);
+            StartupConnection sc = new StartupConnection();
+            //UI s1 = new UI(logicFacade);
             //s1.Show();
-            Application.Run(s1);
+            Application.Run(sc);
         }
     }
 }
