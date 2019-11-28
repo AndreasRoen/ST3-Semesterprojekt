@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeerProductionSystem.DTOClasses;
 using System.IO;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
@@ -66,6 +67,14 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
             return logging;
         }
 
+        public BatchReportDTO LoadBatchReport(int BatchID)
+        {
+            throw new NotImplementedException();
+        }
 
+        public List<string[]> BatchOverview()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

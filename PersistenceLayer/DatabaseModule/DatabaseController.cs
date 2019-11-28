@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
     class DatabaseController : IDatabaseController {
@@ -70,6 +71,20 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             return success;
         }
 
+        public BatchReportDTO LoadBatchReport(int BatchID)
+        {
+            BatchReportDTO data = new BatchReportDTO();
+            using(DataContext context = new DataContext())
+            {
+                data = context.BatchReports.Find(BatchID);
+            }
+            return data;
+        }
+
+        public List<string[]> BatchOverview()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
