@@ -12,8 +12,8 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
     class OPCConnectionManager
     {
         public OpcClient AccessPoint { get; set; }
-        private readonly string PHYSICALURL = "opc.tcp://192.168.0.122:4840"; //server
-        private readonly string SIMULATIONURL = "opc.tcp://127.0.0.1:4840"; // simulation
+        private readonly string PHYSICALURL = "opc.tcp://192.168.0.122:4840";
+        private readonly string SIMULATIONURL = "opc.tcp://127.0.0.1:4840";
 
         public OPCConnectionManager() { }
 
