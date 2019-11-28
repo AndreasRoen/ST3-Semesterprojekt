@@ -83,7 +83,22 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
 
         public List<string[]> BatchOverview()
         {
-            throw new NotImplementedException();
+            List<string[]> batchList = new List<string[]>();
+            using (DataContext context = new DataContext())
+            {
+                List<BatchReportDTO> batches = context.BatchReports.ToList();
+                foreach (BatchReportDTO br in batches)
+                {
+                    batchList.Add(new string[] { br.BatchReportID.ToString(), 
+                                                 br.ProductType.ToString(), 
+                                                 br.MachineSpeed.ToString(), 
+                                                 br.TotalAmount.ToString(),
+                                                 br.ProductionStartTime.ToString()
+                                                });
+                }
+            }
+            batchList.OrderBy(c => c[0].Length).ThenBy(c => Convert.ToInt32(c[0])).ToList();
+            return batchList;
         }
     }
 
