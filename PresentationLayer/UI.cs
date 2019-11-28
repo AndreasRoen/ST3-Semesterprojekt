@@ -14,9 +14,11 @@ namespace BeerProductionSystem.PresentationLayer
 {
     public partial class UI : Form
     {
+        private List<BatchReportDO> reports;
         public UI()
         {
             InitializeComponent();
+            reports = new List<BatchReportDO>();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -92,6 +94,81 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
+        }
+
+        private void getBatches_Click(object sender, EventArgs e)
+        {
+            ushort id = 0;
+            try
+            {
+                if(searchTextBox.Text != null)
+                id = ushort.Parse(searchTextBox.Text);
+            } catch (FormatException ex)
+            {
+
+            }
+
+            //List<BatchReportDO> reports = logicFacade.getBatchReports();
+            reports.Add(new BatchReportDO(1, 2, 3, 4, 5, new Dictionary<int, TimeSpan>(), new List<float>(), new List<float>()));
+            List<string> selectedReports = new List<string>();
+            {
+                for(int i = 0; i < reports.Count; i++)
+                {
+                    if (!reports[i].BatchID.Equals(id) && id!=0)
+                    {
+                        reports.RemoveAt(i);
+                    }
+                }
+                for (int i = 0; i < reports.Count; i++)
+                {
+                    selectedReports.Add("Batchreport ID: " + reports[i].BatchID);
+                }
+            }
+            listBoxBatches.DataSource = selectedReports;
+        }
+
+        private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int itemIndex = listBoxBatches.SelectedIndex;
+            BatchReportDO chosen = reports[itemIndex];
+            chosenReport.Text = "Batch ID: " + chosen.BatchID + "\n Producttype: " + chosen.ProductType + "\n " +
+                "Created products: " + chosen.AmountOfProductsTotal + "\n Acceptable products: " + chosen.AmountOfProductsAcceptable + "\n" +
+                " Defective products: " + chosen.AmountOfProductsDefect + "\n" +
+                GetTimeInStates(chosen.AmountOfTimeInStates) + "\n" +
+                GetLoggingInfo("Temperature: ", chosen.LoggingOfTemperature) + "\n" +
+                GetLoggingInfo("Humidity: ",chosen.LoggingOfHumidity);
+        }
+
+        private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
+        {
+            string statesTime = "";
+            foreach(var state in timeInStates)
+            {
+                statesTime += state.Key + ": " + state.Value.TotalSeconds + "\n";
+            }
+
+            return statesTime;
+        }
+
+        private string GetLoggingInfo(string description, List<float> loggingList)
+        {
+            float min = 0;
+            float max = 0;
+            float total = 0;
+            foreach(var info in loggingList)
+            {
+                if(info > max)
+                {
+                    max = info;
+                }else if(info < min)
+                {
+                    min = info;
+                }
+                total += info;
+            }
+            float avg = total / loggingList.Count;
+            string allInfo = description + "\nMinimum: " + min + "\n Maximum: " + max + "\n Average : " + avg;
+            return allInfo;
         }
     }
 }
