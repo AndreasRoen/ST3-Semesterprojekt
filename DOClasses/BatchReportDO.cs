@@ -14,6 +14,7 @@ namespace BeerProductionSystem.DTOClasses
 
         public ushort BatchID { get; }
         public ushort ProductType { get; }
+        public ushort MachineSpeed { get; }
         public ushort AmountOfProductsTotal { get; }
         public ushort AmountOfProductsAcceptable { get; }
         public ushort AmountOfProductsDefect { get; }
@@ -36,6 +37,12 @@ namespace BeerProductionSystem.DTOClasses
             this.LoggingOfHumidity = LogginOfHumidity;
         }
 
+        public BatchReportDO(ushort ProductType, ushort AmountOfProductsTotal, ushort MachineSpeed)
+        {
+            this.ProductType = ProductType;
+            this.AmountOfProductsTotal = AmountOfProductsTotal;
+            this.MachineSpeed = MachineSpeed;
 
+        }
     }
 }

@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BeerProductionSystem.DTOClasses;
 using System.IO;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
     class FileWriter : IDatabaseController
     {
 
-        public bool SaveBatchReport(BatchReportDO BatchReport)
+        bool IDatabaseController.SaveBatchReport(BatchReportDO BatchReport)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "BatchReport_ID_" +  BatchReport.BatchID.ToString() + ".txt" ;
             string batchid = "Batch ID: " + BatchReport.BatchID.ToString();
@@ -25,6 +26,11 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
             string[] report = {batchid, productType, amountTotal, amountAcc, amountDef, amountState, logTemp, logHum};
             File.WriteAllLines(path, report);
             return true;
+        }
+
+        bool IDatabaseController.UpdateBatchReport(LiveRelevantDataDO liveRelevantData)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetTimeinStates(Dictionary<int, TimeSpan> states)
@@ -61,6 +67,14 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
             return logging;
         }
 
+        public BatchReportDTO LoadBatchReport(int BatchID)
+        {
+            throw new NotImplementedException();
+        }
 
+        public List<string[]> BatchOverview()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
