@@ -81,6 +81,17 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             return data;
         }
 
+        public List<BatchReportDTO> GetAllBatchReports()
+        {
+            List<BatchReportDTO> batchList = new List<BatchReportDTO>();
+            using (DataContext context = new DataContext())
+            {
+                batchList = context.BatchReports.ToList();
+            }
+            return batchList;
+        }
+
+        //Returns all info of all Batch Reports in Database as a List sorted by BatchID
         public List<string[]> BatchOverview()
         {
             List<string[]> batchList = new List<string[]>();
