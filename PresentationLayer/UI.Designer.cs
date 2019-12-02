@@ -713,6 +713,7 @@ namespace BeerProductionSystem.PresentationLayer
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UI";
             this.Text = "Beer Production System";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UI_FormClosed);
             this.tab1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
