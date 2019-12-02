@@ -35,5 +35,8 @@ namespace BeerProductionSystem.DOClasses
         public virtual ICollection<StateLog> StateLogs { get; set; }
         
         public virtual ICollection<EnvironmentalLog> EnvironmentalLogs { get; set; }
+        public Dictionary<int, TimeSpan> StateDictionary { get; set; }
+        public Dictionary<DateTime, float> TemperatureDictionary { get; set; }
+        public Dictionary<DateTime, float> HumidityDictionary { get; set; }
     }
 }
