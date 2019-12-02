@@ -26,6 +26,10 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            labelCurrentStatus.Text = "Connecting...     ";
+            labelCurrentStatus.ForeColor = Color.Black;
+            labelCurrentStatus.Refresh();
+
             if (logicFacade.ConnectToMachine(machine))
             {
                 UI ui = new UI(logicFacade);
@@ -34,7 +38,9 @@ namespace BeerProductionSystem.PresentationLayer
             }
             else
             {
-                labelConnectionFailed.Visible = true;
+                labelCurrentStatus.Text = "Failed to connect.";
+                labelCurrentStatus.ForeColor = Color.DarkRed;
+                labelCurrentStatus.Refresh();
             }
         }
 

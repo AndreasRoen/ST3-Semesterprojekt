@@ -34,7 +34,7 @@
             this.rbPhysical = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.labelConnectionFailed = new System.Windows.Forms.Label();
+            this.labelCurrentStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnRun
@@ -90,23 +90,22 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Beer Production System";
             // 
-            // labelConnectionFailed
+            // labelCurrentStatus
             // 
-            this.labelConnectionFailed.AutoSize = true;
-            this.labelConnectionFailed.ForeColor = System.Drawing.Color.Maroon;
-            this.labelConnectionFailed.Location = new System.Drawing.Point(294, 50);
-            this.labelConnectionFailed.Name = "labelConnectionFailed";
-            this.labelConnectionFailed.Size = new System.Drawing.Size(92, 13);
-            this.labelConnectionFailed.TabIndex = 8;
-            this.labelConnectionFailed.Text = "Failed to connect.";
-            this.labelConnectionFailed.Visible = false;
+            this.labelCurrentStatus.AutoSize = true;
+            this.labelCurrentStatus.ForeColor = System.Drawing.Color.Maroon;
+            this.labelCurrentStatus.Location = new System.Drawing.Point(294, 50);
+            this.labelCurrentStatus.Name = "labelCurrentStatus";
+            this.labelCurrentStatus.Size = new System.Drawing.Size(37, 13);
+            this.labelCurrentStatus.TabIndex = 8;
+            this.labelCurrentStatus.Text = "          ";
             // 
             // StartupConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 89);
-            this.Controls.Add(this.labelConnectionFailed);
+            this.Controls.Add(this.labelCurrentStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rbPhysical);
@@ -127,6 +126,6 @@
         private System.Windows.Forms.RadioButton rbPhysical;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelConnectionFailed;
+        private System.Windows.Forms.Label labelCurrentStatus;
     }
 }
