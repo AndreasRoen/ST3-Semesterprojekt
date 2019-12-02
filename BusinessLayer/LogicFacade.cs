@@ -78,11 +78,11 @@ namespace BeerProductionSystem.BusinessLayer
 
         public LiveRelevantDataDO UpdateData()
         {
-            LiveRelevantDataDO dto = persistenceFacade.GetUpdateData();
-            dto.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
-            dto.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
-            dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
-            return dto;
+            LiveRelevantDataDO liveRelevantData = persistenceFacade.GetUpdateData();
+            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
+            liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
+            liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            return liveRelevantData;
         }
 
         public void UpdateTimeInState(LiveRelevantDataDO liveRelevantDataDO)
