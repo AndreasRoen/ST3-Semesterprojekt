@@ -1,5 +1,8 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.BusinessLayer;
+using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
 using System;
@@ -17,9 +20,8 @@ namespace BeerProductionSystem.PresentationLayer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             StartupConnection sc = new StartupConnection();
-            //UI s1 = new UI(logicFacade);
-            //s1.Show();
             Application.Run(sc);
         }
     }
