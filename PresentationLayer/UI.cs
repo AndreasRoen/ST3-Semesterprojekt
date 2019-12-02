@@ -111,7 +111,6 @@ namespace BeerProductionSystem.PresentationLayer
 
             }
 
-
             List<string> selectedReports = new List<string>();
             {
                 for (int i = 0; i < reports.Count; i++)
