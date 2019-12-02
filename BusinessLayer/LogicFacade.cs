@@ -23,6 +23,11 @@ namespace BeerProductionSystem.BusinessLayer
             batchManager = new BatchManager();
         }
 
+        public bool ConnectToMachine(string machineName)
+        {
+            return persistenceFacade.ConnectToMachine(machineName);
+        }
+
         public void SendAbortCommand()
         {
             persistenceFacade.SendCommand((int)Commands.ABORT);

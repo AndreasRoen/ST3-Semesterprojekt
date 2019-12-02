@@ -12,6 +12,8 @@ namespace BeerProductionSystem.Aquaintence
     /// </summary>
     public interface IPersistenceFacade
     {
+        bool ConnectToMachine(string machineName);
+
         LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);

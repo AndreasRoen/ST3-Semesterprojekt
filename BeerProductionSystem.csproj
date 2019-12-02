@@ -85,6 +85,12 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
     <Compile Include="PresentationLayer\Enums.cs" />
+    <Compile Include="PresentationLayer\StartupConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayer\StartupConnection.Designer.cs">
+      <DependentUpon>StartupConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="PresentationLayer\UI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="PresentationLayer\StartupConnection.resx">
+      <DependentUpon>StartupConnection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayer\UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
     </EmbeddedResource>
