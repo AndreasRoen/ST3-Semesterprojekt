@@ -36,6 +36,7 @@ namespace BeerProductionSystem.PresentationLayer
         private void resetBtn_Click(object sender, EventArgs e)
         {
             logicFacade.SendResetCommand();
+            BatchProgressBar.Value = 0;
         }
 
         private void clearBtn_Click(object sender, EventArgs e)
@@ -69,6 +70,14 @@ namespace BeerProductionSystem.PresentationLayer
             verticalProgressBarWheat.Value = (int)data.Wheat;
             verticalProgressBarYeast.Value = (int)data.Yeast;
             verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
+
+            if (currentStateLabel.Text.Equals("Execute"))
+            {
+                BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+            } else if (currentStateLabel.Text.Equals("Complete"))
+            {
+                BatchProgressBar.Value = 100;
+            }
         }
 
         private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
