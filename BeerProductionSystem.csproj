@@ -70,6 +70,7 @@
     <Compile Include="BusinessLayer\BatchModule\BatchReport.cs" />
     <Compile Include="BusinessLayer\BatchModule\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
+    <Compile Include="BusinessLayer\BusinessLayerEnums.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
     <Compile Include="DOClasses\LiveRelevantDataDO.cs" />
     <Compile Include="DOClasses\BatchReportDO.cs" />
