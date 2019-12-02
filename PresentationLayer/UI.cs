@@ -1,4 +1,4 @@
-﻿using BeerProductionSystem.DTOClasses;
+﻿using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

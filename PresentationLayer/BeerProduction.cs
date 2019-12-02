@@ -1,8 +1,7 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.BusinessLayer;
-using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DOClasses;
 using BeerProductionSystem.PersistenceLayer.DatabaseModule;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
 using System;

@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
+namespace BeerProductionSystem.DOClasses
 {
     [Table("BatchReport")]
-    public partial class BatchReportDTO
+    public partial class BatchReport
     {
-        public BatchReportDTO()
+        public BatchReport()
         {
-            EnvironmentalLogs = new HashSet<EnvironmentalLogDTO>();
-            StateLogs = new HashSet<StateLogDTO>();
+            EnvironmentalLogs = new HashSet<EnvironmentalLog>();
+            StateLogs = new HashSet<StateLog>();
         }
         
         [Key]
@@ -32,8 +32,8 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
         public DateTime? ProductionEndTime { get; set; }
 
         
-        public virtual ICollection<StateLogDTO> StateLogs { get; set; }
+        public virtual ICollection<StateLog> StateLogs { get; set; }
         
-        public virtual ICollection<EnvironmentalLogDTO> EnvironmentalLogs { get; set; }
+        public virtual ICollection<EnvironmentalLog> EnvironmentalLogs { get; set; }
     }
 }

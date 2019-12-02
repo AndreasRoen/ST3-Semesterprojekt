@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
+namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
     public partial class DataContext : DbContext
     {
@@ -14,19 +15,19 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
         {
         }
 
-        public virtual DbSet<BatchReportDTO> BatchReports { get; set; }
-        public virtual DbSet<EnvironmentalLogDTO> EnvironmentalLogs { get; set; }
-        public virtual DbSet<StateLogDTO> StateLogs { get; set; }
+        public virtual DbSet<BatchReport> BatchReports { get; set; }
+        public virtual DbSet<EnvironmentalLog> EnvironmentalLogs { get; set; }
+        public virtual DbSet<StateLog> StateLogs { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BatchReportDTO>()
+            modelBuilder.Entity<BatchReport>()
                 .HasMany(e => e.EnvironmentalLogs)
                 .WithRequired(e => e.BatchReport)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<BatchReportDTO>()
+            modelBuilder.Entity<BatchReport>()
                 .HasMany(s => s.StateLogs)
                 .WithRequired(s => s.BatchReport)
                 .WillCascadeOnDelete(false);

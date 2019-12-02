@@ -1,5 +1,8 @@
-﻿namespace BeerProductionSystem.BusinessLayer.BatchModule {
-    class Batch {
+﻿namespace BeerProductionSystem.DOClasses
+
+{
+    class Batch 
+    {
 
         public float ProductType { get; set; }
         public ushort BatchID { get; set; }

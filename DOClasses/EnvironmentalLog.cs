@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
+namespace BeerProductionSystem.DOClasses
 {
     [Table("EnvironmentalLog")]
-    public partial class EnvironmentalLogDTO
+    public partial class EnvironmentalLog
     {
         [Key]
         public int EnvironmentalLogID { get; set; }
@@ -23,6 +23,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
         [Column(TypeName = "datetime2")]
         public DateTime Time { get; set; }
         
-        public virtual BatchReportDTO BatchReport { get; set; }
+        public virtual BatchReport BatchReport { get; set; }
     }
 }

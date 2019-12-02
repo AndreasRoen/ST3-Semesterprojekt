@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -22,12 +22,6 @@ namespace BeerProductionSystem.Aquaintence
         void SendAbortCommand();
 
         void SendClearCommand();
-
-        //void SetProductType(float type);
-
-        //void SetProductionSpeed(ushort speed);
-
-        //void SetBatchSize(ushort size);
 
         bool checkBatchParameter();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
@@ -11,17 +11,15 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
     {
 
         Batch CurrentBatch { get; set; }
-
+        BatchReport BatchReport { get; set; }
+        StateLog StateLog { get; set; }
         void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize);
 
-        void CreateBatchReport(ushort batchId, ushort productType, ushort amountOfProductsTotal);
+        void CreateBatchReport(ushort batchId, ushort productType,ushort productionSpeed, ushort amountOfProductsTotal);
 
         bool CheckBatchParameter();
 
         void SaveTimeInState(int currentState, TimeSpan timeSpan);
-
-
-        BatchReportDO GetBatchReportDO();
 
     }
 }

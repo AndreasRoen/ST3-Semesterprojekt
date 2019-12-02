@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -20,7 +20,9 @@ namespace BeerProductionSystem.Aquaintence
 
         void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID);
 
-        bool CreateBatchReport(BatchReportDO batchReport);
+        bool SaveBatchReport(BatchReport batchReport);
+        bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
+        List<BatchReport> GetBatchReports();
 
     }
 }

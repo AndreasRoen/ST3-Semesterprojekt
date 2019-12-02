@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
+namespace BeerProductionSystem.DOClasses
 {
     [Table("StateLog")]
-    public partial class StateLogDTO
+    public partial class StateLog
     {
         [Key]
         public int StateLogID { get; set; }
@@ -34,6 +34,12 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses
         public float? DeactivatingState { get; set; }
         public float? ActivatingState { get; set; }
 
-        public virtual BatchReportDTO BatchReport { get; set; }
+        public virtual BatchReport BatchReport { get; set; }
+    
+     public void setTimeInStates(Dictionary<int, TimeSpan> dict)
+        {
+            AbortedState += (float)dict[0].TotalSeconds;
+            // Implement this.. TODO
+        }
     }
 }

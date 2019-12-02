@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeerProductionSystem.DTOClasses
+namespace BeerProductionSystem.DOClasses
 {
     /// <summary>
     /// Data object created in the persistence layer

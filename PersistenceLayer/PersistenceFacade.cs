@@ -1,5 +1,5 @@
 ﻿using BeerProductionSystem.Aquaintence;
-using BeerProductionSystem.DTOClasses;
+using BeerProductionSystem.DOClasses;
 using BeerProductionSystem.PersistenceLayer.ConnectionModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
@@ -22,15 +22,15 @@ namespace BeerProductionSystem.PersistenceLayer
         private IMachineWriteData machineWriteData;
         private OPCConnectionManager opcConnection;
         private OpcClient accessPoint;
-        private IDatabaseController databaseController;
+        private IDatabaseManager databaseManager;
 
 
         public PersistenceFacade()
         {
+            databaseManager = new DatabaseManager();
             machineReadData = new MachineReadData();
             machineWriteData = new MachineWriteData();
             opcConnection = new OPCConnectionManager();
-            this.databaseController = new FileWriter();
         }
 
         public bool ConnectToMachine(string machineName)
@@ -40,14 +40,14 @@ namespace BeerProductionSystem.PersistenceLayer
             return isSuccess;
         }
 
-        public bool CreateBatchReport(BatchReportDO batchReport)
+        public bool SaveBatchReport(BatchReport batchReport)
         {
-            return databaseController.SaveBatchReport(batchReport);
+            return databaseManager.SaveBatchReport(batchReport);
         }
 
         public LiveRelevantDataDO GetUpdateData()
         {
-            LiveRelevantDataDO dto = new LiveRelevantDataDO(
+            LiveRelevantDataDO liveRelevantData = new LiveRelevantDataDO(
                 machineReadData.ReadTemperature(accessPoint),
                 machineReadData.ReadHumidity(accessPoint),
                 machineReadData.ReadVibration(accessPoint),
@@ -62,7 +62,7 @@ namespace BeerProductionSystem.PersistenceLayer
                 machineReadData.ReadMaintenanceCounter(accessPoint),
                 machineReadData.ReadCurrentState(accessPoint)
                 );
-            return dto;
+            return liveRelevantData;
         }
 
         public void SendCommand(int command)
@@ -77,6 +77,16 @@ namespace BeerProductionSystem.PersistenceLayer
             machineWriteData.WriteNextBatchSize(accessPoint, batchSize);
             machineWriteData.WriteNextBatchID(accessPoint, batchID);
 
+        }
+
+        public bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData)
+        {
+            return databaseManager.UpdateBatchReport(liveRelevantData);
+        }
+
+        public List<BatchReport> GetBatchReports()
+        {
+            return databaseManager.GetBatchReports();
         }
     }
 }

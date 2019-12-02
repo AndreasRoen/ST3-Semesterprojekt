@@ -2,9 +2,9 @@
 using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
-using BeerProductionSystem.DTOClasses;
 using System.Diagnostics;
 using System;
+using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -89,7 +89,7 @@ namespace BeerProductionSystem.BusinessLayer
         }
         public bool SaveBatchReport()
         {
-            return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDO());
+            return persistenceFacade.SaveBatchReport(batchManager.BatchReport);
 
         }
 

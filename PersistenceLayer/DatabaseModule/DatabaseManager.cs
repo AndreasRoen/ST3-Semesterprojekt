@@ -1,5 +1,5 @@
-using BeerProductionSystem.DTOClasses;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule.DTOClasses;
+using BeerProductionSystem.DOClasses;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System;
 using System.Linq;
 using System.IO;
@@ -8,29 +8,19 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
-    class DatabaseController : IDatabaseController {
+    class DatabaseManager : IDatabaseManager {
 
-        public DatabaseController() {
+        public DatabaseManager() {
 
         }
 
-        public bool SaveBatchReport(BatchReportDO batchReport)
+        public bool SaveBatchReport(BatchReport batchReport)
         {
             bool success = false;
             using (DataContext context = new DataContext())
             {
                 
-                BatchReportDTO data = new BatchReportDTO
-                {
-                    MachineSpeed = batchReport.MachineSpeed,
-                    ProductType = batchReport.ProductType,
-                    TotalAmount = batchReport.AmountOfProductsTotal,
-                    AcceptableAmount = 0,
-                    DefectAmount = 0,
-                    ProductionStartTime = System.DateTime.Now
-                };
-
-                context.BatchReports.Add(data);
+                context.BatchReports.Add(batchReport);
                 context.SaveChanges();
 
                 success = true;
@@ -47,11 +37,11 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             using (DataContext context = new DataContext())
             {
                 //Returns the latest Batch report saved in the database.
-                BatchReportDTO batchReport = context.BatchReports.OrderByDescending(
+                BatchReport batchReport = context.BatchReports.OrderByDescending(
                     b => b.BatchReportID).FirstOrDefault();
 
                 //Create a new entry of environmental log
-                EnvironmentalLogDTO environmentalLog = new EnvironmentalLogDTO
+                EnvironmentalLog environmentalLog = new EnvironmentalLog
                 {
                     Temperature = liveRelevantData.Temperature,
                     Vibration = liveRelevantData.Vibration,
@@ -71,9 +61,9 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             return success;
         }
 
-        public BatchReportDTO LoadBatchReport(int BatchID)
+        public BatchReport LoadBatchReport(int BatchID)
         {
-            BatchReportDTO data = new BatchReportDTO();
+            BatchReport data = new BatchReport();
             using(DataContext context = new DataContext())
             {
                 data = context.BatchReports.Find(BatchID);
@@ -81,9 +71,9 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             return data;
         }
 
-        public List<BatchReportDTO> GetAllBatchReports()
+        public List<BatchReport> GetAllBatchReports()
         {
-            List<BatchReportDTO> batchList = new List<BatchReportDTO>();
+            List<BatchReport> batchList = new List<BatchReport>();
             using (DataContext context = new DataContext())
             {
                 batchList = context.BatchReports.ToList();
@@ -92,23 +82,20 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
         }
 
         //Returns all info of all Batch Reports in Database as a List sorted by BatchID
-        public List<string[]> BatchOverview()
+        public List<BatchReport> GetBatchReports()
         {
-            List<string[]> batchList = new List<string[]>();
+            List<BatchReport> batchList = new List<BatchReport>();
             using (DataContext context = new DataContext())
             {
-                List<BatchReportDTO> batches = context.BatchReports.ToList();
-                foreach (BatchReportDTO br in batches)
+                List<BatchReport> batches = context.BatchReports.ToList();
+                foreach (BatchReport br in batches)
                 {
-                    batchList.Add(new string[] { br.BatchReportID.ToString(), 
-                                                 br.ProductType.ToString(), 
-                                                 br.MachineSpeed.ToString(), 
-                                                 br.TotalAmount.ToString(),
-                                                 br.ProductionStartTime.ToString()
-                                                });
+                    //Implement TODO
+                    //br.EnvironmentalLogs = context.EnvironmentalLogs.
+                    //br.StateLogs = context.StateLogs.
                 }
             }
-            batchList.OrderBy(c => c[0].Length).ThenBy(c => Convert.ToInt32(c[0])).ToList();
+            
             return batchList;
         }
     }
