@@ -27,7 +27,7 @@ namespace BeerProductionSystem.PresentationLayer
             ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
             ushort batchSize = (ushort)batchSizeNumericUpDownSize.Value;
 
-            logicFacade.SendStartCommand((ushort) productType, productionSpeed, batchSize);
+            logicFacade.SendStartCommand((ushort)productType, productionSpeed, batchSize);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace BeerProductionSystem.PresentationLayer
 
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
-           // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+            // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
 
 
             productionSpeedTrackBar.Maximum = maxSpeed;
@@ -98,23 +98,29 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void getBatches_Click(object sender, EventArgs e)
         {
-            ushort id = 0;
+            int batchId = -1;
             try
             {
-                if(searchTextBox.Text != null)
-                id = ushort.Parse(searchTextBox.Text);
-            } catch (FormatException ex)
+                if (searchTextBox.Text != null)
+                {
+                    batchId = int.Parse(searchTextBox.Text);
+                }
+            }
+            catch (FormatException ex)
             {
 
             }
 
-            //List<BatchReportDO> reports = logicFacade.getBatchReports();
-            reports.Add(new BatchReportDO(1, 2, 3, 4, 5, new Dictionary<int, TimeSpan>(), new List<float>(), new List<float>()));
+
             List<string> selectedReports = new List<string>();
             {
-                for(int i = 0; i < reports.Count; i++)
+                for (int i = 0; i < reports.Count; i++)
                 {
-                    if (!reports[i].BatchID.Equals(id) && id!=0)
+                    if(batchId < 0)
+                    {
+                        break;
+                    }
+                    if (!reports[i].BatchID.Equals(batchId))
                     {
                         reports.RemoveAt(i);
                     }
@@ -130,44 +136,54 @@ namespace BeerProductionSystem.PresentationLayer
         private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int itemIndex = listBoxBatches.SelectedIndex;
-            BatchReportDO chosen = reports[itemIndex];
-            chosenReport.Text = "Batch ID: " + chosen.BatchID + "\n Producttype: " + chosen.ProductType + "\n " +
-                "Created products: " + chosen.AmountOfProductsTotal + "\n Acceptable products: " + chosen.AmountOfProductsAcceptable + "\n" +
-                " Defective products: " + chosen.AmountOfProductsDefect + "\n" +
-                GetTimeInStates(chosen.AmountOfTimeInStates) + "\n" +
-                GetLoggingInfo("Temperature: ", chosen.LoggingOfTemperature) + "\n" +
-                GetLoggingInfo("Humidity: ",chosen.LoggingOfHumidity);
+            BatchReportDO chosenReport = reports[itemIndex];
+            this.chosenReport.Text = "Batch ID: " + chosenReport.BatchID + "\n" +
+                "Producttype: " + (ProductType)chosenReport.ProductType + "\n" +
+                "Created products: " + chosenReport.AmountOfProductsTotal + "\n" +
+                "Acceptable products: " + chosenReport.AmountOfProductsAcceptable + "\n" +
+                "Defective products: " + chosenReport.AmountOfProductsDefect + "\n" +
+                GetTimeInStates(chosenReport.AmountOfTimeInStates) + "\n" +
+                GetLoggingInfo("Temperature", chosenReport.LoggingOfTemperature, tempChart) + "\n" +
+                GetLoggingInfo("Humidity", chosenReport.LoggingOfHumidity, humidityChart);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
         {
-            string statesTime = "";
-            foreach(var state in timeInStates)
+            chartStates.Visible = true;
+            chartStates.Series["States"].Points.Clear();
+            string statesTime = "Time in states: ";
+            foreach (var state in timeInStates)
             {
-                statesTime += state.Key + ": " + state.Value.TotalSeconds + "\n";
+                chartStates.Series["States"].Points.AddXY(((MachineState)state.Key).ToString(), state.Value.TotalSeconds);
+                statesTime += "\n  "+ (MachineState)state.Key + ": " + state.Value.TotalSeconds + " seconds";
             }
 
             return statesTime;
         }
 
-        private string GetLoggingInfo(string description, List<float> loggingList)
+        private string GetLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
-            float min = 0;
+            chart.Visible = true;
+            float min = 100000;
             float max = 0;
             float total = 0;
-            foreach(var info in loggingList)
+            int sec = 0;
+            foreach (var info in loggingList)
             {
-                if(info > max)
+                chart.Series[description].Points.AddXY(sec, info);
+                sec++;
+                if (info > max)
                 {
                     max = info;
-                }else if(info < min)
+                }
+                if (info < min)
                 {
                     min = info;
                 }
                 total += info;
             }
             float avg = total / loggingList.Count;
-            string allInfo = description + "\nMinimum: " + min + "\n Maximum: " + max + "\n Average : " + avg;
+            string allInfo = description + ": \n  Minimum: " + min + "\n  Maximum: " + max + "\n  Average : " + avg;
             return allInfo;
         }
     }
