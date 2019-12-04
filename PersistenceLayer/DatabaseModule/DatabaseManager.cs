@@ -90,9 +90,8 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 List<BatchReport> batches = context.BatchReports.ToList();
                 foreach (BatchReport br in batches)
                 {
-                    //Implement TODO
-                    //br.EnvironmentalLogs = context.EnvironmentalLogs.
-                    //br.StateLogs = context.StateLogs.
+                    br.EnvironmentalLogs = (ICollection<EnvironmentalLog>)context.EnvironmentalLogs.Find(br.BatchReportID);
+                    br.StateLogs = (ICollection<StateLog>)context.StateLogs.Find(br.BatchReportID);
                 }
             }
             

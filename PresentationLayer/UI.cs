@@ -14,11 +14,11 @@ namespace BeerProductionSystem.PresentationLayer
 {
     public partial class UI : Form
     {
-        private List<BatchReportDO> reports;
+        private List<BatchReport> reports;
         public UI()
         {
             InitializeComponent();
-            reports = new List<BatchReportDO>();
+            reports = new List<BatchReport>();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -133,14 +133,14 @@ namespace BeerProductionSystem.PresentationLayer
                     {
                         break;
                     }
-                    if (!reports[i].BatchID.Equals(batchId))
+                    if (!reports[i].BatchReportID.Equals(batchId))
                     {
                         reports.RemoveAt(i);
                     }
                 }
                 for (int i = 0; i < reports.Count; i++)
                 {
-                    selectedReports.Add("Batchreport ID: " + reports[i].BatchID);
+                    selectedReports.Add("Batchreport ID: " + reports[i].BatchReportID);
                 }
             }
             listBoxBatches.DataSource = selectedReports;
@@ -149,15 +149,16 @@ namespace BeerProductionSystem.PresentationLayer
         private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int itemIndex = listBoxBatches.SelectedIndex;
-            BatchReportDO chosenReport = reports[itemIndex];
-            this.chosenReport.Text = "Batch ID: " + chosenReport.BatchID + "\n" +
+            BatchReport chosenReport = reports[itemIndex];
+            this.chosenReport.Text = "Batch ID: " + chosenReport.BatchReportID + "\n" +
                 "Producttype: " + (ProductType)chosenReport.ProductType + "\n" +
-                "Created products: " + chosenReport.AmountOfProductsTotal + "\n" +
-                "Acceptable products: " + chosenReport.AmountOfProductsAcceptable + "\n" +
-                "Defective products: " + chosenReport.AmountOfProductsDefect + "\n" +
-                GetTimeInStates(chosenReport.AmountOfTimeInStates) + "\n" +
-                GetLoggingInfo("Temperature", chosenReport.LoggingOfTemperature, tempChart) + "\n" +
-                GetLoggingInfo("Humidity", chosenReport.LoggingOfHumidity, humidityChart);
+                "Created products: " + chosenReport.TotalAmount + "\n" +
+                "Acceptable products: " + chosenReport.AcceptableAmount + "\n" +
+                "Defective products: " + chosenReport.DefectAmount + "\n" +
+                GetTimeInStates(chosenReport.StateDictionary) + "\n"; //+
+                //TODO reimplement
+                //GetLoggingInfo("Temperature", chosenReport.TemperatureDictionary, tempChart) + "\n" +
+                //GetLoggingInfo("Humidity", chosenReport.HumidityDictionary, humidityChart);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
