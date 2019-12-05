@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +42,12 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Opc.UaFx.Client.2.8.1.1\lib\net471\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -46,6 +55,7 @@
       <HintPath>packages\Opc.UaFx.Client.2.8.1.1\lib\net471\Opc.UaFx.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
@@ -66,17 +76,19 @@
   <ItemGroup>
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
+    <Compile Include="DOClasses\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\BatchManager.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchReport.cs" />
-    <Compile Include="BusinessLayer\BatchModule\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
+    <Compile Include="BusinessLayer\BusinessLayerEnums.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
     <Compile Include="DOClasses\LiveRelevantDataDO.cs" />
-    <Compile Include="DOClasses\BatchReportDO.cs" />
     <Compile Include="PersistenceLayer\ConnectionModule\OPCConnectionManager.cs" />
-    <Compile Include="PersistenceLayer\DatabaseModule\DatabaseController.cs" />
-    <Compile Include="PersistenceLayer\DatabaseModule\FileWriter.cs" />
-    <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseController.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DatabaseManager.cs" />
+    <Compile Include="DOClasses\BatchReport.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\DataContext.cs" />
+    <Compile Include="DOClasses\EnvironmentalLog.cs" />
+    <Compile Include="DOClasses\StateLog.cs" />
+    <Compile Include="PersistenceLayer\DatabaseModule\IDatabaseManager.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\IMachineWriteData.cs" />
     <Compile Include="PersistenceLayer\PersistenceFacade.cs" />
@@ -84,6 +96,12 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
     <Compile Include="PresentationLayer\Enums.cs" />
+    <Compile Include="PresentationLayer\StartupConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PresentationLayer\StartupConnection.Designer.cs">
+      <DependentUpon>StartupConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="PresentationLayer\UI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +112,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="PresentationLayer\StartupConnection.resx">
+      <DependentUpon>StartupConnection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PresentationLayer\UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,4 +143,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
 </Project>

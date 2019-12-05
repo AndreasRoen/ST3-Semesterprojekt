@@ -2,30 +2,13 @@
 using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.PersistenceLayer;
 using System.Collections.Generic;
-using BeerProductionSystem.DTOClasses;
 using System.Diagnostics;
 using System;
+using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.BusinessLayer
 {
-    enum Commands
-    {
-        RESET = 1,
-        START,
-        STOP,
-        ABORT,
-        CLEAR
-    }
 
-    enum ProductMaxSpeed  //TODO move out of presentation layer
-    {
-        Pilsner = 600,
-        Wheat = 300,
-        IPA = 150,
-        Stout = 200,
-        Ale = 100,
-        Alcohol_Free = 125
-    }
 
     class LogicFacade : ILogicFacade
     {
@@ -38,6 +21,11 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
+        }
+
+        public bool ConnectToMachine(string machineName)
+        {
+            return persistenceFacade.ConnectToMachine(machineName);
         }
 
         public void SendAbortCommand()
@@ -78,11 +66,11 @@ namespace BeerProductionSystem.BusinessLayer
 
         public LiveRelevantDataDO UpdateData()
         {
-            LiveRelevantDataDO dto = persistenceFacade.GetUpdateData();
-            dto.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
-            dto.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
-            dto.AcceptableProducts = (ushort)(dto.ProducedProducts - dto.DefectProducts);
-            return dto;
+            LiveRelevantDataDO liveRelevantData = persistenceFacade.GetUpdateData();
+            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
+            liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
+            liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            return liveRelevantData;
         }
 
         public void UpdateTimeInState(LiveRelevantDataDO liveRelevantDataDO)
@@ -101,7 +89,7 @@ namespace BeerProductionSystem.BusinessLayer
         }
         public bool SaveBatchReport()
         {
-            return persistenceFacade.CreateBatchReport(batchManager.GetBatchReportDO());
+            return persistenceFacade.SaveBatchReport(batchManager.BatchReport);
 
         }
 

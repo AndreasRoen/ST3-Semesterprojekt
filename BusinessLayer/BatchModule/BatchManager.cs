@@ -1,16 +1,18 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BeerProductionSystem.DTOClasses;
+
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchManager : IBatchManager
     {
         public Batch CurrentBatch { get; set; }
-        private BatchReport batchReport;
+        public BatchReport BatchReport { get; set; }
+        public StateLog StateLog { get; set; }
         private ushort batchID;
 
         public BatchManager()
@@ -44,37 +46,32 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize)
         {
             Batch batch = new Batch(productType, batchID, batchSize, productionSpeed);
-            CreateBatchReport(batchID, productType, batchSize);
+            CreateBatchReport(batchID, productType, productionSpeed, batchSize);
             this.CurrentBatch = batch;
             batchID++;
         }
 
-        public void CreateBatch(ushort type, ushort id, ushort size, float speed)
+        public void CreateBatchReport(ushort batchId, ushort productType, ushort productionSpeed, ushort amountOfProductsTotal)
         {
-            Batch batch = new Batch(type, id, size, speed);
-            this.CurrentBatch = batch;
+            this.BatchReport = new BatchReport
+            {
+                BatchReportID = batchID,
+                MachineSpeed = productionSpeed,
+                ProductType = productType,
+                TotalAmount = amountOfProductsTotal,
+                ProductionStartTime = System.DateTime.Now
+             };
+
         }
 
-        public void CreateBatchReport(ushort batchId, ushort productType, ushort amountOfProductsTotal)
-        {
-            BatchReport batchReport = new BatchReport(batchID, productType, amountOfProductsTotal);
-            this.batchReport = batchReport;
-        }
-
-        public Batch GetBatchDTO()
-        {
-            return this.CurrentBatch;
-        }
-
-        public BatchReportDO GetBatchReportDO()
-        {
-            return this.batchReport.GetBatchReportDTO();
-        }
-
+        
         public void SaveTimeInState(int currentState, TimeSpan timeSpan)
         {
-            batchReport.AddToDictionary(currentState, timeSpan);
-            
+            Dictionary<int, TimeSpan> dict = new Dictionary<int, TimeSpan>();
+            dict.Add(currentState, timeSpan);
+            StateLog.setTimeInStates(dict);
         }
+
+        
     }
 }
