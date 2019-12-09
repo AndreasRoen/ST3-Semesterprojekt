@@ -76,7 +76,8 @@ namespace BeerProductionSystem.PresentationLayer
             if (currentStateLabel.Text.Equals("Execute"))
             {
                 BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
-            } else if (currentStateLabel.Text.Equals("Complete"))
+            }
+            else if (currentStateLabel.Text.Equals("Complete"))
             {
                 BatchProgressBar.Value = 100;
             }
@@ -85,15 +86,22 @@ namespace BeerProductionSystem.PresentationLayer
         private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
         {
             productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
+            SetEstimatedError();
         }
+
+        private void SetEstimatedError()
+        {
+            int productType = (int)productTypeComboBox.SelectedItem;
+            ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
+            eefLabel.Text = logicFacade.GetEstimatedError((ushort)productType, productionSpeed).ToString() + " %";
+        }
+
 
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
             // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
-
 
             productionSpeedTrackBar.Maximum = maxSpeed;
             maxProductionSpeedLabel.Text = maxSpeed.ToString();
@@ -103,7 +111,9 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
+            SetEstimatedError();
         }
+
         // Making sure all forms close when the user closes the main form
         private void UI_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -129,7 +139,7 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 for (int i = 0; i < reports.Count; i++)
                 {
-                    if(batchId < 0)
+                    if (batchId < 0)
                     {
                         break;
                     }
@@ -156,9 +166,9 @@ namespace BeerProductionSystem.PresentationLayer
                 "Acceptable products: " + chosenReport.AcceptableAmount + "\n" +
                 "Defective products: " + chosenReport.DefectAmount + "\n" +
                 GetTimeInStates(chosenReport.StateDictionary) + "\n"; //+
-                //TODO reimplement
-                //GetLoggingInfo("Temperature", chosenReport.TemperatureDictionary, tempChart) + "\n" +
-                //GetLoggingInfo("Humidity", chosenReport.HumidityDictionary, humidityChart);
+                                                                      //TODO reimplement
+                                                                      //GetLoggingInfo("Temperature", chosenReport.TemperatureDictionary, tempChart) + "\n" +
+                                                                      //GetLoggingInfo("Humidity", chosenReport.HumidityDictionary, humidityChart);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
@@ -169,7 +179,7 @@ namespace BeerProductionSystem.PresentationLayer
             foreach (var state in timeInStates)
             {
                 chartStates.Series["States"].Points.AddXY(((MachineState)state.Key).ToString(), state.Value.TotalSeconds);
-                statesTime += "\n  "+ (MachineState)state.Key + ": " + state.Value.TotalSeconds + " seconds";
+                statesTime += "\n  " + (MachineState)state.Key + ": " + state.Value.TotalSeconds + " seconds";
             }
 
             return statesTime;

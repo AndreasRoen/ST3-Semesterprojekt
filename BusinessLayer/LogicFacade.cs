@@ -8,12 +8,11 @@ using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.BusinessLayer
 {
-
-
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
         private IBatchManager batchManager;
+        private Calculations calculator;
         private int currentState;
         private DateTime startTime;
 
@@ -21,6 +20,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
+            calculator = new Calculations();
         }
 
         public bool ConnectToMachine(string machineName)
@@ -45,6 +45,7 @@ namespace BeerProductionSystem.BusinessLayer
 
         public void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize)
         {
+            calculator.CalculateError((ProductType)productType, productionSpeed);
             batchManager.CreateBatch(productType, productionSpeed, batchSize);  //TODO why have a batch object??
             ushort batchId = batchManager.CurrentBatch.BatchID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
@@ -97,6 +98,16 @@ namespace BeerProductionSystem.BusinessLayer
         {
             Enum.TryParse(productName, out ProductMaxSpeed maxSpeed);
             return (int)maxSpeed;
+        }
+
+        public int GetEstimatedError(ushort productType, ushort productionSpeed)
+        {
+            return calculator.CalculateError((ProductType)productType, productionSpeed);
+        }
+
+        public int GetOptimalEquipmentEfficiency()
+        {
+            throw new NotImplementedException();
         }
     }
 }
