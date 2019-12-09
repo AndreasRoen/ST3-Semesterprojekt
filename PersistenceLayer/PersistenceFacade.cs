@@ -88,5 +88,10 @@ namespace BeerProductionSystem.PersistenceLayer
         {
             return databaseManager.GetBatchReports();
         }
+
+        public BatchReport GetSpecificReport(int id)
+        {
+            return databaseManager.LoadBatchReport(id);
+        }
     }
 }

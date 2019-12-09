@@ -98,5 +98,15 @@ namespace BeerProductionSystem.BusinessLayer
             Enum.TryParse(productName, out ProductMaxSpeed maxSpeed);
             return (int)maxSpeed;
         }
+
+        public List<BatchReport> GetAllBatchReports()
+        {
+            return persistenceFacade.GetBatchReports();
+        }
+
+        public BatchReport GetSpecificReport(int id)
+        {
+            return persistenceFacade.GetSpecificReport(id);
+        }
     }
 }

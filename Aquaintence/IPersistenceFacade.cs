@@ -24,5 +24,7 @@ namespace BeerProductionSystem.Aquaintence
         bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
         List<BatchReport> GetBatchReports();
 
+        BatchReport GetSpecificReport(int id);
+
     }
 }

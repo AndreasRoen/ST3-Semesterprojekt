@@ -76,7 +76,8 @@ namespace BeerProductionSystem.PresentationLayer
             if (currentStateLabel.Text.Equals("Execute"))
             {
                 BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
-            } else if (currentStateLabel.Text.Equals("Complete"))
+            }
+            else if (currentStateLabel.Text.Equals("Complete"))
             {
                 BatchProgressBar.Value = 100;
             }
@@ -112,53 +113,40 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void getBatches_Click(object sender, EventArgs e)
         {
+            reports.Clear();
             int batchId = -1;
-            try
-            {
-                if (searchTextBox.Text != null)
-                {
-                    batchId = int.Parse(searchTextBox.Text);
-                }
-            }
-            catch (FormatException ex)
-            {
 
+            if (searchTextBox.Text != null && int.TryParse(searchTextBox.Text, out batchId))
+            {
+                reports.Add(logicFacade.GetSpecificReport(batchId));
+                System.Diagnostics.Debug.WriteLine(reports.Count);
+
+            }
+            else
+            {
+                reports = logicFacade.GetAllBatchReports();
             }
 
             List<string> selectedReports = new List<string>();
+            for (int i = 0; i < reports.Count; i++)
             {
-                for (int i = 0; i < reports.Count; i++)
-                {
-                    if(batchId < 0)
-                    {
-                        break;
-                    }
-                    if (!reports[i].BatchReportID.Equals(batchId))
-                    {
-                        reports.RemoveAt(i);
-                    }
-                }
-                for (int i = 0; i < reports.Count; i++)
-                {
-                    selectedReports.Add("Batchreport ID: " + reports[i].BatchReportID);
-                }
+                selectedReports.Add("Batchreport ID: " + reports[i].BatchReportID);
             }
+
             listBoxBatches.DataSource = selectedReports;
         }
 
         private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int itemIndex = listBoxBatches.SelectedIndex;
-            BatchReport chosenReport = reports[itemIndex];
-            this.chosenReport.Text = "Batch ID: " + chosenReport.BatchReportID + "\n" +
-                "Producttype: " + (ProductType)chosenReport.ProductType + "\n" +
-                "Created products: " + chosenReport.TotalAmount + "\n" +
-                "Acceptable products: " + chosenReport.AcceptableAmount + "\n" +
-                "Defective products: " + chosenReport.DefectAmount + "\n" +
-                GetTimeInStates(chosenReport.StateDictionary) + "\n"; //+
-                //TODO reimplement
-                //GetLoggingInfo("Temperature", chosenReport.TemperatureDictionary, tempChart) + "\n" +
-                //GetLoggingInfo("Humidity", chosenReport.HumidityDictionary, humidityChart);
+            BatchReport chosenBatchReport = reports[itemIndex];
+            this.chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
+                "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
+                "Created products: " + chosenBatchReport.TotalAmount + "\n" +
+                "Acceptable products: " + chosenBatchReport.AcceptableAmount + "\n" +
+                "Defective products: " + chosenBatchReport.DefectAmount + "\n" +
+                GetTimeInStates(chosenBatchReport.StateDictionary) + "\n" +
+                GetAllEnvironmentalInfo(chosenBatchReport.EnvironmentalLogs);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
@@ -169,13 +157,21 @@ namespace BeerProductionSystem.PresentationLayer
             foreach (var state in timeInStates)
             {
                 chartStates.Series["States"].Points.AddXY(((MachineState)state.Key).ToString(), state.Value.TotalSeconds);
-                statesTime += "\n  "+ (MachineState)state.Key + ": " + state.Value.TotalSeconds + " seconds";
+                statesTime += "\n  " + (MachineState)state.Key + ": " + state.Value.TotalSeconds + " seconds";
             }
 
             return statesTime;
         }
 
-        private string GetLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
+        private string GetAllEnvironmentalInfo(ICollection<EnvironmentalLog> envLogs)
+        {
+            List<List<float>> logs = SeperateEnvironmentalLogInfo(envLogs);
+            string humidityInfo = GetSpecificLoggingInfo("Humidity", logs[0], humidityChart);
+            string tempInfo = GetSpecificLoggingInfo("Temperature", logs[1], tempChart);
+            return humidityInfo + "\n" + tempInfo;
+        }
+
+        private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
             chart.Visible = true;
             float min = 100000;
@@ -199,6 +195,27 @@ namespace BeerProductionSystem.PresentationLayer
             float avg = total / loggingList.Count;
             string allInfo = description + ": \n  Minimum: " + min + "\n  Maximum: " + max + "\n  Average : " + avg;
             return allInfo;
+        }
+
+        private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLog> logs)
+        {
+            List<List<float>> envLogs = new List<List<float>>();
+            List<float> humidity = new List<float>();
+            List<float> temp = new List<float>();
+            int i = 0;
+
+            foreach (var log in logs)
+            {
+                if (i % 5 == 0)
+                {
+                    humidity.Add((float)log.Humidity);
+                    temp.Add((float)log.Temperature);
+                }
+                i++;
+            }
+            envLogs.Add(humidity);
+            envLogs.Add(temp);
+            return envLogs;
         }
     }
 }
