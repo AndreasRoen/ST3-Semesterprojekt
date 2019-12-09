@@ -107,7 +107,16 @@ namespace BeerProductionSystem.BusinessLayer
 
         public int GetOptimalEquipmentEfficiency()
         {
-            throw new NotImplementedException();
+            return calculator.CalculateOptimalEquipmentEffectivness();
+        }
+
+        public int GetOptimalProductionSpeed(ushort productType)
+        {
+            ProductType p = (ProductType)productType;
+
+            //Enum2 value2 = (Enum2)Enum.Parse(typeof(Enum2), value.ToString());
+
+            return (int)(OptimalProductionSpeed)Enum.Parse(typeof(OptimalProductionSpeed), p.ToString());
         }
     }
 }

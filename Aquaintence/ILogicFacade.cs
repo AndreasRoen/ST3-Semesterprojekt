@@ -32,5 +32,7 @@ namespace BeerProductionSystem.Aquaintence
         int GetEstimatedError(ushort productType, ushort productionSpeed);
 
         int GetOptimalEquipmentEfficiency();
+
+        int GetOptimalProductionSpeed(ushort productType);
     }
 }

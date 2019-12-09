@@ -58,12 +58,19 @@ namespace BeerProductionSystem.PresentationLayer
             System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.setOptimalSpeedBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.eefLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BatchProgressBar = new System.Windows.Forms.ProgressBar();
+            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
             this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.productionSpeedLabel = new System.Windows.Forms.Label();
@@ -114,12 +121,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.getBatches = new System.Windows.Forms.Button();
             this.listBoxBatches = new System.Windows.Forms.ListBox();
             this.updateData = new System.Windows.Forms.Timer(this.components);
-            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
@@ -152,6 +153,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.setOptimalSpeedBtn);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
@@ -214,6 +216,16 @@ namespace BeerProductionSystem.PresentationLayer
             this.tabPage1.Text = "Visualization";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // setOptimalSpeedBtn
+            // 
+            this.setOptimalSpeedBtn.Location = new System.Drawing.Point(272, 92);
+            this.setOptimalSpeedBtn.Name = "setOptimalSpeedBtn";
+            this.setOptimalSpeedBtn.Size = new System.Drawing.Size(68, 45);
+            this.setOptimalSpeedBtn.TabIndex = 93;
+            this.setOptimalSpeedBtn.Text = "Set optimal speed";
+            this.setOptimalSpeedBtn.UseVisualStyleBackColor = true;
+            this.setOptimalSpeedBtn.Click += new System.EventHandler(this.setOptimalSpeedBtn_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -267,6 +279,60 @@ namespace BeerProductionSystem.PresentationLayer
             this.BatchProgressBar.Name = "BatchProgressBar";
             this.BatchProgressBar.Size = new System.Drawing.Size(188, 42);
             this.BatchProgressBar.TabIndex = 87;
+            // 
+            // verticalProgressBarMaintenance
+            // 
+            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(598, 80);
+            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMaintenance.Maximum = 30000;
+            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
+            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(75, 336);
+            this.verticalProgressBarMaintenance.TabIndex = 86;
+            // 
+            // verticalProgressBarYeast
+            // 
+            this.verticalProgressBarYeast.Location = new System.Drawing.Point(494, 206);
+            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarYeast.Maximum = 35000;
+            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
+            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarYeast.TabIndex = 85;
+            // 
+            // verticalProgressBarWheat
+            // 
+            this.verticalProgressBarWheat.Location = new System.Drawing.Point(415, 206);
+            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarWheat.Maximum = 35000;
+            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
+            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarWheat.TabIndex = 84;
+            // 
+            // verticalProgressBarMalt
+            // 
+            this.verticalProgressBarMalt.Location = new System.Drawing.Point(334, 206);
+            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMalt.Maximum = 35000;
+            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
+            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarMalt.TabIndex = 83;
+            // 
+            // verticalProgressBarHops
+            // 
+            this.verticalProgressBarHops.Location = new System.Drawing.Point(254, 206);
+            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarHops.Maximum = 35000;
+            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
+            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarHops.TabIndex = 82;
+            // 
+            // verticalProgressBarBarley
+            // 
+            this.verticalProgressBarBarley.Location = new System.Drawing.Point(175, 206);
+            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarBarley.Maximum = 35000;
+            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
+            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarBarley.TabIndex = 81;
             // 
             // maxProductionSpeedLabel
             // 
@@ -851,60 +917,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.updateData.Interval = 400;
             this.updateData.Tick += new System.EventHandler(this.UpdateLiveRelevantData);
             // 
-            // verticalProgressBarMaintenance
-            // 
-            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(598, 80);
-            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMaintenance.Maximum = 30000;
-            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
-            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(75, 336);
-            this.verticalProgressBarMaintenance.TabIndex = 86;
-            // 
-            // verticalProgressBarYeast
-            // 
-            this.verticalProgressBarYeast.Location = new System.Drawing.Point(494, 206);
-            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarYeast.Maximum = 35000;
-            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
-            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarYeast.TabIndex = 85;
-            // 
-            // verticalProgressBarWheat
-            // 
-            this.verticalProgressBarWheat.Location = new System.Drawing.Point(415, 206);
-            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarWheat.Maximum = 35000;
-            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
-            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarWheat.TabIndex = 84;
-            // 
-            // verticalProgressBarMalt
-            // 
-            this.verticalProgressBarMalt.Location = new System.Drawing.Point(334, 206);
-            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMalt.Maximum = 35000;
-            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
-            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarMalt.TabIndex = 83;
-            // 
-            // verticalProgressBarHops
-            // 
-            this.verticalProgressBarHops.Location = new System.Drawing.Point(254, 206);
-            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarHops.Maximum = 35000;
-            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
-            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarHops.TabIndex = 82;
-            // 
-            // verticalProgressBarBarley
-            // 
-            this.verticalProgressBarBarley.Location = new System.Drawing.Point(175, 206);
-            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarBarley.Maximum = 35000;
-            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
-            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarBarley.TabIndex = 81;
-            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1058,5 +1070,6 @@ namespace BeerProductionSystem.PresentationLayer
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label eefLabel;
+        private System.Windows.Forms.Button setOptimalSpeedBtn;
     }
 }

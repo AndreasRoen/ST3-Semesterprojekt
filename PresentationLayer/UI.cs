@@ -89,6 +89,13 @@ namespace BeerProductionSystem.PresentationLayer
             SetEstimatedError();
         }
 
+        private void setOptimalSpeedBtn_Click(object sender, EventArgs e)
+        {
+            int productType = (int)productTypeComboBox.SelectedItem;
+            productionSpeedTrackBar.Value = logicFacade.GetOptimalProductionSpeed((ushort)productType);
+            productionSpeedTrackBar_ValueChanged(sender, e);
+        }
+
         private void SetEstimatedError()
         {
             int productType = (int)productTypeComboBox.SelectedItem;

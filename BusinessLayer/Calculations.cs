@@ -47,5 +47,10 @@ namespace BeerProductionSystem.BusinessLayer
                 return error;
             }
         }
+
+        public int CalculateOptimalEquipmentEffectivness()
+        {
+            return 100;
+        }
     }
 }
