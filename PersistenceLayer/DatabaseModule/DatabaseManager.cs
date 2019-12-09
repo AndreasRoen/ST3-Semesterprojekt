@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
     class DatabaseManager : IDatabaseManager {
@@ -87,11 +88,14 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             List<BatchReport> batchList = new List<BatchReport>();
             using (DataContext context = new DataContext())
             {
-                List<BatchReport> batches = context.BatchReports.ToList();
+                List<BatchReport> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
                 foreach (BatchReport br in batches)
                 {
-                    br.EnvironmentalLogs = (ICollection<EnvironmentalLog>)context.EnvironmentalLogs.Find(br.BatchReportID);
+                    br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id",new SqlParameter("@id", br.BatchReportID))).ToList();
                     br.StateLogs = (ICollection<StateLog>)context.StateLogs.Find(br.BatchReportID);
+                    //TODO implement
+                    br.StateDictionary = (context.StateLogs.SqlQuery("SELECT * FROM dbo.StateLog WHERE BatchReportID = @id", new SqlParameter("@id", br.BatchReportID))).ToDictionary();
+                    batchList.Add(br);
                 }
             }
             
