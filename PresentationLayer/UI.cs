@@ -115,12 +115,18 @@ namespace BeerProductionSystem.PresentationLayer
         {
             reports.Clear();
             int batchId = -1;
+            BatchReport specificReport = null;
 
             if (searchTextBox.Text != null && int.TryParse(searchTextBox.Text, out batchId))
             {
-                reports.Add(logicFacade.GetSpecificReport(batchId));
-                System.Diagnostics.Debug.WriteLine(reports.Count);
+                specificReport = logicFacade.GetSpecificReport(batchId);
+                //System.Diagnostics.Debug.WriteLine(reports.Count);
 
+            }
+
+            if (specificReport != null)
+            {
+                reports.Add(specificReport);
             }
             else
             {
