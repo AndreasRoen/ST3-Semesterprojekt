@@ -94,6 +94,27 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                     br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id",new SqlParameter("@id", br.BatchReportID))).ToList();
                     br.StateLogs = (ICollection<StateLog>)context.StateLogs.Find(br.BatchReportID);
                     //TODO implement
+                    foreach(StateLog sl in br.StateLogs)
+                    {
+                        br.StateDictionary.Add((int)sl.AbortedState, new TimeSpan((long)(sl.AbortedState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.AbortingState, new TimeSpan((long)(sl.AbortingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.ActivatingState, new TimeSpan((long)(sl.ActivatingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.ClearingState, new TimeSpan((long)(sl.ClearingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.CompleteState, new TimeSpan((long)(sl.CompleteState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.CompletingState, new TimeSpan((long)(sl.CompletingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.DeactivatedState, new TimeSpan((long)(sl.DeactivatedState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.DeactivatingState, new TimeSpan((long)(sl.DeactivatingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.ExecuteState, new TimeSpan((long)(sl.ExecuteState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.HeldState, new TimeSpan((long)(sl.HeldState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.HoldingState, new TimeSpan((long)(sl.HoldingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.IdleState, new TimeSpan((long)(sl.IdleState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.ResettingState, new TimeSpan((long)(sl.ResettingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.StartingState, new TimeSpan((long)(sl.StartingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.StoppedState, new TimeSpan((long)(sl.StoppedState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.StoppingState, new TimeSpan((long)(sl.StoppingState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.SuspendedState, new TimeSpan((long)(sl.SuspendedState.Value) * 10000));
+                    }
+
                     br.StateDictionary = (context.StateLogs.SqlQuery("SELECT * FROM dbo.StateLog WHERE BatchReportID = @id", new SqlParameter("@id", br.BatchReportID))).ToDictionary();
                     batchList.Add(br);
                 }
