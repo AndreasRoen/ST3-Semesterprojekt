@@ -186,11 +186,11 @@ namespace BeerProductionSystem.PresentationLayer
             float min = 100000;
             float max = 0;
             float total = 0;
-            int sec = 0;
+            double sec = 0;
             foreach (var info in loggingList)
             {
                 chart.Series[description].Points.AddXY(sec, info);
-                sec++;
+                sec += 0.400;
                 if (info > max)
                 {
                     max = info;
