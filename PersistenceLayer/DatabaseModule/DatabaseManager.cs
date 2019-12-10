@@ -93,7 +93,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 {
                     br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id",new SqlParameter("@id", br.BatchReportID))).ToList();
                     br.StateLogs = (ICollection<StateLog>)context.StateLogs.Find(br.BatchReportID);
-                    //TODO implement
                     foreach(StateLog sl in br.StateLogs)
                     {
                         br.StateDictionary.Add((int)sl.AbortedState, new TimeSpan((long)(sl.AbortedState.Value) * 10000));
