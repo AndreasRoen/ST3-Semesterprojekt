@@ -183,26 +183,14 @@ namespace BeerProductionSystem.PresentationLayer
         private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
             chart.Visible = true;
-            float min = 100000;
-            float max = 0;
-            float total = 0;
             double sec = 0;
             foreach (var info in loggingList)
             {
                 chart.Series[description].Points.AddXY(sec, info);
                 sec += 0.400;
-                if (info > max)
-                {
-                    max = info;
-                }
-                if (info < min)
-                {
-                    min = info;
-                }
-                total += info;
             }
-            float avg = total / loggingList.Count;
-            string allInfo = description + ": \n  Minimum: " + min + "\n  Maximum: " + max + "\n  Average : " + avg;
+            string allInfo = description + ": \n  Minimum: " + loggingList.Min() + "\n  Maximum: "
+                + loggingList.Max() + "\n  Average : " + loggingList.Average();
             return allInfo;
         }
 
