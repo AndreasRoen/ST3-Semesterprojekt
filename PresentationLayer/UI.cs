@@ -149,7 +149,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             int itemIndex = listBoxBatches.SelectedIndex;
             BatchReport chosenBatchReport = reports[itemIndex];
-            this.chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
+            chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
                 "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
                 "Created products: " + chosenBatchReport.TotalAmount + "\n" +
                 "Acceptable products: " + chosenBatchReport.AcceptableAmount + "\n" +

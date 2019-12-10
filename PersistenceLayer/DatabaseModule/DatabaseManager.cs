@@ -86,8 +86,8 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
         public List<BatchReport> GetBatchReports()
         {
             List<BatchReport> batchList = new List<BatchReport>();
-            using (DataContext context = new DataContext())
-            {
+            DataContext context = new DataContext();
+            
                 List<BatchReport> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
                 foreach (BatchReport br in batches)
                 {
@@ -117,7 +117,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
 
                     batchList.Add(br);
                 }
-            }
+            
             
             return batchList;
         }
