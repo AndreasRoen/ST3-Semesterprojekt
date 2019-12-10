@@ -112,6 +112,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                         br.StateDictionary.Add((int)sl.StoppedState, new TimeSpan((long)(sl.StoppedState.Value) * 10000));
                         br.StateDictionary.Add((int)sl.StoppingState, new TimeSpan((long)(sl.StoppingState.Value) * 10000));
                         br.StateDictionary.Add((int)sl.SuspendedState, new TimeSpan((long)(sl.SuspendedState.Value) * 10000));
+                        br.StateDictionary.Add((int)sl.BatchReportID, new TimeSpan((long)(sl.BatchReportID) * 10000));
                     }
 
                     batchList.Add(br);

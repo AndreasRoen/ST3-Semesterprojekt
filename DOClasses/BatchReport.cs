@@ -15,6 +15,7 @@ namespace BeerProductionSystem.DOClasses
         {
             EnvironmentalLogs = new HashSet<EnvironmentalLog>();
             StateLogs = new HashSet<StateLog>();
+            StateDictionary = new Dictionary<int, TimeSpan>();
         }
         
         [Key]
