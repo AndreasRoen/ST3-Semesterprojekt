@@ -185,6 +185,10 @@ namespace BeerProductionSystem.PresentationLayer
             {
 
             }
+            catch (InvalidOperationException io)
+            {
+
+            }
             return "No environment information.";
         }
 
