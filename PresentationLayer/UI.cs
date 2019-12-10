@@ -190,37 +190,38 @@ namespace BeerProductionSystem.PresentationLayer
 
         private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
         {
-                chart.Visible = true;
-                double sec = 0;
-                foreach (var info in loggingList)
-                {
-                    chart.Series[description].Points.AddXY(sec, info);
-                    sec += 0.400;
-                }
-                string allInfo = description + ": \n  Minimum: " + loggingList.Min() + "\n  Maximum: "
-                    + loggingList.Max() + "\n  Average : " + loggingList.Average();
-                return allInfo;
+            chart.Visible = true;
+            chart.Series[description].Points.Clear();
+            double sec = 0;
+            foreach (var info in loggingList)
+            {
+                chart.Series[description].Points.AddXY(sec, info);
+                sec += 0.400;
+            }
+            string allInfo = description + ": \n  Minimum: " + loggingList.Min() + "\n  Maximum: "
+                + loggingList.Max() + "\n  Average : " + loggingList.Average();
+            return allInfo;
         }
 
         private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLog> logs)
         {
-                List<List<float>> envLogs = new List<List<float>>();
-                List<float> humidity = new List<float>();
-                List<float> temp = new List<float>();
-                int i = 0;
+            List<List<float>> envLogs = new List<List<float>>();
+            List<float> humidity = new List<float>();
+            List<float> temp = new List<float>();
+            int i = 0;
 
-                foreach (var log in logs)
+            foreach (var log in logs)
+            {
+                if (i % 5 == 0)
                 {
-                    if (i % 5 == 0)
-                    {
-                        humidity.Add((float)log.Humidity);
-                        temp.Add((float)log.Temperature);
-                    }
-                    i++;
+                    humidity.Add((float)log.Humidity);
+                    temp.Add((float)log.Temperature);
                 }
-                envLogs.Add(humidity);
-                envLogs.Add(temp);
-                return envLogs;
+                i++;
+            }
+            envLogs.Add(humidity);
+            envLogs.Add(temp);
+            return envLogs;
         }
     }
 }
