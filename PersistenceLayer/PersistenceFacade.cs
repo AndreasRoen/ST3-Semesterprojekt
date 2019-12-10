@@ -23,6 +23,7 @@ namespace BeerProductionSystem.PersistenceLayer
         private OPCConnectionManager opcConnection;
         private OpcClient accessPoint;
         private IDatabaseManager databaseManager;
+        private string currentMachineName;
 
 
         public PersistenceFacade()
@@ -35,7 +36,12 @@ namespace BeerProductionSystem.PersistenceLayer
 
         public bool ConnectToMachine(string machineName)
         {
+            if (machineName == "")
+            {
+                machineName = currentMachineName;
+            }
             bool isSuccess = opcConnection.ConnectToServer(machineName);
+            currentMachineName = machineName;
             accessPoint = opcConnection.AccessPoint;
             return isSuccess;
         }
@@ -47,6 +53,11 @@ namespace BeerProductionSystem.PersistenceLayer
 
         public LiveRelevantDataDO GetUpdateData()
         {
+            if (!opcConnection.CheckConnection())
+            {
+                opcConnection.ConnectToServer(currentMachineName);
+            }
+
             LiveRelevantDataDO liveRelevantData = new LiveRelevantDataDO(
                 machineReadData.ReadTemperature(accessPoint),
                 machineReadData.ReadHumidity(accessPoint),
@@ -87,6 +98,11 @@ namespace BeerProductionSystem.PersistenceLayer
         public List<BatchReport> GetBatchReports()
         {
             return databaseManager.GetBatchReports();
+        }
+
+        public bool CheckMachineConnection()
+        {
+            return opcConnection.CheckConnection();
         }
     }
 }

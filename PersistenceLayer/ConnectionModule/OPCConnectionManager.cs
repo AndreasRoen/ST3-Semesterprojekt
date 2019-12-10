@@ -18,18 +18,10 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
         public OPCConnectionManager() { }
 
         // server state was either connected or created, but "created" didn't sound like it wasn't connected
-        public void CheckConnection()
+        public bool CheckConnection()
         {
             var state = AccessPoint.State;
-            string stat = state.ToString();
-            if (stat == "Connected")
-            {
-                MessageBox.Show("Connection is Active"); //husk at fjerne
-            }
-            else
-            {
-                MessageBox.Show("Not Connected"); // husk at fjerne
-            }
+            return state == OpcClientState.Connected;
         }
 
         public bool ConnectToServer(string machineName)
@@ -42,7 +34,7 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
                 AccessPoint.Connect();
                 return true;    //Connected
             }
-            catch (OpcException ex)
+            catch (OpcException)
             {
                 return false;   //Not Connected
             }
@@ -58,7 +50,6 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
         {
             AccessPoint.Disconnect();
             AccessPoint.Dispose();
-            MessageBox.Show("Disconnected"); // husk at fjerne
         }
     }
 }

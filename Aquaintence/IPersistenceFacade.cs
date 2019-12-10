@@ -14,6 +14,8 @@ namespace BeerProductionSystem.Aquaintence
     {
         bool ConnectToMachine(string machineName);
 
+        bool CheckMachineConnection();
+
         LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);

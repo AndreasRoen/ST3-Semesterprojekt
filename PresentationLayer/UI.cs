@@ -53,33 +53,50 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void UpdateLiveRelevantData(object sender, EventArgs e)
         {
-            LiveRelevantDataDO data = logicFacade.UpdateData();
-
-            temperatureLabel.Text = data.Temperature.ToString();
-            humidityLabel.Text = data.Humidity.ToString();
-            vibrationLabel.Text = data.Vibration.ToString();
-            batchIDLabel.Text = data.BatchID.ToString();
-            productsPerMinuteLabel.Text = data.ActualMachineSpeed.ToString();
-            batchSizeLabel.Text = data.BatchSize.ToString();
-            producedLabel.Text = data.ProducedProducts.ToString();
-            defectLabel.Text = data.DefectProducts.ToString();
-            acceptableLabel.Text = data.AcceptableProducts.ToString();
-            var state = (MachineState)data.CurrentState;
-            currentStateLabel.Text = state.ToString();
-            verticalProgressBarBarley.Value = (int)data.Barley;
-            verticalProgressBarHops.Value = (int)data.Hops;
-            verticalProgressBarMalt.Value = (int)data.Malt;
-            verticalProgressBarWheat.Value = (int)data.Wheat;
-            verticalProgressBarYeast.Value = (int)data.Yeast;
-            verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
-
-            if (currentStateLabel.Text.Equals("Execute"))
+            try
             {
-                BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+                LiveRelevantDataDO data = logicFacade.UpdateData();
+
+                temperatureLabel.Text = data.Temperature.ToString();
+                humidityLabel.Text = data.Humidity.ToString();
+                vibrationLabel.Text = data.Vibration.ToString();
+                batchIDLabel.Text = data.BatchID.ToString();
+                productsPerMinuteLabel.Text = data.ActualMachineSpeed.ToString();
+                batchSizeLabel.Text = data.BatchSize.ToString();
+                producedLabel.Text = data.ProducedProducts.ToString();
+                defectLabel.Text = data.DefectProducts.ToString();
+                acceptableLabel.Text = data.AcceptableProducts.ToString();
+                var state = (MachineState)data.CurrentState;
+                currentStateLabel.Text = state.ToString();
+                verticalProgressBarBarley.Value = (int)data.Barley;
+                verticalProgressBarHops.Value = (int)data.Hops;
+                verticalProgressBarMalt.Value = (int)data.Malt;
+                verticalProgressBarWheat.Value = (int)data.Wheat;
+                verticalProgressBarYeast.Value = (int)data.Yeast;
+                verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
+
+                if (currentStateLabel.Text.Equals("Execute"))
+                {
+                    BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+                }
+                else if (currentStateLabel.Text.Equals("Complete"))
+                {
+                    BatchProgressBar.Value = 100;
+                }
             }
-            else if (currentStateLabel.Text.Equals("Complete"))
+            catch (Exception)
             {
-                BatchProgressBar.Value = 100;
+                if (!logicFacade.CheckMachineConnection())
+                {
+                    disconnectedLabel.Visible = true;
+                    tab1.Enabled = false;
+
+                    if (logicFacade.ConnectToMachine(""))
+                    {
+                        disconnectedLabel.Visible = false;
+                        tab1.Enabled = true;
+                    }
+                }
             }
         }
 

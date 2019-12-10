@@ -115,5 +115,10 @@ namespace BeerProductionSystem.BusinessLayer
             ProductType p = (ProductType)productType;
             return (int)(OptimalProductionSpeed)Enum.Parse(typeof(OptimalProductionSpeed), p.ToString());
         }
+
+        public bool CheckMachineConnection()
+        {
+            return persistenceFacade.CheckMachineConnection();
+        }
     }
 }

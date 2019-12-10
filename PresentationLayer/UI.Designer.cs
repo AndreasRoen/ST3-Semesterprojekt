@@ -44,27 +44,31 @@ namespace BeerProductionSystem.PresentationLayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title10 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.setOptimalSpeedBtn = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.eefLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BatchProgressBar = new System.Windows.Forms.ProgressBar();
+            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
             this.maxProductionSpeedLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.productionSpeedLabel = new System.Windows.Forms.Label();
@@ -111,15 +115,12 @@ namespace BeerProductionSystem.PresentationLayer
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.getBatches = new System.Windows.Forms.Button();
             this.listBoxBatches = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.updateData = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.currentStateLabel = new System.Windows.Forms.Label();
-            this.verticalProgressBarMaintenance = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarYeast = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarWheat = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarMalt = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarHops = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
-            this.verticalProgressBarBarley = new BeerProductionSystem.PresentationLayer.VerticalProgressBar();
+            this.disconnectedLabel = new System.Windows.Forms.Label();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productionSpeedTrackBar)).BeginInit();
@@ -152,6 +153,7 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.disconnectedLabel);
             this.tabPage1.Controls.Add(this.setOptimalSpeedBtn);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.eefLabel);
@@ -220,24 +222,6 @@ namespace BeerProductionSystem.PresentationLayer
             this.setOptimalSpeedBtn.UseVisualStyleBackColor = true;
             this.setOptimalSpeedBtn.Click += new System.EventHandler(this.setOptimalSpeedBtn_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(690, 447);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
-            this.label6.TabIndex = 92;
-            this.label6.Text = "oeeLabel";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(654, 447);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 13);
-            this.label5.TabIndex = 91;
-            this.label5.Text = "OEE";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -273,6 +257,60 @@ namespace BeerProductionSystem.PresentationLayer
             this.BatchProgressBar.Name = "BatchProgressBar";
             this.BatchProgressBar.Size = new System.Drawing.Size(410, 27);
             this.BatchProgressBar.TabIndex = 87;
+            // 
+            // verticalProgressBarMaintenance
+            // 
+            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(654, 43);
+            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMaintenance.Maximum = 30000;
+            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
+            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(66, 360);
+            this.verticalProgressBarMaintenance.TabIndex = 86;
+            // 
+            // verticalProgressBarYeast
+            // 
+            this.verticalProgressBarYeast.Location = new System.Drawing.Point(547, 90);
+            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarYeast.Maximum = 35000;
+            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
+            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarYeast.TabIndex = 85;
+            // 
+            // verticalProgressBarWheat
+            // 
+            this.verticalProgressBarWheat.Location = new System.Drawing.Point(468, 90);
+            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarWheat.Maximum = 35000;
+            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
+            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarWheat.TabIndex = 84;
+            // 
+            // verticalProgressBarMalt
+            // 
+            this.verticalProgressBarMalt.Location = new System.Drawing.Point(387, 90);
+            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarMalt.Maximum = 35000;
+            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
+            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarMalt.TabIndex = 83;
+            // 
+            // verticalProgressBarHops
+            // 
+            this.verticalProgressBarHops.Location = new System.Drawing.Point(307, 90);
+            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarHops.Maximum = 35000;
+            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
+            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarHops.TabIndex = 82;
+            // 
+            // verticalProgressBarBarley
+            // 
+            this.verticalProgressBarBarley.Location = new System.Drawing.Point(228, 90);
+            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
+            this.verticalProgressBarBarley.Maximum = 35000;
+            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
+            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
+            this.verticalProgressBarBarley.TabIndex = 81;
             // 
             // maxProductionSpeedLabel
             // 
@@ -718,69 +756,69 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // humidityChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.humidityChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.humidityChart.Legends.Add(legend1);
+            chartArea10.Name = "ChartArea1";
+            this.humidityChart.ChartAreas.Add(chartArea10);
+            legend10.Name = "Legend1";
+            this.humidityChart.Legends.Add(legend10);
             this.humidityChart.Location = new System.Drawing.Point(419, 290);
             this.humidityChart.Margin = new System.Windows.Forms.Padding(2);
             this.humidityChart.Name = "humidityChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Humidity";
-            this.humidityChart.Series.Add(series1);
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Legend = "Legend1";
+            series10.Name = "Humidity";
+            this.humidityChart.Series.Add(series10);
             this.humidityChart.Size = new System.Drawing.Size(259, 130);
             this.humidityChart.TabIndex = 6;
             this.humidityChart.Text = "humidityChart";
-            title1.Name = "Title1";
-            title1.Text = "Humidity";
-            this.humidityChart.Titles.Add(title1);
+            title10.Name = "Title1";
+            title10.Text = "Humidity";
+            this.humidityChart.Titles.Add(title10);
             this.humidityChart.Visible = false;
             // 
             // tempChart
             // 
             this.tempChart.AccessibleName = "";
-            chartArea2.Name = "ChartArea1";
-            this.tempChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.tempChart.Legends.Add(legend2);
+            chartArea11.Name = "ChartArea1";
+            this.tempChart.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.tempChart.Legends.Add(legend11);
             this.tempChart.Location = new System.Drawing.Point(419, 155);
             this.tempChart.Margin = new System.Windows.Forms.Padding(2);
             this.tempChart.Name = "tempChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Temperature";
-            this.tempChart.Series.Add(series2);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Legend = "Legend1";
+            series11.Name = "Temperature";
+            this.tempChart.Series.Add(series11);
             this.tempChart.Size = new System.Drawing.Size(259, 130);
             this.tempChart.TabIndex = 5;
             this.tempChart.Text = "tempChart";
-            title2.Name = "Title1";
-            title2.Text = "Temperature chart";
-            this.tempChart.Titles.Add(title2);
+            title11.Name = "Title1";
+            title11.Text = "Temperature chart";
+            this.tempChart.Titles.Add(title11);
             this.tempChart.Visible = false;
             // 
             // chartStates
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartStates.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartStates.Legends.Add(legend3);
+            chartArea12.Name = "ChartArea1";
+            this.chartStates.ChartAreas.Add(chartArea12);
+            legend12.Name = "Legend1";
+            this.chartStates.Legends.Add(legend12);
             this.chartStates.Location = new System.Drawing.Point(419, 20);
             this.chartStates.Margin = new System.Windows.Forms.Padding(2);
             this.chartStates.Name = "chartStates";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "States";
-            this.chartStates.Series.Add(series3);
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series12.Legend = "Legend1";
+            series12.Name = "States";
+            this.chartStates.Series.Add(series12);
             this.chartStates.Size = new System.Drawing.Size(259, 130);
             this.chartStates.TabIndex = 4;
             this.chartStates.Text = "chart1";
-            title3.Name = "Title1";
-            title3.Text = "Amount of time States";
-            this.chartStates.Titles.Add(title3);
+            title12.Name = "Title1";
+            title12.Text = "Amount of time States";
+            this.chartStates.Titles.Add(title12);
             this.chartStates.Visible = false;
             // 
             // chosenReport
@@ -821,6 +859,24 @@ namespace BeerProductionSystem.PresentationLayer
             this.listBoxBatches.TabIndex = 0;
             this.listBoxBatches.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ShowBatchReport_MouseDoubleClick);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(690, 447);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 92;
+            this.label6.Text = "oeeLabel";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(654, 447);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 13);
+            this.label5.TabIndex = 91;
+            this.label5.Text = "OEE";
+            // 
             // updateData
             // 
             this.updateData.Enabled = true;
@@ -848,59 +904,18 @@ namespace BeerProductionSystem.PresentationLayer
             this.currentStateLabel.TabIndex = 76;
             this.currentStateLabel.Text = "label30";
             // 
-            // verticalProgressBarMaintenance
+            // disconnectedLabel
             // 
-            this.verticalProgressBarMaintenance.Location = new System.Drawing.Point(654, 43);
-            this.verticalProgressBarMaintenance.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMaintenance.Maximum = 30000;
-            this.verticalProgressBarMaintenance.Name = "verticalProgressBarMaintenance";
-            this.verticalProgressBarMaintenance.Size = new System.Drawing.Size(66, 360);
-            this.verticalProgressBarMaintenance.TabIndex = 86;
-            // 
-            // verticalProgressBarYeast
-            // 
-            this.verticalProgressBarYeast.Location = new System.Drawing.Point(547, 90);
-            this.verticalProgressBarYeast.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarYeast.Maximum = 35000;
-            this.verticalProgressBarYeast.Name = "verticalProgressBarYeast";
-            this.verticalProgressBarYeast.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarYeast.TabIndex = 85;
-            // 
-            // verticalProgressBarWheat
-            // 
-            this.verticalProgressBarWheat.Location = new System.Drawing.Point(468, 90);
-            this.verticalProgressBarWheat.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarWheat.Maximum = 35000;
-            this.verticalProgressBarWheat.Name = "verticalProgressBarWheat";
-            this.verticalProgressBarWheat.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarWheat.TabIndex = 84;
-            // 
-            // verticalProgressBarMalt
-            // 
-            this.verticalProgressBarMalt.Location = new System.Drawing.Point(387, 90);
-            this.verticalProgressBarMalt.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarMalt.Maximum = 35000;
-            this.verticalProgressBarMalt.Name = "verticalProgressBarMalt";
-            this.verticalProgressBarMalt.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarMalt.TabIndex = 83;
-            // 
-            // verticalProgressBarHops
-            // 
-            this.verticalProgressBarHops.Location = new System.Drawing.Point(307, 90);
-            this.verticalProgressBarHops.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarHops.Maximum = 35000;
-            this.verticalProgressBarHops.Name = "verticalProgressBarHops";
-            this.verticalProgressBarHops.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarHops.TabIndex = 82;
-            // 
-            // verticalProgressBarBarley
-            // 
-            this.verticalProgressBarBarley.Location = new System.Drawing.Point(228, 90);
-            this.verticalProgressBarBarley.Margin = new System.Windows.Forms.Padding(2);
-            this.verticalProgressBarBarley.Maximum = 35000;
-            this.verticalProgressBarBarley.Name = "verticalProgressBarBarley";
-            this.verticalProgressBarBarley.Size = new System.Drawing.Size(75, 61);
-            this.verticalProgressBarBarley.TabIndex = 81;
+            this.disconnectedLabel.AutoSize = true;
+            this.disconnectedLabel.BackColor = System.Drawing.Color.Yellow;
+            this.disconnectedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.disconnectedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            this.disconnectedLabel.Location = new System.Drawing.Point(115, 106);
+            this.disconnectedLabel.Name = "disconnectedLabel";
+            this.disconnectedLabel.Size = new System.Drawing.Size(534, 31);
+            this.disconnectedLabel.TabIndex = 94;
+            this.disconnectedLabel.Text = "Disconnected... Wait until this text disappears.";
+            this.disconnectedLabel.Visible = false;
             // 
             // UI
             // 
@@ -1057,5 +1072,6 @@ namespace BeerProductionSystem.PresentationLayer
         private System.Windows.Forms.Button setOptimalSpeedBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label currentStateLabel;
+        private System.Windows.Forms.Label disconnectedLabel;
     }
 }
