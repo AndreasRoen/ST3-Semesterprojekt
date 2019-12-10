@@ -114,7 +114,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                         br.StateDictionary.Add((int)sl.SuspendedState, new TimeSpan((long)(sl.SuspendedState.Value) * 10000));
                     }
 
-                    br.StateDictionary = (context.StateLogs.SqlQuery("SELECT * FROM dbo.StateLog WHERE BatchReportID = @id", new SqlParameter("@id", br.BatchReportID))).ToDictionary();
                     batchList.Add(br);
                 }
             }
