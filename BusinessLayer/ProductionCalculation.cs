@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace BeerProductionSystem.BusinessLayer
 {
-    class Calculations
+    class ProductionCalculation
     {
-
         public int CalculateError(ProductType productType, ushort machineSpeed)
         {
             int error = 0;

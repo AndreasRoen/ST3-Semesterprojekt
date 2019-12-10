@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
-    <Compile Include="BusinessLayer\Calculations.cs" />
+    <Compile Include="BusinessLayer\ProductionCalculation.cs" />
     <Compile Include="DOClasses\Batch.cs" />
     <Compile Include="BusinessLayer\BatchModule\BatchManager.cs" />
     <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />

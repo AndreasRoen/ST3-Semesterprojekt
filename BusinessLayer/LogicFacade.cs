@@ -12,7 +12,7 @@ namespace BeerProductionSystem.BusinessLayer
     {
         private IPersistenceFacade persistenceFacade;
         private IBatchManager batchManager;
-        private Calculations calculator;
+        private ProductionCalculation calculator;
         private int currentState;
         private DateTime startTime;
 
@@ -20,7 +20,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
-            calculator = new Calculations();
+            calculator = new ProductionCalculation();
         }
 
         public bool ConnectToMachine(string machineName)
@@ -113,9 +113,6 @@ namespace BeerProductionSystem.BusinessLayer
         public int GetOptimalProductionSpeed(ushort productType)
         {
             ProductType p = (ProductType)productType;
-
-            //Enum2 value2 = (Enum2)Enum.Parse(typeof(Enum2), value.ToString());
-
             return (int)(OptimalProductionSpeed)Enum.Parse(typeof(OptimalProductionSpeed), p.ToString());
         }
     }

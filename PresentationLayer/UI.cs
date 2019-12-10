@@ -103,7 +103,6 @@ namespace BeerProductionSystem.PresentationLayer
             eefLabel.Text = logicFacade.GetEstimatedError((ushort)productType, productionSpeed).ToString() + " %";
         }
 
-
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
@@ -137,7 +136,7 @@ namespace BeerProductionSystem.PresentationLayer
                     batchId = int.Parse(searchTextBox.Text);
                 }
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
 
             }
