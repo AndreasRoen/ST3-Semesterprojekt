@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using BeerProductionSystem.DOClasses;
+using System.Threading.Tasks;
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -80,7 +81,11 @@ namespace BeerProductionSystem.BusinessLayer
             if (productionRunning)
             {
                 UpdateTimeInState(currentState, previousState);
-                persistenceFacade.UpdateBatchReport(liveRelevantData);
+                Task task = Task.Run(() =>
+                {
+                    persistenceFacade.UpdateBatchReport(liveRelevantData);
+                });
+                
             }
             return liveRelevantData;
         }
@@ -103,8 +108,13 @@ namespace BeerProductionSystem.BusinessLayer
 
         public bool SaveBatchReport()
         {
-            return persistenceFacade.SaveBatchReport(batchManager.BatchReport);
+            bool success = false;
+            Task task = Task.Run(() =>
+            {
+                success = persistenceFacade.SaveBatchReport(batchManager.BatchReport);
+            });
 
+            return success;
         }
 
         public int GetProductMaxSpeed(string productName)
