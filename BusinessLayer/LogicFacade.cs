@@ -80,6 +80,7 @@ namespace BeerProductionSystem.BusinessLayer
             if (productionRunning)
             {
                 UpdateTimeInState(currentState, previousState);
+                persistenceFacade.UpdateBatchReport(liveRelevantData);
             }
             return liveRelevantData;
         }
