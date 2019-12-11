@@ -44,7 +44,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade.SendCommand((int)Commands.RESET);
             productionRunning = false;
-            SaveBatchReport();
+            
         }
 
         public void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize)
@@ -57,6 +57,7 @@ namespace BeerProductionSystem.BusinessLayer
             previousState = currentState;
             startTime = DateTime.Now;
             productionRunning = true;
+            persistenceFacade.SaveBatchReport(batchManager.BatchReport);
         }
 
         public void SendStopCommand()
