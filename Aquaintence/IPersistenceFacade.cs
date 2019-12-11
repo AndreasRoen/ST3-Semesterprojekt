@@ -14,6 +14,8 @@ namespace BeerProductionSystem.Aquaintence
     {
         bool ConnectToMachine(string machineName);
 
+        bool CheckMachineConnection();
+
         LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);
@@ -23,6 +25,8 @@ namespace BeerProductionSystem.Aquaintence
         bool SaveBatchReport(BatchReport batchReport);
         bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
         List<BatchReport> GetBatchReports();
+
+        BatchReport GetSpecificReport(int id);
 
     }
 }

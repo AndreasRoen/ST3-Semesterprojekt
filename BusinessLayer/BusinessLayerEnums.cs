@@ -15,7 +15,7 @@ namespace BeerProductionSystem.BusinessLayer
         CLEAR
     }
 
-    enum ProductMaxSpeed  
+    enum ProductMaxSpeed
     {
         Pilsner = 600,
         Wheat = 300,
@@ -54,5 +54,15 @@ namespace BeerProductionSystem.BusinessLayer
         Stout,
         Ale,
         Alcohol_Free
+    }
+
+    enum OptimalProductionSpeed
+    {
+        Pilsner = 530,
+        Wheat = 220,
+        IPA = 105,
+        Stout = 200,
+        Ale = 100,
+        Alcohol_Free = 112
     }
 }

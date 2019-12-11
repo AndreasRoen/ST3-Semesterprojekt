@@ -10,9 +10,12 @@ namespace BeerProductionSystem.PersistenceLayer.MachineModule
     class MachineReadData : IMachineReadData
     {
         private Dictionary<NodeID, string> nodeIDDictionary;
-        private enum NodeID { ProducedProducts, DefectProducts, StopReasonID, StopReasonValue, CurrentState, BatchID, BatchSize, Humidity, Temperature, 
-            Vibration, ActualMachineSpeed, NormalizedSpeed, DesiredSpeed, ControlCommand, CommandChangeRequest, NextBatchID, NextBatchType, NextBatchSize, 
-            BarleyAmount, HopsAmount, MaltAmount, WheatAmount, YeastAmount, FillingInventory, MaintenanceCounter, MaintenanceTrigger }
+        private enum NodeID
+        {
+            ProducedProducts, DefectProducts, StopReasonID, StopReasonValue, CurrentState, BatchID, BatchSize, Humidity, Temperature,
+            Vibration, ActualMachineSpeed, NormalizedSpeed, DesiredSpeed, ControlCommand, CommandChangeRequest, NextBatchID, NextBatchType, NextBatchSize,
+            BarleyAmount, HopsAmount, MaltAmount, WheatAmount, YeastAmount, FillingInventory, MaintenanceCounter, MaintenanceTrigger
+        }
 
         public MachineReadData()
         {
