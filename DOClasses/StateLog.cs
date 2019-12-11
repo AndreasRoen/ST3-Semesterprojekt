@@ -35,10 +35,10 @@ namespace BeerProductionSystem.DOClasses
         public float? ActivatingState { get; set; }
 
         public virtual BatchReport BatchReport { get; set; }
-    
-     public void setTimeInStates(Dictionary<int, TimeSpan> dict)
+
+        public void setTimeInStates(Dictionary<int, TimeSpan> dict)
         {
-            AbortedState += (float)dict[0].TotalSeconds;
+            //AbortedState += (float)dict[0].TotalSeconds;
             // Implement this.. TODO
         }
     }

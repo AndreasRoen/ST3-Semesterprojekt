@@ -19,7 +19,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         bool CheckBatchParameter();
 
-        void SaveTimeInState(int currentState, TimeSpan timeSpan);
+        void SaveTimeInState(MachineState currentState, TimeSpan timeSpan);
 
     }
 }

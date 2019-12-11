@@ -1,9 +1,7 @@
 ﻿namespace BeerProductionSystem.DOClasses
-
 {
-    class Batch 
+    class Batch
     {
-
         public float ProductType { get; set; }
         public ushort BatchID { get; set; }
         public ushort BatchSize { get; set; }
@@ -16,6 +14,5 @@
             BatchSize = batchSize;
             ProductionSpeed = productionSpeed;
         }
-        //public Batch() : this(0,0,0,0) {}
     }
 }

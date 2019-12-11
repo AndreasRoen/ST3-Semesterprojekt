@@ -13,6 +13,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         public Batch CurrentBatch { get; set; }
         public BatchReport BatchReport { get; set; }
         public StateLog StateLog { get; set; }
+
         private ushort batchID;
 
         public BatchManager()
@@ -65,11 +66,12 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
         }
 
         
-        public void SaveTimeInState(int currentState, TimeSpan timeSpan)
+        public void SaveTimeInState(MachineState currentState, TimeSpan timeSpan)
         {
             Dictionary<int, TimeSpan> dict = new Dictionary<int, TimeSpan>();
-            dict.Add(currentState, timeSpan);
-            StateLog.setTimeInStates(dict);
+            dict.Add((int)currentState, timeSpan);
+            
+            //StateLog.setTimeInStates(dict);
         }
 
         

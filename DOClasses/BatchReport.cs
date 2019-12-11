@@ -17,7 +17,7 @@ namespace BeerProductionSystem.DOClasses
             StateLogs = new HashSet<StateLog>();
             StateDictionary = new Dictionary<int, TimeSpan>();
         }
-        
+
         [Key]
         public int BatchReportID { get; set; }
         public int ProductType { get; set; }
@@ -29,12 +29,9 @@ namespace BeerProductionSystem.DOClasses
         [Column(TypeName = "datetime2")]
         public DateTime ProductionStartTime { get; set; }
 
-        [Column(TypeName ="datetime2")]
+        [Column(TypeName = "datetime2")]
         public DateTime? ProductionEndTime { get; set; }
-
-        
         public virtual ICollection<StateLog> StateLogs { get; set; }
-        
         public virtual ICollection<EnvironmentalLog> EnvironmentalLogs { get; set; }
         public Dictionary<int, TimeSpan> StateDictionary { get; set; }
         public Dictionary<DateTime, float> TemperatureDictionary { get; set; }

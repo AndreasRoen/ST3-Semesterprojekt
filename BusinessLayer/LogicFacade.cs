@@ -13,8 +13,10 @@ namespace BeerProductionSystem.BusinessLayer
         private IPersistenceFacade persistenceFacade;
         private IBatchManager batchManager;
         private ProductionCalculation calculator;
-        private int currentState;
+        private MachineState currentState;
+        private MachineState previousState;
         private DateTime startTime;
+        private bool productionRunning;
 
         public LogicFacade()
         {
@@ -41,6 +43,7 @@ namespace BeerProductionSystem.BusinessLayer
         public void SendResetCommand()
         {
             persistenceFacade.SendCommand((int)Commands.RESET);
+            productionRunning = false;
         }
 
         public void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize)
@@ -50,8 +53,9 @@ namespace BeerProductionSystem.BusinessLayer
             ushort batchId = batchManager.CurrentBatch.BatchID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
             persistenceFacade.SendCommand((int)Commands.START);
-            currentState = 6;
+            previousState = currentState;
             startTime = DateTime.Now;
+            productionRunning = true;
         }
 
         public void SendStopCommand()
@@ -68,26 +72,33 @@ namespace BeerProductionSystem.BusinessLayer
         public LiveRelevantDataDO UpdateData()
         {
             LiveRelevantDataDO liveRelevantData = persistenceFacade.GetUpdateData();
+            currentState = (MachineState) liveRelevantData.CurrentState;
             liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
             liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
             liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            if (productionRunning)
+            {
+                UpdateTimeInState(currentState, previousState);
+            }
             return liveRelevantData;
         }
 
-        public void UpdateTimeInState(LiveRelevantDataDO liveRelevantDataDO)
+        public void UpdateTimeInState(MachineState currentState, MachineState previousState)
         {
-            if (!liveRelevantDataDO.CurrentState.Equals(currentState))
+            if (currentState != previousState)
             {
-                AmountOfTimeInState(currentState, startTime);
+                AmountOfTimeInState(previousState, startTime);
                 startTime = DateTime.Now;
+                this.previousState = currentState;
             }
         }
 
-        public void AmountOfTimeInState(int currentState, DateTime date)
+        public void AmountOfTimeInState(MachineState currentState, DateTime date)
         {
             TimeSpan timeSpan = date.Subtract(DateTime.Now);
             batchManager.SaveTimeInState(currentState, timeSpan);
         }
+
         public bool SaveBatchReport()
         {
             return persistenceFacade.SaveBatchReport(batchManager.BatchReport);
