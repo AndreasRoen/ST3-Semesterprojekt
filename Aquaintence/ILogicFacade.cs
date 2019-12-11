@@ -11,6 +11,8 @@ namespace BeerProductionSystem.Aquaintence
     {
         bool ConnectToMachine(string machineName);
 
+        bool CheckMachineConnection();
+
         LiveRelevantDataDO UpdateData();
 
         void SendResetCommand();
@@ -28,10 +30,16 @@ namespace BeerProductionSystem.Aquaintence
         bool SaveBatchReport();
 
         int GetProductMaxSpeed(string productName);
-
+        
         List<BatchReport> GetAllBatchReports();
 
         BatchReport GetSpecificReport(int id);
+
+        int GetEstimatedError(ushort productType, ushort productionSpeed);
+
+        int GetOptimalEquipmentEfficiency();
+
+        int GetOptimalProductionSpeed(ushort productType);
 
     }
 }

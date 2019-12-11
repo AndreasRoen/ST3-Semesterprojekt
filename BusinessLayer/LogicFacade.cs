@@ -8,12 +8,11 @@ using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.BusinessLayer
 {
-
-
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
         private IBatchManager batchManager;
+        private ProductionCalculation calculator;
         private int currentState;
         private DateTime startTime;
 
@@ -21,6 +20,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             persistenceFacade = new PersistenceFacade();
             batchManager = new BatchManager();
+            calculator = new ProductionCalculation();
         }
 
         public bool ConnectToMachine(string machineName)
@@ -45,7 +45,8 @@ namespace BeerProductionSystem.BusinessLayer
 
         public void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize)
         {
-            batchManager.CreateBatch(productType, productionSpeed, batchSize);  //TODO why have a batch object??
+            calculator.CalculateError((ProductType)productType, productionSpeed);
+            batchManager.CreateBatch(productType, productionSpeed, batchSize);
             ushort batchId = batchManager.CurrentBatch.BatchID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
             persistenceFacade.SendCommand((int)Commands.START);
@@ -107,6 +108,27 @@ namespace BeerProductionSystem.BusinessLayer
         public BatchReport GetSpecificReport(int id)
         {
             return persistenceFacade.GetSpecificReport(id);
+        }
+        public int GetEstimatedError(ushort productType, ushort productionSpeed)
+        {
+            return calculator.CalculateError((ProductType)productType, productionSpeed);
+        }
+
+        public int GetOptimalEquipmentEfficiency()
+        {
+            return calculator.CalculateOptimalEquipmentEffectivness();
+        }
+
+        public int GetOptimalProductionSpeed(ushort productType)
+        {
+            ProductType p = (ProductType)productType;
+            return (int)(OptimalProductionSpeed)Enum.Parse(typeof(OptimalProductionSpeed), p.ToString());
+        }
+
+        public bool CheckMachineConnection()
+        {
+            return persistenceFacade.CheckMachineConnection();
+
         }
     }
 }

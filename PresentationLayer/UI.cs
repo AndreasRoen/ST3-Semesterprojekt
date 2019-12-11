@@ -53,48 +53,77 @@ namespace BeerProductionSystem.PresentationLayer
 
         private void UpdateLiveRelevantData(object sender, EventArgs e)
         {
-            LiveRelevantDataDO data = logicFacade.UpdateData();
-
-            temperatureLabel.Text = data.Temperature.ToString();
-            humidityLabel.Text = data.Humidity.ToString();
-            vibrationLabel.Text = data.Vibration.ToString();
-            batchIDLabel.Text = data.BatchID.ToString();
-            productsPerMinuteLabel.Text = data.ActualMachineSpeed.ToString();
-            batchSizeLabel.Text = data.BatchSize.ToString();
-            producedLabel.Text = data.ProducedProducts.ToString();
-            defectLabel.Text = data.DefectProducts.ToString();
-            acceptableLabel.Text = data.AcceptableProducts.ToString();
-            var state = (MachineState)data.CurrentState;
-            currentStateLabel.Text = state.ToString();
-            verticalProgressBarBarley.Value = (int)data.Barley;
-            verticalProgressBarHops.Value = (int)data.Hops;
-            verticalProgressBarMalt.Value = (int)data.Malt;
-            verticalProgressBarWheat.Value = (int)data.Wheat;
-            verticalProgressBarYeast.Value = (int)data.Yeast;
-            verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
-
-            if (currentStateLabel.Text.Equals("Execute"))
+            try
             {
-                BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+                LiveRelevantDataDO data = logicFacade.UpdateData();
+                temperatureLabel.Text = data.Temperature.ToString();
+                humidityLabel.Text = data.Humidity.ToString();
+                vibrationLabel.Text = data.Vibration.ToString();
+                batchIDLabel.Text = data.BatchID.ToString();
+                productsPerMinuteLabel.Text = data.ActualMachineSpeed.ToString();
+                batchSizeLabel.Text = data.BatchSize.ToString();
+                producedLabel.Text = data.ProducedProducts.ToString();
+                defectLabel.Text = data.DefectProducts.ToString();
+                acceptableLabel.Text = data.AcceptableProducts.ToString();
+                var state = (MachineState)data.CurrentState;
+                currentStateLabel.Text = state.ToString();
+                verticalProgressBarBarley.Value = (int)data.Barley;
+                verticalProgressBarHops.Value = (int)data.Hops;
+                verticalProgressBarMalt.Value = (int)data.Malt;
+                verticalProgressBarWheat.Value = (int)data.Wheat;
+                verticalProgressBarYeast.Value = (int)data.Yeast;
+                verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
+
+                if (currentStateLabel.Text.Equals("Execute"))
+                {
+                    BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+                }
+                else if (currentStateLabel.Text.Equals("Complete"))
+                {
+                    BatchProgressBar.Value = 100;
+                }
             }
-            else if (currentStateLabel.Text.Equals("Complete"))
+            catch (Exception)
             {
-                BatchProgressBar.Value = 100;
+                if (!logicFacade.CheckMachineConnection())
+                {
+                    disconnectedLabel.Visible = true;
+                    tab1.Enabled = false;
+
+                    if (logicFacade.ConnectToMachine(""))
+                    {
+                        disconnectedLabel.Visible = false;
+                        tab1.Enabled = true;
+                    }
+                }
             }
         }
 
         private void productionSpeedTrackBar_ValueChanged(object sender, EventArgs e)
         {
             productionSpeedLabel.Text = productionSpeedTrackBar.Value.ToString();
+            SetEstimatedError();
+        }
+
+        private void setOptimalSpeedBtn_Click(object sender, EventArgs e)
+        {
+            int productType = (int)productTypeComboBox.SelectedItem;
+            productionSpeedTrackBar.Value = logicFacade.GetOptimalProductionSpeed((ushort)productType);
+            productionSpeedTrackBar_ValueChanged(sender, e);
+        }
+
+        private void SetEstimatedError()
+        {
+            int productType = (int)productTypeComboBox.SelectedItem;
+            ushort productionSpeed = (ushort)productionSpeedTrackBar.Value;
+            eefLabel.Text = logicFacade.GetEstimatedError((ushort)productType, productionSpeed).ToString() + " %";
         }
 
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
             // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
-
 
             productionSpeedTrackBar.Maximum = maxSpeed;
             maxProductionSpeedLabel.Text = maxSpeed.ToString();
@@ -104,7 +133,9 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
+            SetEstimatedError();
         }
+
         // Making sure all forms close when the user closes the main form
         private void UI_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -181,11 +212,11 @@ namespace BeerProductionSystem.PresentationLayer
                 string tempInfo = GetSpecificLoggingInfo("Temperature", logs[1], tempChart);
                 return humidityInfo + "\n" + tempInfo;
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
 
             }
-            catch (InvalidOperationException io)
+            catch (InvalidOperationException)
             {
 
             }
