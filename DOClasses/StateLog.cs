@@ -36,6 +36,27 @@ namespace BeerProductionSystem.DOClasses
 
         public virtual BatchReport BatchReport { get; set; }
 
+        public StateLog()
+        {
+            this.AbortedState = 0;
+            this.AbortingState = 0;
+            this.ActivatingState = 0;
+            this.ClearingState = 0;
+            this.CompleteState = 0;
+            this.CompletingState = 0;
+            this.DeactivatedState = 0;
+            this.DeactivatingState = 0;
+            this.ExecuteState = 0;
+            this.HeldState = 0;
+            this.HoldingState = 0;
+            this.IdleState = 0;
+            this.ResettingState = 0;
+            this.StartingState = 0;
+            this.StoppedState = 0;
+            this.StoppingState = 0;
+            this.SuspendedState = 0;
+            
+        }
         public void SetTimeInStates(Dictionary<int, TimeSpan> dict)
         {
             //AbortedState += (float)dict[0].TotalSeconds;

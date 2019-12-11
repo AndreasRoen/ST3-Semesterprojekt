@@ -20,7 +20,11 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             bool success = false;
             using (DataContext context = new DataContext())
             {
-                
+                //Create new empty entry for StateLog and set batch ID to it
+                StateLog stateLog = new StateLog();
+                stateLog.BatchReportID = batchReport.BatchReportID;
+                //Save Batch Report and StateLog
+                context.StateLogs.Add(stateLog);
                 context.BatchReports.Add(batchReport);
                 context.SaveChanges();
 
