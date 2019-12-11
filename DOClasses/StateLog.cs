@@ -36,7 +36,7 @@ namespace BeerProductionSystem.DOClasses
 
         public virtual BatchReport BatchReport { get; set; }
 
-        public void setTimeInStates(Dictionary<int, TimeSpan> dict)
+        public void SetTimeInStates(Dictionary<int, TimeSpan> dict)
         {
             //AbortedState += (float)dict[0].TotalSeconds;
             // Implement this.. TODO
