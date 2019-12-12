@@ -30,8 +30,8 @@ namespace BeerProductionSystem.DOClasses
         [Required]
         [Column("BatchSize", Order = 3)]
         public int BatchSize { get; set; }
-        [Column("AcceptableProducts", Order = 4)]
-        public int? AcceptableProducts { get; set; }
+        [Column("ProducedProducts", Order = 4)]
+        public int? ProducedProducts { get; set; }
         [Column("DefectProducts", Order = 5)]
         public int? DefectProducts { get; set; }
 

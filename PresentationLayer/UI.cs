@@ -184,7 +184,7 @@ namespace BeerProductionSystem.PresentationLayer
             chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
                 "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
                 "Created products: " + chosenBatchReport.BatchSize + "\n" +
-                "Acceptable products: " + chosenBatchReport.AcceptableProducts + "\n" +
+                "Acceptable products: " + chosenBatchReport.ProducedProducts + "\n" +
                 "Defective products: " + chosenBatchReport.DefectProducts + "\n" +
                 GetTimeInStates(chosenBatchReport.StateDictionary) + "\n" +
                 GetAllEnvironmentalInfo(chosenBatchReport.EnvironmentalLogs);

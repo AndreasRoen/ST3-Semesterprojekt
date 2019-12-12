@@ -16,7 +16,7 @@ namespace BeerProductionSystem.DOClasses
         public int EnvironmentalLogID { get; set; }
         [Required]
         [Column("BatchReportID", Order = 1)]
-        public int BatchID { get; set; }
+        public int BatchReportID { get; set; }
         public virtual BatchDO BatchReport { get; set; }
         [Required]
         [Column("Temperature", Order = 2)]
