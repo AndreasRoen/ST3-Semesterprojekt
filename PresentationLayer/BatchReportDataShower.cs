@@ -33,6 +33,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             charts[0].Visible = true;
             charts[0].Series["States"].Points.Clear();
+            charts[0].Series["States"]["PieLabelStyle"] = "Disabled";
             string statesTime = "Time in states: ";
             foreach (var state in timeInStates)
             {
@@ -60,7 +61,7 @@ namespace BeerProductionSystem.PresentationLayer
             {
 
             }
-            return "No environment information.";
+            return "No environment informatilon.";
         }
 
         private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
