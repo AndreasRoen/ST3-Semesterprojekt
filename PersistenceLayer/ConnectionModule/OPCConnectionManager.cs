@@ -1,11 +1,5 @@
 ﻿using Opc.UaFx;
 using Opc.UaFx.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
 {

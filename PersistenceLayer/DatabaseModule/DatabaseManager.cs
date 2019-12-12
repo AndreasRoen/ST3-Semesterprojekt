@@ -1,18 +1,17 @@
 using BeerProductionSystem.DOClasses;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System;
 using System.Linq;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using BeerProductionSystem.PresentationLayer;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
-    class DatabaseManager : IDatabaseManager {
+namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
+{
+    class DatabaseManager : IDatabaseManager
+    {
 
-        public DatabaseManager() {
+        public DatabaseManager()
+        {
 
         }
 
@@ -28,9 +27,9 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                         b => b.BatchReportID).FirstOrDefault();
                     batchReportID = batchReport.BatchReportID;
                 }
-                catch(NullReferenceException)
+                catch (NullReferenceException)
                 {
-                    
+
                 }
             }
             return batchReportID;
@@ -49,12 +48,11 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 context.SaveChanges();
 
                 success = true;
-
             }
             return success;
         }
 
-        
+
         public bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData)
         {
             bool success = false;
@@ -67,7 +65,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 batchReport.ProducedProducts = liveRelevantData.ProducedProducts;
                 batchReport.DefectProducts = liveRelevantData.DefectProducts;
                 batchReport.ProductionEndTime = System.DateTime.Now;
-                
+
                 //Create a new entry of environmental log
                 EnvironmentalLogDO environmentalLog = new EnvironmentalLogDO
                 {
@@ -86,7 +84,6 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 context.SaveChanges();
 
                 success = true;
-
             }
             return success;
         }
@@ -94,7 +91,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
         public BatchDO LoadBatchReport(int BatchID)
         {
             BatchDO data = new BatchDO();
-            using(DataContext context = new DataContext())
+            using (DataContext context = new DataContext())
             {
                 data = context.BatchReports.Find(BatchID);
             }
@@ -116,14 +113,14 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
         {
             List<BatchDO> batchList = new List<BatchDO>();
             DataContext context = new DataContext();
-            
-                List<BatchDO> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
-                foreach (BatchDO br in batches)
-                {
+
+            List<BatchDO> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
+            foreach (BatchDO br in batches)
+            {
                 br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id", new SqlParameter("@id", br.BatchReportID))).ToList();
-                StateLogDO  stateLog = context.StateLogs.Find(br.BatchReportID);
+                StateLogDO stateLog = context.StateLogs.Find(br.BatchReportID);
                 br.StateDictionary.Add((int)MachineState.Deactivated, new TimeSpan((stateLog.DeactivatedState.Value)));
-                    br.StateDictionary.Add((int)MachineState.Clearing, new TimeSpan((stateLog.ClearingState.Value)));
+                br.StateDictionary.Add((int)MachineState.Clearing, new TimeSpan((stateLog.ClearingState.Value)));
                 br.StateDictionary.Add((int)MachineState.Stopped, new TimeSpan((stateLog.StoppedState.Value)));
                 br.StateDictionary.Add((int)MachineState.Starting, new TimeSpan((stateLog.StartingState.Value)));
                 br.StateDictionary.Add((int)MachineState.Idle, new TimeSpan((stateLog.IdleState.Value)));
@@ -141,8 +138,7 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 br.StateDictionary.Add((int)MachineState.Activating, new TimeSpan((stateLog.ActivatingState.Value)));
                 batchList.Add(br);
             }
-            
-            
+
             return batchList;
         }
     }
