@@ -128,6 +128,9 @@ namespace BeerProductionSystem.PresentationLayer
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            int productType = logicFacade.GetProductTypeNumber(selectedProductType);
+            List<BatchDO> batchList = logicFacade.GetAllBatchReports();
+            OEELabel.Text = logicFacade.GetTotalOptimalEquipmentEffectiveness(batchList, productType).ToString();
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
             // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
 

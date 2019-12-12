@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -42,9 +46,58 @@ namespace BeerProductionSystem.BusinessLayer
             }
         }
 
-        public int CalculateOptimalEquipmentEffectivness()
+        public double CalculateTotalOptimalEquipmentEffectiveness(List<BatchDO> batchDOList, int productType)
         {
-            return 100;
+            List<BatchDO> sortedList = batchDOList.FindAll(b => b.ProductType == productType);
+            List<double> OEEList = new List<double>();
+            
+            foreach(BatchDO b in sortedList)
+            {
+                double downTime = getStateDownTime(b.StateDictionary);
+                
+                int acceptableProducts = (int)(b.ProducedProducts - b.DefectProducts);
+                OEEList.Add(CalculateOptimalEquipmentEffectiveness(acceptableProducts, b.ProductionSpeed, b.BatchSize, downTime));
+            }
+            try
+            {
+               return OEEList.Average();
+            }
+            catch (InvalidOperationException)
+            {
+
+            }
+            return 0;
+
         }
+
+        private double CalculateOptimalEquipmentEffectiveness(double acceptableProducts, double productionSpeed, double batchSize, double downTime)
+        {
+            double OEE = (acceptableProducts * (productionSpeed*60)) / ((batchSize / (productionSpeed*60)) - downTime);
+            Debug.WriteLine(downTime);
+            return OEE;
+        }
+
+        private double getStateDownTime(Dictionary<int, TimeSpan> stateDictionary)
+        {
+            double downTime = 0;
+            downTime += stateDictionary[(int)MachineState.Aborted].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Aborting].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Activating].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Clearing].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Complete].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Completing].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Deactivated].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Deactivating].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Held].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Holding].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Idle].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Resetting].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Starting].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Stopped].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Stopping].TotalSeconds;
+            downTime += stateDictionary[(int)MachineState.Suspended].TotalSeconds;
+            return downTime;
+        }
+
     }
 }
