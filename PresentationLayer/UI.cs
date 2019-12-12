@@ -1,4 +1,5 @@
-﻿using BeerProductionSystem.DOClasses;
+﻿using BeerProductionSystem.BusinessLayer;
+using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

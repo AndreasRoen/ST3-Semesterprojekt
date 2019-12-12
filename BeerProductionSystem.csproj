@@ -96,7 +96,6 @@
     <Compile Include="PersistenceLayer\MachineModule\MachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
-    <Compile Include="PresentationLayer\Enums.cs" />
     <Compile Include="PresentationLayer\StartupConnection.cs">
       <SubType>Form</SubType>
     </Compile>
