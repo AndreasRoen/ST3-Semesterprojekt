@@ -10,14 +10,11 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
     interface IBatchManager
     {
 
-        Batch CurrentBatch { get; set; }
-        BatchReport BatchReport { get; set; }
-        StateLog StateLog { get; set; }
+        BatchDO CurrentBatch { get; set; }
+        StateLogDO StateLog { get; set; }
         void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize);
 
-        void CreateBatchReport(ushort batchId, ushort productType,ushort productionSpeed, ushort amountOfProductsTotal);
-
-        bool CheckBatchParameter();
+       bool CheckBatchParameter();
 
         void SaveTimeInState(MachineState currentState, TimeSpan timeSpan);
 

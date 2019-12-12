@@ -15,18 +15,19 @@ namespace BeerProductionSystem.Aquaintence
         bool ConnectToMachine(string machineName);
 
         bool CheckMachineConnection();
+        int GetLastBatchReportID();
 
         LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);
 
-        void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID);
+        void SetBatchParameters(float productType, int productionSpeed, int batchSize, int batchID);
 
-        bool SaveBatchReport(BatchReport batchReport);
+        bool SaveBatchReport(BatchDO batchReport);
         bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
-        List<BatchReport> GetBatchReports();
+        List<BatchDO> GetBatchReports();
 
-        BatchReport GetSpecificReport(int id);
+        BatchDO GetSpecificReport(int id);
 
     }
 }

@@ -10,15 +10,17 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 {
     class BatchManager : IBatchManager
     {
-        public Batch CurrentBatch { get; set; }
-        public BatchReport BatchReport { get; set; }
-        public StateLog StateLog { get; set; }
+        public BatchDO CurrentBatch { get; set; }
+        
+        public StateLogDO StateLog { get; set; }
 
-        private ushort batchID;
 
-        public BatchManager()
+        private int batchID;
+
+        public BatchManager(int LatestBatchReportID)
         {
-            this.batchID = 0;
+            this.batchID = LatestBatchReportID;
+            StateLog = new StateLogDO();
 
         }
 
@@ -46,32 +48,23 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
 
         public void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize)
         {
-            Batch batch = new Batch(productType, batchID, batchSize, productionSpeed);
-            CreateBatchReport(batchID, productType, productionSpeed, batchSize);
-            this.CurrentBatch = batch;
+            this.CurrentBatch = new BatchDO
+            {
+                BatchReportID = batchID,
+                ProductType = productType,
+                BatchSize = batchSize,
+                ProductionSpeed = productionSpeed,
+                ProductionStartTime = System.DateTime.Now
+
+        };
             batchID++;
         }
 
-        public void CreateBatchReport(ushort batchId, ushort productType, ushort productionSpeed, ushort amountOfProductsTotal)
-        {
-            this.BatchReport = new BatchReport
-            {
-                BatchReportID = batchID,
-                MachineSpeed = productionSpeed,
-                ProductType = productType,
-                TotalAmount = amountOfProductsTotal,
-                ProductionStartTime = System.DateTime.Now
-             };
-
-        }
-
-        
-        public void SaveTimeInState(MachineState currentState, TimeSpan timeSpan)
+       public void SaveTimeInState(MachineState currentState, TimeSpan timeSpan)
         {
             Dictionary<int, TimeSpan> dict = new Dictionary<int, TimeSpan>();
             dict.Add((int)currentState, timeSpan);
-            
-            //StateLog.setTimeInStates(dict);
+            StateLog.SetTimeInStates(dict);
         }
 
         

@@ -14,11 +14,11 @@ namespace BeerProductionSystem.PresentationLayer
 {
     public partial class UI : Form
     {
-        private List<BatchReport> reports;
+        private List<BatchDO> reports;
         public UI()
         {
             InitializeComponent();
-            reports = new List<BatchReport>();
+            reports = new List<BatchDO>();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -147,7 +147,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             reports.Clear();
             int batchId = -1;
-            BatchReport specificReport = null;
+            BatchDO specificReport = null;
 
             if (searchTextBox.Text != null && int.TryParse(searchTextBox.Text, out batchId))
             {
@@ -180,12 +180,12 @@ namespace BeerProductionSystem.PresentationLayer
         private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int itemIndex = listBoxBatches.SelectedIndex;
-            BatchReport chosenBatchReport = reports[itemIndex];
+            BatchDO chosenBatchReport = reports[itemIndex];
             chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
                 "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
-                "Created products: " + chosenBatchReport.TotalAmount + "\n" +
-                "Acceptable products: " + chosenBatchReport.AcceptableAmount + "\n" +
-                "Defective products: " + chosenBatchReport.DefectAmount + "\n" +
+                "Created products: " + chosenBatchReport.BatchSize + "\n" +
+                "Acceptable products: " + chosenBatchReport.AcceptableProducts + "\n" +
+                "Defective products: " + chosenBatchReport.DefectProducts + "\n" +
                 GetTimeInStates(chosenBatchReport.StateDictionary) + "\n" +
                 GetAllEnvironmentalInfo(chosenBatchReport.EnvironmentalLogs);
         }
@@ -204,7 +204,7 @@ namespace BeerProductionSystem.PresentationLayer
             return statesTime;
         }
 
-        private string GetAllEnvironmentalInfo(ICollection<EnvironmentalLog> envLogs)
+        private string GetAllEnvironmentalInfo(ICollection<EnvironmentalLogDO> envLogs)
         {
             try
             {
@@ -239,7 +239,7 @@ namespace BeerProductionSystem.PresentationLayer
             return allInfo;
         }
 
-        private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLog> logs)
+        private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLogDO> logs)
         {
             List<List<float>> envLogs = new List<List<float>>();
             List<float> humidity = new List<float>();

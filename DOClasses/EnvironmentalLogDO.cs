@@ -9,20 +9,28 @@ using System.Threading.Tasks;
 namespace BeerProductionSystem.DOClasses
 {
     [Table("EnvironmentalLog")]
-    public partial class EnvironmentalLog
+    public partial class EnvironmentalLogDO
     {
         [Key]
+        [Column("EnvironmentalLogID", Order = 0)]
         public int EnvironmentalLogID { get; set; }
-        
-        public int BatchReportID { get; set; }
-
+        [Required]
+        [Column("BatchReportID", Order = 1)]
+        public int BatchID { get; set; }
+        public virtual BatchDO BatchReport { get; set; }
+        [Required]
+        [Column("Temperature", Order = 2)]
         public double Temperature { get; set; }
+        [Required]
+        [Column("Vibration", Order = 3)]
         public double Vibration { get; set; }
+        [Required]
+        [Column("Humidity", Order = 4)]
         public double Humidity { get; set; }
-
-        [Column(TypeName = "datetime2")]
+        [Required]
+        [Column("Time", TypeName = "datetime2", Order = 5)]
         public DateTime Time { get; set; }
         
-        public virtual BatchReport BatchReport { get; set; }
+        
     }
 }

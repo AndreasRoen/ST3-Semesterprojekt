@@ -15,19 +15,19 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
         {
         }
 
-        public virtual DbSet<BatchReport> BatchReports { get; set; }
-        public virtual DbSet<EnvironmentalLog> EnvironmentalLogs { get; set; }
-        public virtual DbSet<StateLog> StateLogs { get; set; }
+        public virtual DbSet<BatchDO> BatchReports { get; set; }
+        public virtual DbSet<EnvironmentalLogDO> EnvironmentalLogs { get; set; }
+        public virtual DbSet<StateLogDO> StateLogs { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BatchReport>()
+            modelBuilder.Entity<BatchDO>()
                 .HasMany(e => e.EnvironmentalLogs)
                 .WithRequired(e => e.BatchReport)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<BatchReport>()
+            modelBuilder.Entity<BatchDO>()
                 .HasMany(s => s.StateLogs)
                 .WithRequired(s => s.BatchReport)
                 .WillCascadeOnDelete(false);

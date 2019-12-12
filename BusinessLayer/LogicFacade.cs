@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System;
 using BeerProductionSystem.DOClasses;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BeerProductionSystem.BusinessLayer
 {
@@ -22,7 +23,7 @@ namespace BeerProductionSystem.BusinessLayer
         public LogicFacade()
         {
             persistenceFacade = new PersistenceFacade();
-            batchManager = new BatchManager();
+            batchManager = new BatchManager(persistenceFacade.GetLastBatchReportID());
             calculator = new ProductionCalculation();
         }
 
@@ -52,7 +53,7 @@ namespace BeerProductionSystem.BusinessLayer
         {
             calculator.CalculateError((ProductType)productType, productionSpeed);
             batchManager.CreateBatch(productType, productionSpeed, batchSize);
-            ushort batchId = batchManager.CurrentBatch.BatchID;
+            int batchId = batchManager.CurrentBatch.BatchReportID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
             persistenceFacade.SendCommand((int)Commands.START);
             previousState = currentState;
@@ -75,43 +76,39 @@ namespace BeerProductionSystem.BusinessLayer
         {
             LiveRelevantDataDO liveRelevantData = persistenceFacade.GetUpdateData();
             currentState = (MachineState) liveRelevantData.CurrentState;
-            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
+            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchReportID;
             liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
             liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
             if (productionRunning)
             {
-                UpdateTimeInState(currentState, previousState);
                 Task task = Task.Run(() =>
                 {
-                    persistenceFacade.UpdateBatchReport(liveRelevantData);
+                    
+                
+                    TimeSpan timeSpan = DateTime.Now.Subtract(startTime);
+                    liveRelevantData.StateDictionary[(int)currentState] += timeSpan;
+                    startTime = DateTime.Now;
+                    
+                    //    if (currentState != previousState)
+                    //    {
+                    //    this.previousState = currentState;
+                    //}
+                
+                
+                persistenceFacade.UpdateBatchReport(liveRelevantData);
                 });
                 
             }
             return liveRelevantData;
         }
 
-        public void UpdateTimeInState(MachineState currentState, MachineState previousState)
-        {
-            if (currentState != previousState)
-            {
-                AmountOfTimeInState(previousState, startTime);
-                startTime = DateTime.Now;
-                this.previousState = currentState;
-            }
-        }
-
-        public void AmountOfTimeInState(MachineState currentState, DateTime date)
-        {
-            TimeSpan timeSpan = date.Subtract(DateTime.Now);
-            batchManager.SaveTimeInState(currentState, timeSpan);
-        }
-
+        
         public bool SaveBatchReport()
         {
             bool success = false;
             Task task = Task.Run(() =>
             {
-                success = persistenceFacade.SaveBatchReport(batchManager.BatchReport);
+                success = persistenceFacade.SaveBatchReport(batchManager.CurrentBatch);
             });
 
             return success;
@@ -123,12 +120,12 @@ namespace BeerProductionSystem.BusinessLayer
             return (int)maxSpeed;
         }
 
-        public List<BatchReport> GetAllBatchReports()
+        public List<BatchDO> GetAllBatchReports()
         {
             return persistenceFacade.GetBatchReports();
         }
 
-        public BatchReport GetSpecificReport(int id)
+        public BatchDO GetSpecificReport(int id)
         {
             return persistenceFacade.GetSpecificReport(id);
         }

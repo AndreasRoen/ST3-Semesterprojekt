@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeerProductionSystem.PresentationLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,8 @@ namespace BeerProductionSystem.DOClasses
         public float Temperature { get; }
         public float Humidity { get; }
         public float Vibration { get; }
-        public ushort BatchID { get; set; }
-        public ushort BatchSize { get; set; }
+        public int BatchID { get; set; }
+        public int BatchSize { get; set; }
         public float ActualMachineSpeed { get; }
         public ushort ProducedProducts { get; }
         public ushort AcceptableProducts { get; set; }
@@ -27,6 +28,7 @@ namespace BeerProductionSystem.DOClasses
         public float Yeast { get; }
         public ushort MaintainenceMeter { get; }
         public int CurrentState { get; }
+        public Dictionary<int, TimeSpan> StateDictionary { get; set; }
 
         public LiveRelevantDataDO(float temperature, float humidity, float vibration, float actualMachineSpeed, ushort producedProducts, ushort defectProducts, float barley, float hops, float malt, float wheat, float yeast, ushort maintainenceMeter, int currentState)
         {
@@ -43,6 +45,30 @@ namespace BeerProductionSystem.DOClasses
             Yeast = yeast;
             MaintainenceMeter = maintainenceMeter;
             CurrentState = currentState;
+            StateDictionaryInit();
+        }
+
+        private void StateDictionaryInit()
+        {
+            this.StateDictionary = new Dictionary<int, TimeSpan>();
+            this.StateDictionary.Add((int)MachineState.Deactivated, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Clearing, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Stopped, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Starting, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Idle, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Suspended, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Execute, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Stopping, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Aborting, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Aborted, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Holding, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Held, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Resetting, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Completing, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Complete, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Deactivating, TimeSpan.Zero);
+            this.StateDictionary.Add((int)MachineState.Activating, TimeSpan.Zero);
+
         }
 
 

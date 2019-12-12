@@ -46,9 +46,14 @@ namespace BeerProductionSystem.PersistenceLayer
             return isSuccess;
         }
 
-        public bool SaveBatchReport(BatchReport batchReport)
+        public bool SaveBatchReport(BatchDO batchReport)
         {
             return databaseManager.SaveBatchReport(batchReport);
+        }
+
+        public int GetLastBatchReportID()
+        {
+            return databaseManager.GetLastBatchReportID();
         }
 
         public LiveRelevantDataDO GetUpdateData()
@@ -81,7 +86,7 @@ namespace BeerProductionSystem.PersistenceLayer
             machineWriteData.WriteControlCommand(accessPoint, command);
         }
 
-        public void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID)
+        public void SetBatchParameters(float productType, int productionSpeed, int batchSize, int batchID)
         {
             machineWriteData.WriteNextBatchProductType(accessPoint, productType);
             machineWriteData.WriteDesiredMachineSpeed(accessPoint, productionSpeed);
@@ -95,12 +100,12 @@ namespace BeerProductionSystem.PersistenceLayer
             return databaseManager.UpdateBatchReport(liveRelevantData);
         }
 
-        public List<BatchReport> GetBatchReports()
+        public List<BatchDO> GetBatchReports()
         {
             return databaseManager.GetBatchReports();
         }
 
-        public BatchReport GetSpecificReport(int id)
+        public BatchDO GetSpecificReport(int id)
         {
             return databaseManager.LoadBatchReport(id);
         }

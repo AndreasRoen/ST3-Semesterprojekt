@@ -10,12 +10,13 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
     interface IDatabaseManager
     {
-        bool SaveBatchReport(BatchReport batchReport);
+        int GetLastBatchReportID();
+        bool SaveBatchReport(BatchDO batchReport);
 
         bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
 
-        BatchReport LoadBatchReport(int BatchID);
+        BatchDO LoadBatchReport(int BatchID);
 
-        List<BatchReport> GetBatchReports();
+        List<BatchDO> GetBatchReports();
     }
 }

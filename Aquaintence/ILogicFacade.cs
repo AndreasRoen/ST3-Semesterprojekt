@@ -31,9 +31,9 @@ namespace BeerProductionSystem.Aquaintence
 
         int GetProductMaxSpeed(string productName);
         
-        List<BatchReport> GetAllBatchReports();
+        List<BatchDO> GetAllBatchReports();
 
-        BatchReport GetSpecificReport(int id);
+        BatchDO GetSpecificReport(int id);
 
         int GetEstimatedError(ushort productType, ushort productionSpeed);
 
