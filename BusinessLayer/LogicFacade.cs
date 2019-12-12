@@ -55,11 +55,11 @@ namespace BeerProductionSystem.BusinessLayer
             batchManager.CreateBatch(productType, productionSpeed, batchSize);
             int batchId = batchManager.CurrentBatch.BatchReportID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
-            persistenceFacade.SendCommand((int)Commands.START);
+            SaveBatchReport();
             previousState = currentState;
             startTime = DateTime.Now;
             productionRunning = true;
-            SaveBatchReport();
+            persistenceFacade.SendCommand((int)Commands.START);
         }
 
         public void SendStopCommand()
@@ -78,13 +78,11 @@ namespace BeerProductionSystem.BusinessLayer
             currentState = (MachineState) liveRelevantData.CurrentState;
             liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchReportID;
             liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
-            liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            liveRelevantData.AcceptableProducts = (liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
             if (productionRunning)
             {
                 Task task = Task.Run(() =>
                 {
-                    
-                
                     TimeSpan timeSpan = DateTime.Now.Subtract(startTime);
                     liveRelevantData.StateDictionary[(int)currentState] += timeSpan;
                     startTime = DateTime.Now;
@@ -96,6 +94,7 @@ namespace BeerProductionSystem.BusinessLayer
                 
                 
                 persistenceFacade.UpdateBatchReport(liveRelevantData);
+
                 });
                 
             }

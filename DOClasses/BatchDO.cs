@@ -13,9 +13,11 @@ namespace BeerProductionSystem.DOClasses
     {
         public BatchDO()
         {
-            EnvironmentalLogs = new HashSet<EnvironmentalLogDO>();
-            StateLogs = new HashSet<StateLogDO>();
-            StateDictionary = new Dictionary<int, TimeSpan>();
+            this.EnvironmentalLogs = new HashSet<EnvironmentalLogDO>();
+            this.StateLogs = new HashSet<StateLogDO>();
+            this.StateDictionary = new Dictionary<int, TimeSpan>();
+            this.ProducedProducts = 0;
+            this.DefectProducts = 0;
         }
 
         [Key]

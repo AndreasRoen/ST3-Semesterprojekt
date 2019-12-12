@@ -64,8 +64,8 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
                 //Returns the latest Batch report saved in the database.
                 BatchDO batchReport = context.BatchReports.Find(liveRelevantData.BatchID);
                 //Update batchReport data
-                batchReport.ProducedProducts += liveRelevantData.ProducedProducts;
-                batchReport.DefectProducts += liveRelevantData.DefectProducts;
+                batchReport.ProducedProducts = liveRelevantData.ProducedProducts;
+                batchReport.DefectProducts = liveRelevantData.DefectProducts;
                 batchReport.ProductionEndTime = System.DateTime.Now;
                 
                 //Create a new entry of environmental log

@@ -18,9 +18,9 @@ namespace BeerProductionSystem.DOClasses
         public int BatchID { get; set; }
         public int BatchSize { get; set; }
         public float ActualMachineSpeed { get; }
-        public ushort ProducedProducts { get; }
-        public ushort AcceptableProducts { get; set; }
-        public ushort DefectProducts { get; }
+        public int ProducedProducts { get; }
+        public int AcceptableProducts { get; set; }
+        public int DefectProducts { get; }
         public float Barley { get; }
         public float Hops { get; }
         public float Malt { get; }
@@ -30,7 +30,7 @@ namespace BeerProductionSystem.DOClasses
         public int CurrentState { get; }
         public Dictionary<int, TimeSpan> StateDictionary { get; set; }
 
-        public LiveRelevantDataDO(float temperature, float humidity, float vibration, float actualMachineSpeed, ushort producedProducts, ushort defectProducts, float barley, float hops, float malt, float wheat, float yeast, ushort maintainenceMeter, int currentState)
+        public LiveRelevantDataDO(float temperature, float humidity, float vibration, float actualMachineSpeed, int producedProducts, int defectProducts, float barley, float hops, float malt, float wheat, float yeast, ushort maintainenceMeter, int currentState)
         {
             Temperature = temperature;
             Humidity = humidity;
