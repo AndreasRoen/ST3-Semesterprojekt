@@ -74,14 +74,14 @@ namespace BeerProductionSystem.PresentationLayer
                 verticalProgressBarYeast.Value = (int)data.Yeast;
                 verticalProgressBarMaintenance.Value = (int)data.MaintainenceMeter;
 
-                //if (currentStateLabel.Text.Equals("Execute"))
-                //{
-                //    BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
-                //}
-                //else if (currentStateLabel.Text.Equals("Complete"))
-                //{
-                //    BatchProgressBar.Value = 100;
-                //}
+                if (currentStateLabel.Text.Equals("Execute"))
+                {
+                    BatchProgressBar.Value = ((Int32)data.ProducedProducts * 100) / (Int32)data.BatchSize;
+                }
+                else if (currentStateLabel.Text.Equals("Complete"))
+                {
+                    BatchProgressBar.Value = 100;
+                }
             }
             catch (Exception ex)
             {

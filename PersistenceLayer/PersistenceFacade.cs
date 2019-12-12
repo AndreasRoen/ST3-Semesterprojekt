@@ -25,7 +25,6 @@ namespace BeerProductionSystem.PersistenceLayer
         private IDatabaseManager databaseManager;
         private string currentMachineName;
 
-
         public PersistenceFacade()
         {
             databaseManager = new DatabaseManager();
