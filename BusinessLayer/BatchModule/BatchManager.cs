@@ -11,7 +11,7 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
     class BatchManager : IBatchManager
     {
         public BatchDO CurrentBatch { get; set; }
-        
+
         public StateLogDO StateLog { get; set; }
 
 
@@ -45,7 +45,6 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
             return check;
         }
 
-
         public void CreateBatch(ushort productType, ushort productionSpeed, ushort batchSize)
         {
             this.CurrentBatch = new BatchDO
@@ -56,17 +55,15 @@ namespace BeerProductionSystem.BusinessLayer.BatchModule
                 ProductionSpeed = productionSpeed,
                 ProductionStartTime = System.DateTime.Now
 
-        };
+            };
             batchID++;
         }
 
-       public void SaveTimeInState(MachineState currentState, TimeSpan timeSpan)
+        public void SaveTimeInState(MachineState currentState, TimeSpan timeSpan)
         {
             Dictionary<int, TimeSpan> dict = new Dictionary<int, TimeSpan>();
             dict.Add((int)currentState, timeSpan);
             StateLog.SetTimeInStates(dict);
         }
-
-        
     }
 }

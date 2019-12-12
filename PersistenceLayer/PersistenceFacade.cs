@@ -4,12 +4,7 @@ using BeerProductionSystem.PersistenceLayer.ConnectionModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
 using BeerProductionSystem.PersistenceLayer.DatabaseModule;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeerProductionSystem.BusinessLayer;
 
 namespace BeerProductionSystem.PersistenceLayer
 {

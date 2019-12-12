@@ -30,7 +30,7 @@ namespace BeerProductionSystem.Aquaintence
         bool SaveBatchReport();
 
         int GetProductMaxSpeed(string productName);
-        
+
         List<BatchDO> GetAllBatchReports();
 
         BatchDO GetSpecificReport(int id);
