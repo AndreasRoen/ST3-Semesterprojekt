@@ -5,16 +5,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BeerProductionSystem.PresentationLayer
 {
     public partial class UI : Form
     {
         private List<BatchDO> reports;
+        private BatchReportDataShower batchReportShower;
         public UI()
         {
             InitializeComponent();
             reports = new List<BatchDO>();
+            List<Chart> charts = new List<Chart>();
+            charts.Add(chartStates);
+            charts.Add(humidityChart);
+            charts.Add(tempChart);
+            batchReportShower = new BatchReportDataShower(charts);
+
+
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -177,13 +186,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             int itemIndex = listBoxBatches.SelectedIndex;
             BatchDO chosenBatchReport = reports[itemIndex];
-            chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
-                "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
-                "Created products: " + chosenBatchReport.BatchSize + "\n" +
-                "Acceptable products: " + chosenBatchReport.ProducedProducts + "\n" +
-                "Defective products: " + chosenBatchReport.DefectProducts + "\n" +
-                GetTimeInStates(chosenBatchReport.StateDictionary) + "\n" +
-                GetAllEnvironmentalInfo(chosenBatchReport.EnvironmentalLogs);
+            chosenReport.Text = batchReportShower.ShowBatchInfo(chosenBatchReport);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
@@ -220,7 +223,7 @@ namespace BeerProductionSystem.PresentationLayer
             return "No environment information.";
         }
 
-        private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
+        private string GetSpecificLoggingInfo(string description, List<float> loggingList, Chart chart)
         {
             chart.Visible = true;
             chart.Series[description].Points.Clear();

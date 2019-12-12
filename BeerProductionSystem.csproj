@@ -95,6 +95,7 @@
     <Compile Include="PersistenceLayer\PersistenceFacade.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineReadData.cs" />
     <Compile Include="PersistenceLayer\MachineModule\MachineWriteData.cs" />
+    <Compile Include="PresentationLayer\BatchReportDataShower.cs" />
     <Compile Include="PresentationLayer\BeerProduction.cs" />
     <Compile Include="PresentationLayer\StartupConnection.cs">
       <SubType>Form</SubType>
