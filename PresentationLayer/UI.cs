@@ -164,6 +164,7 @@ namespace BeerProductionSystem.PresentationLayer
             if (specificReport != null)
             {
                 reports.Add(specificReport);
+                chosenReport.Text = batchReportShower.ShowBatchInfo(specificReport);
             }
             else
             {
