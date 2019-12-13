@@ -273,5 +273,12 @@ namespace BeerProductionSystem.PresentationLayer
             envLogs.Add(temp);
             return envLogs;
         }
+
+        private void listBoxBatches_MouseClick(object sender, MouseEventArgs e)
+        {
+            int itemIndex = listBoxBatches.SelectedIndex;
+            BatchDO chosenBatchReport = reports[itemIndex];
+            chosenReport.Text = batchReportShower.ShowBatchInfo(chosenBatchReport);
+        }
     }
 }

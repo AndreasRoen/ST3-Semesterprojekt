@@ -45,18 +45,18 @@ namespace BeerProductionSystem.PresentationLayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title9 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.disconnectedLabel = new System.Windows.Forms.Label();
@@ -718,69 +718,69 @@ namespace BeerProductionSystem.PresentationLayer
             // 
             // humidityChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.humidityChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.humidityChart.Legends.Add(legend1);
+            chartArea7.Name = "ChartArea1";
+            this.humidityChart.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.humidityChart.Legends.Add(legend7);
             this.humidityChart.Location = new System.Drawing.Point(419, 290);
             this.humidityChart.Margin = new System.Windows.Forms.Padding(2);
             this.humidityChart.Name = "humidityChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Humidity";
-            this.humidityChart.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Legend = "Legend1";
+            series7.Name = "Humidity";
+            this.humidityChart.Series.Add(series7);
             this.humidityChart.Size = new System.Drawing.Size(259, 130);
             this.humidityChart.TabIndex = 6;
             this.humidityChart.Text = "humidityChart";
-            title1.Name = "Title1";
-            title1.Text = "Humidity";
-            this.humidityChart.Titles.Add(title1);
+            title7.Name = "Title1";
+            title7.Text = "Humidity";
+            this.humidityChart.Titles.Add(title7);
             this.humidityChart.Visible = false;
             // 
             // tempChart
             // 
             this.tempChart.AccessibleName = "";
-            chartArea2.Name = "ChartArea1";
-            this.tempChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.tempChart.Legends.Add(legend2);
+            chartArea8.Name = "ChartArea1";
+            this.tempChart.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.tempChart.Legends.Add(legend8);
             this.tempChart.Location = new System.Drawing.Point(419, 155);
             this.tempChart.Margin = new System.Windows.Forms.Padding(2);
             this.tempChart.Name = "tempChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Temperature";
-            this.tempChart.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Legend = "Legend1";
+            series8.Name = "Temperature";
+            this.tempChart.Series.Add(series8);
             this.tempChart.Size = new System.Drawing.Size(259, 130);
             this.tempChart.TabIndex = 5;
             this.tempChart.Text = "tempChart";
-            title2.Name = "Title1";
-            title2.Text = "Temperature chart";
-            this.tempChart.Titles.Add(title2);
+            title8.Name = "Title1";
+            title8.Text = "Temperature chart";
+            this.tempChart.Titles.Add(title8);
             this.tempChart.Visible = false;
             // 
             // chartStates
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartStates.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartStates.Legends.Add(legend3);
+            chartArea9.Name = "ChartArea1";
+            this.chartStates.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chartStates.Legends.Add(legend9);
             this.chartStates.Location = new System.Drawing.Point(419, 20);
             this.chartStates.Margin = new System.Windows.Forms.Padding(2);
             this.chartStates.Name = "chartStates";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "States";
-            this.chartStates.Series.Add(series3);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series9.Legend = "Legend1";
+            series9.Name = "States";
+            this.chartStates.Series.Add(series9);
             this.chartStates.Size = new System.Drawing.Size(259, 130);
             this.chartStates.TabIndex = 4;
             this.chartStates.Text = "chart1";
-            title3.Name = "Title1";
-            title3.Text = "Amount of time States";
-            this.chartStates.Titles.Add(title3);
+            title9.Name = "Title1";
+            title9.Text = "Amount of time States";
+            this.chartStates.Titles.Add(title9);
             this.chartStates.Visible = false;
             // 
             // chosenReport
@@ -788,7 +788,7 @@ namespace BeerProductionSystem.PresentationLayer
             this.chosenReport.Location = new System.Drawing.Point(196, 56);
             this.chosenReport.Margin = new System.Windows.Forms.Padding(2);
             this.chosenReport.Name = "chosenReport";
-            this.chosenReport.Size = new System.Drawing.Size(182, 290);
+            this.chosenReport.Size = new System.Drawing.Size(182, 316);
             this.chosenReport.TabIndex = 3;
             this.chosenReport.Text = "";
             // 
@@ -817,9 +817,9 @@ namespace BeerProductionSystem.PresentationLayer
             this.listBoxBatches.Location = new System.Drawing.Point(4, 56);
             this.listBoxBatches.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxBatches.Name = "listBoxBatches";
-            this.listBoxBatches.Size = new System.Drawing.Size(168, 290);
+            this.listBoxBatches.Size = new System.Drawing.Size(168, 316);
             this.listBoxBatches.TabIndex = 0;
-            this.listBoxBatches.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ShowBatchReport_MouseDoubleClick);
+            this.listBoxBatches.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxBatches_MouseClick);
             // 
             // OEELabel
             // 

@@ -53,11 +53,11 @@ namespace BeerProductionSystem.BusinessLayer
 
     enum OptimalProductionSpeed
     {
-        Pilsner = 530,
-        Wheat = 220,
+        Pilsner = 460,
+        Wheat = 150,
         IPA = 105,
         Stout = 200,
-        Ale = 100,
+        Ale = 90,
         Alcohol_Free = 112
     }
 }
