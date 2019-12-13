@@ -94,11 +94,13 @@ namespace BeerProductionSystem.PresentationLayer
                     if (!logicFacade.CheckMachineConnection())
                     {
                         disconnectedLabel.Visible = true;
+                        disconnectedLabel2.Visible = true;
                         tabPage.Enabled = false;
 
                         if (logicFacade.ConnectToMachine(""))
                         {
                             disconnectedLabel.Visible = false;
+                            disconnectedLabel2.Visible = false;
                             tabPage.Enabled = true;
                         }
                     }
