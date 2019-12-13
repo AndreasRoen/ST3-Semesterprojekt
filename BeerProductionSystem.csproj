@@ -78,8 +78,7 @@
     <Compile Include="Aquaintence\ILogicFacade.cs" />
     <Compile Include="Aquaintence\IPersistenceFacade.cs" />
     <Compile Include="BusinessLayer\ProductionCalculation.cs" />
-    <Compile Include="BusinessLayer\BatchModule\BatchManager.cs" />
-    <Compile Include="BusinessLayer\BatchModule\IBatchManager.cs" />
+    <Compile Include="BusinessLayer\BatchManager.cs" />
     <Compile Include="BusinessLayer\BusinessLayerEnums.cs" />
     <Compile Include="BusinessLayer\LogicFacade.cs" />
     <Compile Include="DOClasses\LiveRelevantDataDO.cs" />

@@ -1,5 +1,4 @@
 ﻿using BeerProductionSystem.Aquaintence;
-using BeerProductionSystem.BusinessLayer.BatchModule;
 using BeerProductionSystem.DOClasses;
 using BeerProductionSystem.PersistenceLayer;
 using System;
@@ -11,7 +10,7 @@ namespace BeerProductionSystem.BusinessLayer
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
-        private IBatchManager batchManager;
+        private BatchManager batchManager;
         private ProductionCalculation calculator;
         private MachineState currentState;
         private DateTime startTime;

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 
 
-namespace BeerProductionSystem.BusinessLayer.BatchModule
+namespace BeerProductionSystem.BusinessLayer
 {
-    class BatchManager : IBatchManager
+    class BatchManager
     {
         public BatchDO CurrentBatch { get; set; }
 
