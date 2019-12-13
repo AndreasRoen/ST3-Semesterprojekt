@@ -22,8 +22,6 @@ namespace BeerProductionSystem.PresentationLayer
             charts.Add(humidityChart);
             charts.Add(tempChart);
             batchReportShower = new BatchReportDataShower(charts);
-
-
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -44,6 +42,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             logicFacade.SendResetCommand();
             BatchProgressBar.Value = 0;
+            UpdateOEELabel();
         }
 
         private void clearBtn_Click(object sender, EventArgs e)
@@ -128,12 +127,10 @@ namespace BeerProductionSystem.PresentationLayer
         private void productTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedProductType = productTypeComboBox.SelectedItem.ToString();
-            int productType = logicFacade.GetProductTypeNumber(selectedProductType);
-            List<BatchDO> batchList = logicFacade.GetAllBatchReports();
-            OEELabel.Text = logicFacade.GetTotalOptimalEquipmentEffectiveness(batchList, productType).ToString();
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
             // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
 
+            UpdateOEELabel();
             productionSpeedTrackBar.Maximum = maxSpeed;
             maxProductionSpeedLabel.Text = maxSpeed.ToString();
 
@@ -142,7 +139,16 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
+
             SetEstimatedError();
+        }
+
+        private void UpdateOEELabel()
+        {
+            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            int productType = logicFacade.GetProductTypeNumber(selectedProductType);
+            List<BatchDO> batchList = logicFacade.GetAllBatchReports();
+            OEELabel.Text = logicFacade.GetTotalOptimalEquipmentEffectiveness(batchList, productType).ToString();
         }
 
         // Making sure all forms close when the user closes the main form
@@ -160,8 +166,6 @@ namespace BeerProductionSystem.PresentationLayer
             if (searchTextBox.Text != null && int.TryParse(searchTextBox.Text, out batchId))
             {
                 specificReport = logicFacade.GetSpecificReport(batchId);
-                //System.Diagnostics.Debug.WriteLine(reports.Count);
-
             }
 
             if (specificReport != null)
@@ -174,8 +178,6 @@ namespace BeerProductionSystem.PresentationLayer
                 reports = logicFacade.GetAllBatchReports();
             }
 
-            //TODO removed before release
-            System.Diagnostics.Debug.WriteLine(reports.Count);
 
             List<string> selectedReports = new List<string>();
             for (int i = 0; i < reports.Count; i++)

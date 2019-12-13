@@ -123,7 +123,7 @@ namespace BeerProductionSystem.BusinessLayer
             return calculator.CalculateError((ProductType)productType, productionSpeed);
         }
 
-       public int GetOptimalProductionSpeed(ushort productType)
+        public int GetOptimalProductionSpeed(ushort productType)
         {
             ProductType p = (ProductType)productType;
             return (int)(OptimalProductionSpeed)Enum.Parse(typeof(OptimalProductionSpeed), p.ToString());
@@ -134,9 +134,9 @@ namespace BeerProductionSystem.BusinessLayer
             return persistenceFacade.CheckMachineConnection();
         }
 
-        public double GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType)
+        public int GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType)
         {
-            return calculator.CalculateTotalOptimalEquipmentEffectiveness(batchList, productType);
+            return (int)calculator.CalculateTotalOptimalEquipmentEffectiveness(batchList, productType);
         }
 
         public int GetProductTypeNumber(string productType)

@@ -50,8 +50,8 @@ namespace BeerProductionSystem.BusinessLayer
         {
             List<BatchDO> sortedList = batchDOList.FindAll(b => b.ProductType == productType);
             List<double> OEEList = new List<double>();
-            
-            foreach(BatchDO b in sortedList)
+
+            foreach (BatchDO b in sortedList)
             {
                 //Calculate Availability
                 double availability = CalculateAvailability(b);
@@ -66,22 +66,28 @@ namespace BeerProductionSystem.BusinessLayer
             }
             try
             {
-               return OEEList.Average();
+                return OEEList.Average();
             }
             catch (InvalidOperationException)
             {
-
+                Debug.WriteLine("Whoops.");
             }
             return 0;
-
         }
 
         private double CalculateQuality(BatchDO batchDO)
         {
             double Quality;
-            double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
-            Quality = AcceptableProducts / (double)batchDO.ProducedProducts;
-            return Quality;
+            if (batchDO.ProducedProducts == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
+                Quality = AcceptableProducts / (double)batchDO.ProducedProducts;
+                return Quality;
+            }
         }
         private double CalculateAvailability(BatchDO batchDO)
         {
@@ -97,13 +103,14 @@ namespace BeerProductionSystem.BusinessLayer
             //Gather necessary data and calculate Performance
             double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
             double idealCycleTime = 60 / (double)batchDO.ProductionSpeed;
-            Performance = (idealCycleTime * (double)batchDO.ProducedProducts) /runTime;
-            Debug.WriteLine(Performance.ToString());
+            Performance = (idealCycleTime * (double)batchDO.ProducedProducts) / runTime;
+            Debug.WriteLine(runTime + " " + idealCycleTime + " " + Performance);
             return Performance;
         }
         private double CalculateOptimalEquipmentEffectiveness(double availability, double performance, double quality)
         {
             double OEE = availability * performance * quality;
+            Debug.WriteLine(OEE.ToString());
             return OEE;
         }
 

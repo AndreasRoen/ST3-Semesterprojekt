@@ -37,7 +37,7 @@ namespace BeerProductionSystem.Aquaintence
 
         int GetEstimatedError(ushort productType, ushort productionSpeed);
 
-        double GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType);
+        int GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType);
 
         int GetOptimalProductionSpeed(ushort productType);
 
