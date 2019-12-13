@@ -1,9 +1,9 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.BusinessLayer.BatchModule;
-using BeerProductionSystem.PersistenceLayer;
-using System.Collections.Generic;
-using System;
 using BeerProductionSystem.DOClasses;
+using BeerProductionSystem.PersistenceLayer;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BeerProductionSystem.BusinessLayer

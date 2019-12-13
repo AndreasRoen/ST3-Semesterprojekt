@@ -1,9 +1,9 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.DOClasses;
 using BeerProductionSystem.PersistenceLayer.ConnectionModule;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System.Collections.Generic;
 
 namespace BeerProductionSystem.PersistenceLayer

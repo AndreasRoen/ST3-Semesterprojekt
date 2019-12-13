@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -43,5 +39,5 @@ namespace BeerProductionSystem.Aquaintence
 
         int GetProductTypeNumber(string productType);
 
-        }
+    }
 }

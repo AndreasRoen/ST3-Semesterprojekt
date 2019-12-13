@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Opc.UaFx.Client;
+﻿using Opc.UaFx.Client;
+using System.Collections.Generic;
 
 namespace BeerProductionSystem.PersistenceLayer.MachineModule
 {

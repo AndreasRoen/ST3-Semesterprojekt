@@ -1,9 +1,9 @@
+using BeerProductionSystem.BusinessLayer;
 using BeerProductionSystem.DOClasses;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using BeerProductionSystem.BusinessLayer;
+using System.Linq;
 
 namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
 {
@@ -91,14 +91,14 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
         public BatchDO LoadBatchReport(int BatchID)
         {
             DataContext context = new DataContext();
-            
+
             BatchDO batchDO = context.BatchReports.Find(BatchID);
             StateLogDO stateLogDO = context.StateLogs.FirstOrDefault(s => s.BatchReportID == BatchID);
 
             return loadStateDictionaryOnBatchDO(batchDO, stateLogDO);
         }
 
-       //Returns all info of all Batch Reports in Database as a List sorted by BatchID
+        //Returns all info of all Batch Reports in Database as a List sorted by BatchID
         public List<BatchDO> GetBatchReports()
         {
             List<BatchDO> batchList = new List<BatchDO>();

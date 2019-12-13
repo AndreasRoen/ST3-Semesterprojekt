@@ -1,5 +1,5 @@
-﻿using System;
-using BeerProductionSystem.DOClasses;
+﻿using BeerProductionSystem.DOClasses;
+using System;
 
 namespace BeerProductionSystem.BusinessLayer.BatchModule
 {

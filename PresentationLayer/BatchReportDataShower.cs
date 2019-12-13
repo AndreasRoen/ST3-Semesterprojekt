@@ -1,11 +1,9 @@
-﻿using System;
+﻿using BeerProductionSystem.BusinessLayer;
+using BeerProductionSystem.DOClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-using BeerProductionSystem.DOClasses;
-using BeerProductionSystem.BusinessLayer;
 
 namespace BeerProductionSystem.PresentationLayer
 {
