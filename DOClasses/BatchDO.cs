@@ -33,12 +33,12 @@ namespace BeerProductionSystem.DOClasses
         public int? ProducedProducts { get; set; }
         [Column("DefectProducts", Order = 5)]
         public int? DefectProducts { get; set; }
-
+        [Required]
         [Column("ProductionStartTime", TypeName = "datetime2", Order = 6)]
         public DateTime ProductionStartTime { get; set; }
 
         [Column("ProductionEndTime", TypeName = "datetime2", Order = 7)]
-        public DateTime? ProductionEndTime { get; set; }
+        public DateTime ProductionEndTime { get; set; }
         public virtual ICollection<StateLogDO> StateLogs { get; set; }
         public virtual ICollection<EnvironmentalLogDO> EnvironmentalLogs { get; set; }
         [NotMapped]

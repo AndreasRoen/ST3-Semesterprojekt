@@ -53,10 +53,16 @@ namespace BeerProductionSystem.BusinessLayer
             
             foreach(BatchDO b in sortedList)
             {
-                double downTime = getStateDownTime(b.StateDictionary);
-                
-                int acceptableProducts = (int)(b.ProducedProducts - b.DefectProducts);
-                OEEList.Add(CalculateOptimalEquipmentEffectiveness(acceptableProducts, b.ProductionSpeed, b.BatchSize, downTime));
+                //Calculate Availability
+                double availability = CalculateAvailability(b);
+                //Calculate Performance
+                double performance = CalculatePerformance(b);
+                //Calcualate Quality
+                double quality = CalculateQuality(b);
+
+                //Finally Calculate OEE
+                double OEE = CalculateOptimalEquipmentEffectiveness(availability, performance, quality);
+                OEEList.Add(OEE);
             }
             try
             {
@@ -70,32 +76,57 @@ namespace BeerProductionSystem.BusinessLayer
 
         }
 
-        private double CalculateOptimalEquipmentEffectiveness(double acceptableProducts, double productionSpeed, double batchSize, double downTime)
+        private double CalculateQuality(BatchDO batchDO)
         {
-            double OEE = (acceptableProducts * (productionSpeed*60)) / ((batchSize / (productionSpeed*60)) - downTime);
-            Debug.WriteLine(downTime);
+            double Quality;
+            double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
+            Quality = AcceptableProducts / (double)batchDO.ProducedProducts;
+            return Quality;
+        }
+        private double CalculateAvailability(BatchDO batchDO)
+        {
+            double Availability;
+            double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
+            double downTime = GetStateDownTime(batchDO.StateDictionary);
+            Availability = (runTime - downTime) / runTime;
+            return Availability;
+        }
+        private double CalculatePerformance(BatchDO batchDO)
+        {
+            double Performance;
+            //Gather necessary data and calculate Performance
+            double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
+            double idealCycleTime = 60 / (double)batchDO.ProductionSpeed;
+            Performance = (idealCycleTime * (double)batchDO.ProducedProducts) /runTime;
+            Debug.WriteLine(Performance.ToString());
+            return Performance;
+        }
+        private double CalculateOptimalEquipmentEffectiveness(double availability, double performance, double quality)
+        {
+            double OEE = availability * performance * quality;
             return OEE;
         }
 
-        private double getStateDownTime(Dictionary<int, TimeSpan> stateDictionary)
+        private double GetStateDownTime(Dictionary<int, TimeSpan> stateDictionary)
         {
             double downTime = 0;
-            downTime += stateDictionary[(int)MachineState.Aborted].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Aborting].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Activating].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Clearing].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Complete].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Completing].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Deactivated].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Deactivating].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Held].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Holding].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Idle].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Resetting].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Starting].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Stopped].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Stopping].TotalSeconds;
-            downTime += stateDictionary[(int)MachineState.Suspended].TotalSeconds;
+            //All states count as downtime except the "Execute State"
+            downTime += stateDictionary[(int)MachineState.Aborted].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Aborting].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Activating].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Clearing].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Complete].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Completing].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Deactivated].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Deactivating].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Held].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Holding].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Idle].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Resetting].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Starting].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Stopped].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Stopping].TotalMinutes;
+            downTime += stateDictionary[(int)MachineState.Suspended].TotalMinutes;
             return downTime;
         }
 
