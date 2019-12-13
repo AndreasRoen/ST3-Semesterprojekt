@@ -1,7 +1,6 @@
 ﻿using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace BeerProductionSystem.BusinessLayer
@@ -88,7 +87,7 @@ namespace BeerProductionSystem.BusinessLayer
             double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
             quality = AcceptableProducts / (double)batchDO.ProducedProducts;
             return quality;
-            
+
         }
         private double CalculateAvailability(BatchDO batchDO)
         {
@@ -105,7 +104,6 @@ namespace BeerProductionSystem.BusinessLayer
             double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
             ProductType productType = (ProductType)batchDO.ProductType;
             ProductMaxSpeed productMaxSpeed = (ProductMaxSpeed)Enum.Parse(typeof(ProductMaxSpeed), productType.ToString());
-            Debug.WriteLine(((int)productMaxSpeed).ToString());
             double idealCycleTime = 60 / (double)((int)productMaxSpeed);
             performance = (idealCycleTime * (double)batchDO.ProducedProducts) / runTime;
             return performance;
