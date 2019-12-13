@@ -89,18 +89,25 @@ namespace BeerProductionSystem.PresentationLayer
             }
             catch (Exception ex)
             {
-                if (!logicFacade.CheckMachineConnection())
+                if (ex is InvalidOperationException || ex is Opc.UaFx.OpcException)
                 {
-                    disconnectedLabel.Visible = true;
-                    tab1.Enabled = false;
-
-                    if (logicFacade.ConnectToMachine(""))
+                    if (!logicFacade.CheckMachineConnection())
                     {
-                        disconnectedLabel.Visible = false;
-                        tab1.Enabled = true;
+                        disconnectedLabel.Visible = true;
+                        tabPage.Enabled = false;
+
+                        if (logicFacade.ConnectToMachine(""))
+                        {
+                            disconnectedLabel.Visible = false;
+                            tabPage.Enabled = true;
+                        }
                     }
+                    else { Debug.WriteLine(ex.StackTrace); }
                 }
-                else { Debug.WriteLine(ex.StackTrace); }
+                else
+                {
+                    throw;
+                }
             }
         }
 

@@ -14,7 +14,7 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
         // server state was either connected or created, but "created" didn't sound like it wasn't connected
         public bool CheckConnection()
         {
-            var state = AccessPoint.State;
+            OpcClientState state = AccessPoint.State;
             return state == OpcClientState.Connected;
         }
 

@@ -52,11 +52,6 @@ namespace BeerProductionSystem.PersistenceLayer
 
         public LiveRelevantDataDO GetUpdateData()
         {
-            if (!opcConnection.CheckConnection())
-            {
-                opcConnection.ConnectToServer(currentMachineName);
-            }
-
             LiveRelevantDataDO liveRelevantData = new LiveRelevantDataDO(
                 machineReadData.ReadTemperature(accessPoint),
                 machineReadData.ReadHumidity(accessPoint),

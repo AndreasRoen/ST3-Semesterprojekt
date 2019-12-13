@@ -1,7 +1,6 @@
 ﻿using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace BeerProductionSystem.BusinessLayer
@@ -70,7 +69,6 @@ namespace BeerProductionSystem.BusinessLayer
             }
             catch (InvalidOperationException)
             {
-                Debug.WriteLine("Whoops.");
             }
             return 0;
         }
