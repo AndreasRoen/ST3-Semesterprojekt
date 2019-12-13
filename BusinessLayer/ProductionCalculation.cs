@@ -1,6 +1,7 @@
 ﻿using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace BeerProductionSystem.BusinessLayer
@@ -52,15 +53,23 @@ namespace BeerProductionSystem.BusinessLayer
 
             foreach (BatchDO b in sortedList)
             {
-                //Calculate Availability
-                double availability = CalculateAvailability(b);
-                //Calculate Performance
-                double performance = CalculatePerformance(b);
-                //Calcualate Quality
-                double quality = CalculateQuality(b);
+                double OEE;
+                if (b.ProducedProducts == 0)
+                {
+                    OEE = 0;
+                }
+                else
+                {
+                    //Calculate Availability
+                    double availability = CalculateAvailability(b);
+                    //Calculate Performance
+                    double performance = CalculatePerformance(b);
+                    //Calcualate Quality
+                    double quality = CalculateQuality(b);
 
-                //Finally Calculate OEE
-                double OEE = CalculateOptimalEquipmentEffectiveness(availability, performance, quality);
+                    //Finally Calculate OEE
+                    OEE = CalculateOptimalEquipmentEffectiveness(availability, performance, quality);
+                }
                 oeeList.Add(OEE);
             }
             try
@@ -76,16 +85,10 @@ namespace BeerProductionSystem.BusinessLayer
         private double CalculateQuality(BatchDO batchDO)
         {
             double quality;
-            if (batchDO.ProducedProducts == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
-                quality = AcceptableProducts / (double)batchDO.ProducedProducts;
-                return quality;
-            }
+            double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
+            quality = AcceptableProducts / (double)batchDO.ProducedProducts;
+            return quality;
+            
         }
         private double CalculateAvailability(BatchDO batchDO)
         {
@@ -100,7 +103,10 @@ namespace BeerProductionSystem.BusinessLayer
             double performance;
             //Gather necessary data and calculate Performance
             double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
-            double idealCycleTime = 60 / (double)batchDO.ProductionSpeed;
+            ProductType productType = (ProductType)batchDO.ProductType;
+            ProductMaxSpeed productMaxSpeed = (ProductMaxSpeed)Enum.Parse(typeof(ProductMaxSpeed), productType.ToString());
+            Debug.WriteLine(((int)productMaxSpeed).ToString());
+            double idealCycleTime = 60 / (double)((int)productMaxSpeed);
             performance = (idealCycleTime * (double)batchDO.ProducedProducts) / runTime;
             return performance;
         }
