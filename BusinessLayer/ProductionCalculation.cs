@@ -49,7 +49,7 @@ namespace BeerProductionSystem.BusinessLayer
         public double CalculateTotalOptimalEquipmentEffectiveness(List<BatchDO> batchDOList, int productType)
         {
             List<BatchDO> sortedList = batchDOList.FindAll(b => b.ProductType == productType);
-            List<double> OEEList = new List<double>();
+            List<double> oeeList = new List<double>();
 
             foreach (BatchDO b in sortedList)
             {
@@ -62,11 +62,11 @@ namespace BeerProductionSystem.BusinessLayer
 
                 //Finally Calculate OEE
                 double OEE = CalculateOptimalEquipmentEffectiveness(availability, performance, quality);
-                OEEList.Add(OEE);
+                oeeList.Add(OEE);
             }
             try
             {
-                return OEEList.Average();
+                return oeeList.Average();
             }
             catch (InvalidOperationException)
             {
@@ -77,7 +77,7 @@ namespace BeerProductionSystem.BusinessLayer
 
         private double CalculateQuality(BatchDO batchDO)
         {
-            double Quality;
+            double quality;
             if (batchDO.ProducedProducts == 0)
             {
                 return 0;
@@ -85,32 +85,30 @@ namespace BeerProductionSystem.BusinessLayer
             else
             {
                 double AcceptableProducts = (double)(batchDO.ProducedProducts - batchDO.DefectProducts);
-                Quality = AcceptableProducts / (double)batchDO.ProducedProducts;
-                return Quality;
+                quality = AcceptableProducts / (double)batchDO.ProducedProducts;
+                return quality;
             }
         }
         private double CalculateAvailability(BatchDO batchDO)
         {
-            double Availability;
+            double availability;
             double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
             double downTime = GetStateDownTime(batchDO.StateDictionary);
-            Availability = (runTime - downTime) / runTime;
-            return Availability;
+            availability = (runTime - downTime) / runTime;
+            return availability;
         }
         private double CalculatePerformance(BatchDO batchDO)
         {
-            double Performance;
+            double performance;
             //Gather necessary data and calculate Performance
             double runTime = batchDO.ProductionEndTime.Subtract(batchDO.ProductionStartTime).TotalMinutes;
             double idealCycleTime = 60 / (double)batchDO.ProductionSpeed;
-            Performance = (idealCycleTime * (double)batchDO.ProducedProducts) / runTime;
-            Debug.WriteLine(runTime + " " + idealCycleTime + " " + Performance);
-            return Performance;
+            performance = (idealCycleTime * (double)batchDO.ProducedProducts) / runTime;
+            return performance;
         }
         private double CalculateOptimalEquipmentEffectiveness(double availability, double performance, double quality)
         {
             double OEE = availability * performance * quality;
-            Debug.WriteLine(OEE.ToString());
             return OEE;
         }
 
@@ -136,6 +134,5 @@ namespace BeerProductionSystem.BusinessLayer
             downTime += stateDictionary[(int)MachineState.Suspended].TotalMinutes;
             return downTime;
         }
-
     }
 }

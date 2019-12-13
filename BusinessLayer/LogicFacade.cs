@@ -106,8 +106,6 @@ namespace BeerProductionSystem.BusinessLayer
             return (int)maxSpeed;
         }
 
-
-
         public List<BatchDO> GetAllBatchReports()
         {
             return persistenceFacade.GetBatchReports();
