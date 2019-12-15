@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -15,18 +11,19 @@ namespace BeerProductionSystem.Aquaintence
         bool ConnectToMachine(string machineName);
 
         bool CheckMachineConnection();
+        int GetLastBatchReportID();
 
         LiveRelevantDataDO GetUpdateData();
 
         void SendCommand(int command);
 
-        void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID);
+        void SetBatchParameters(float productType, int productionSpeed, int batchSize, int batchID);
 
-        bool SaveBatchReport(BatchReport batchReport);
+        bool SaveBatchReport(BatchDO batchReport);
         bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData);
-        List<BatchReport> GetBatchReports();
+        List<BatchDO> GetBatchReports();
 
-        BatchReport GetSpecificReport(int id);
+        BatchDO GetSpecificReport(int id);
 
     }
 }

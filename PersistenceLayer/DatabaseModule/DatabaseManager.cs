@@ -1,36 +1,58 @@
+using BeerProductionSystem.BusinessLayer;
 using BeerProductionSystem.DOClasses;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using System;
-using System.Linq;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
-namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
-    class DatabaseManager : IDatabaseManager {
+namespace BeerProductionSystem.PersistenceLayer.DatabaseModule
+{
+    class DatabaseManager : IDatabaseManager
+    {
 
-        public DatabaseManager() {
+        public DatabaseManager()
+        {
 
         }
 
-        public bool SaveBatchReport(BatchReport batchReport)
+        public int GetLastBatchReportID()
+        {
+            int batchReportID = 0;
+            using (DataContext context = new DataContext())
+            {
+                try
+                {
+                    //Returns the latest Batch report saved in the database.
+                    BatchDO batchReport = context.BatchReports.OrderByDescending(
+                        b => b.BatchReportID).FirstOrDefault();
+                    batchReportID = batchReport.BatchReportID;
+                }
+                catch (NullReferenceException)
+                {
+
+                }
+            }
+            return batchReportID;
+        }
+        public bool SaveBatchReport(BatchDO batchReport)
         {
             bool success = false;
             using (DataContext context = new DataContext())
             {
-                
+                //Create empty StateLog entry
+                StateLogDO stateLog = new StateLogDO();
+                stateLog.BatchReportID = batchReport.BatchReportID;
+                //Save Batch Report
                 context.BatchReports.Add(batchReport);
+                context.StateLogs.Add(stateLog);
                 context.SaveChanges();
 
                 success = true;
-
             }
             return success;
         }
 
-        
+
         public bool UpdateBatchReport(LiveRelevantDataDO liveRelevantData)
         {
             bool success = false;
@@ -38,88 +60,81 @@ namespace BeerProductionSystem.PersistenceLayer.DatabaseModule {
             using (DataContext context = new DataContext())
             {
                 //Returns the latest Batch report saved in the database.
-                BatchReport batchReport = context.BatchReports.OrderByDescending(
-                    b => b.BatchReportID).FirstOrDefault();
+                BatchDO batchReport = context.BatchReports.Find(liveRelevantData.BatchID);
+                //Update batchReport data
+                batchReport.ProducedProducts = liveRelevantData.ProducedProducts;
+                batchReport.DefectProducts = liveRelevantData.DefectProducts;
+                batchReport.ProductionEndTime = System.DateTime.Now;
 
                 //Create a new entry of environmental log
-                EnvironmentalLog environmentalLog = new EnvironmentalLog
+                EnvironmentalLogDO environmentalLog = new EnvironmentalLogDO
                 {
+                    BatchReportID = batchReport.BatchReportID,
                     Temperature = liveRelevantData.Temperature,
                     Vibration = liveRelevantData.Vibration,
                     Humidity = liveRelevantData.Humidity,
                     Time = System.DateTime.Now
                 };
-
-                //Save data
-                batchReport.AcceptableAmount += liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts;
-                batchReport.DefectAmount += liveRelevantData.DefectProducts;
+                //Save environmental log entry
                 batchReport.EnvironmentalLogs.Add(environmentalLog);
+
+                StateLogDO stateLog = context.StateLogs.FirstOrDefault(s => s.BatchReportID == batchReport.BatchReportID);
+                stateLog.SetTimeInStates(liveRelevantData.StateDictionary);
+
                 context.SaveChanges();
 
                 success = true;
-
             }
             return success;
         }
 
-        public BatchReport LoadBatchReport(int BatchID)
+        public BatchDO LoadBatchReport(int BatchID)
         {
-            BatchReport data = new BatchReport();
-            using(DataContext context = new DataContext())
-            {
-                data = context.BatchReports.Find(BatchID);
-            }
-            return data;
-        }
+            DataContext context = new DataContext();
 
-        public List<BatchReport> GetAllBatchReports()
-        {
-            List<BatchReport> batchList = new List<BatchReport>();
-            using (DataContext context = new DataContext())
-            {
-                batchList = context.BatchReports.ToList();
-            }
-            return batchList;
+            BatchDO batchDO = context.BatchReports.Find(BatchID);
+            StateLogDO stateLogDO = context.StateLogs.FirstOrDefault(s => s.BatchReportID == BatchID);
+
+            return loadStateDictionaryOnBatchDO(batchDO, stateLogDO);
         }
 
         //Returns all info of all Batch Reports in Database as a List sorted by BatchID
-        public List<BatchReport> GetBatchReports()
+        public List<BatchDO> GetBatchReports()
         {
-            List<BatchReport> batchList = new List<BatchReport>();
+            List<BatchDO> batchList = new List<BatchDO>();
             DataContext context = new DataContext();
-            
-                List<BatchReport> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
-                foreach (BatchReport br in batches)
-                {
-                    br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id",new SqlParameter("@id", br.BatchReportID))).ToList();
-                    br.StateLogs = (ICollection<StateLog>)context.StateLogs.Find(br.BatchReportID);
-                    foreach(StateLog sl in br.StateLogs)
-                    {
-                        br.StateDictionary.Add((int)sl.AbortedState, new TimeSpan((long)(sl.AbortedState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.AbortingState, new TimeSpan((long)(sl.AbortingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.ActivatingState, new TimeSpan((long)(sl.ActivatingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.ClearingState, new TimeSpan((long)(sl.ClearingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.CompleteState, new TimeSpan((long)(sl.CompleteState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.CompletingState, new TimeSpan((long)(sl.CompletingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.DeactivatedState, new TimeSpan((long)(sl.DeactivatedState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.DeactivatingState, new TimeSpan((long)(sl.DeactivatingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.ExecuteState, new TimeSpan((long)(sl.ExecuteState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.HeldState, new TimeSpan((long)(sl.HeldState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.HoldingState, new TimeSpan((long)(sl.HoldingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.IdleState, new TimeSpan((long)(sl.IdleState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.ResettingState, new TimeSpan((long)(sl.ResettingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.StartingState, new TimeSpan((long)(sl.StartingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.StoppedState, new TimeSpan((long)(sl.StoppedState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.StoppingState, new TimeSpan((long)(sl.StoppingState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.SuspendedState, new TimeSpan((long)(sl.SuspendedState.Value) * 10000));
-                        br.StateDictionary.Add((int)sl.BatchReportID, new TimeSpan((long)(sl.BatchReportID) * 10000));
-                    }
 
-                    batchList.Add(br);
-                }
-            
-            
+            List<BatchDO> batches = (context.BatchReports.SqlQuery("SELECT * FROM dbo.BatchReport")).ToList();
+            foreach (BatchDO br in batches)
+            {
+                br.EnvironmentalLogs = (context.EnvironmentalLogs.SqlQuery("SELECT * FROM dbo.EnvironmentalLog WHERE BatchReportID = @id", new SqlParameter("@id", br.BatchReportID))).ToList();
+                StateLogDO stateLog = context.StateLogs.Find(br.BatchReportID);
+                batchList.Add(loadStateDictionaryOnBatchDO(br, stateLog));
+            }
+
             return batchList;
+        }
+
+        private BatchDO loadStateDictionaryOnBatchDO(BatchDO batchDO, StateLogDO stateLogDO)
+        {
+            batchDO.StateDictionary.Add((int)MachineState.Deactivated, new TimeSpan((stateLogDO.DeactivatedState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Clearing, new TimeSpan((stateLogDO.ClearingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Stopped, new TimeSpan((stateLogDO.StoppedState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Starting, new TimeSpan((stateLogDO.StartingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Idle, new TimeSpan((stateLogDO.IdleState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Suspended, new TimeSpan((stateLogDO.SuspendedState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Execute, new TimeSpan((stateLogDO.ExecuteState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Stopping, new TimeSpan((stateLogDO.StoppingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Aborting, new TimeSpan((stateLogDO.AbortingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Aborted, new TimeSpan((stateLogDO.AbortedState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Holding, new TimeSpan((stateLogDO.HoldingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Held, new TimeSpan((stateLogDO.HeldState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Resetting, new TimeSpan((stateLogDO.ResettingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Completing, new TimeSpan((stateLogDO.CompletingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Complete, new TimeSpan((stateLogDO.CompleteState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Deactivating, new TimeSpan((stateLogDO.DeactivatingState.Value)));
+            batchDO.StateDictionary.Add((int)MachineState.Activating, new TimeSpan((stateLogDO.ActivatingState.Value)));
+            return batchDO;
         }
     }
 

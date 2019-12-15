@@ -1,15 +1,10 @@
 ﻿using BeerProductionSystem.Aquaintence;
 using BeerProductionSystem.DOClasses;
 using BeerProductionSystem.PersistenceLayer.ConnectionModule;
+using BeerProductionSystem.PersistenceLayer.DatabaseModule;
 using BeerProductionSystem.PersistenceLayer.MachineModule;
 using Opc.UaFx.Client;
-using BeerProductionSystem.PersistenceLayer.DatabaseModule;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeerProductionSystem.BusinessLayer;
 
 namespace BeerProductionSystem.PersistenceLayer
 {
@@ -24,7 +19,6 @@ namespace BeerProductionSystem.PersistenceLayer
         private OpcClient accessPoint;
         private IDatabaseManager databaseManager;
         private string currentMachineName;
-
 
         public PersistenceFacade()
         {
@@ -46,18 +40,18 @@ namespace BeerProductionSystem.PersistenceLayer
             return isSuccess;
         }
 
-        public bool SaveBatchReport(BatchReport batchReport)
+        public bool SaveBatchReport(BatchDO batchReport)
         {
             return databaseManager.SaveBatchReport(batchReport);
         }
 
+        public int GetLastBatchReportID()
+        {
+            return databaseManager.GetLastBatchReportID();
+        }
+
         public LiveRelevantDataDO GetUpdateData()
         {
-            if (!opcConnection.CheckConnection())
-            {
-                opcConnection.ConnectToServer(currentMachineName);
-            }
-
             LiveRelevantDataDO liveRelevantData = new LiveRelevantDataDO(
                 machineReadData.ReadTemperature(accessPoint),
                 machineReadData.ReadHumidity(accessPoint),
@@ -81,7 +75,7 @@ namespace BeerProductionSystem.PersistenceLayer
             machineWriteData.WriteControlCommand(accessPoint, command);
         }
 
-        public void SetBatchParameters(float productType, ushort productionSpeed, ushort batchSize, ushort batchID)
+        public void SetBatchParameters(float productType, int productionSpeed, int batchSize, int batchID)
         {
             machineWriteData.WriteNextBatchProductType(accessPoint, productType);
             machineWriteData.WriteDesiredMachineSpeed(accessPoint, productionSpeed);
@@ -95,12 +89,12 @@ namespace BeerProductionSystem.PersistenceLayer
             return databaseManager.UpdateBatchReport(liveRelevantData);
         }
 
-        public List<BatchReport> GetBatchReports()
+        public List<BatchDO> GetBatchReports()
         {
             return databaseManager.GetBatchReports();
         }
 
-        public BatchReport GetSpecificReport(int id)
+        public BatchDO GetSpecificReport(int id)
         {
             return databaseManager.LoadBatchReport(id);
         }

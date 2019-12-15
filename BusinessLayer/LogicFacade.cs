@@ -1,25 +1,25 @@
 ﻿using BeerProductionSystem.Aquaintence;
-using BeerProductionSystem.BusinessLayer.BatchModule;
-using BeerProductionSystem.PersistenceLayer;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System;
 using BeerProductionSystem.DOClasses;
+using BeerProductionSystem.PersistenceLayer;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BeerProductionSystem.BusinessLayer
 {
     class LogicFacade : ILogicFacade
     {
         private IPersistenceFacade persistenceFacade;
-        private IBatchManager batchManager;
+        private BatchManager batchManager;
         private ProductionCalculation calculator;
-        private int currentState;
+        private MachineState currentState;
         private DateTime startTime;
+        private bool productionRunning;
 
         public LogicFacade()
         {
             persistenceFacade = new PersistenceFacade();
-            batchManager = new BatchManager();
+            batchManager = new BatchManager(persistenceFacade.GetLastBatchReportID());
             calculator = new ProductionCalculation();
         }
 
@@ -41,23 +41,25 @@ namespace BeerProductionSystem.BusinessLayer
         public void SendResetCommand()
         {
             persistenceFacade.SendCommand((int)Commands.RESET);
+            productionRunning = false;
+
         }
 
         public void SendStartCommand(ushort productType, ushort productionSpeed, ushort batchSize)
         {
             calculator.CalculateError((ProductType)productType, productionSpeed);
             batchManager.CreateBatch(productType, productionSpeed, batchSize);
-            ushort batchId = batchManager.CurrentBatch.BatchID;
+            int batchId = batchManager.CurrentBatch.BatchReportID;
             persistenceFacade.SetBatchParameters(productType, productionSpeed, batchSize, batchId);
-            persistenceFacade.SendCommand((int)Commands.START);
-            currentState = 6;
+            SaveBatchReport();
             startTime = DateTime.Now;
+            productionRunning = true;
+            persistenceFacade.SendCommand((int)Commands.START);
         }
 
         public void SendStopCommand()
         {
             persistenceFacade.SendCommand((int)Commands.STOP);
-            SaveBatchReport();
         }
 
         public bool checkBatchParameter()
@@ -68,30 +70,33 @@ namespace BeerProductionSystem.BusinessLayer
         public LiveRelevantDataDO UpdateData()
         {
             LiveRelevantDataDO liveRelevantData = persistenceFacade.GetUpdateData();
-            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchID;
+            currentState = (MachineState)liveRelevantData.CurrentState;
+            liveRelevantData.BatchID = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchReportID;
             liveRelevantData.BatchSize = batchManager.CurrentBatch == null ? (ushort)0 : batchManager.CurrentBatch.BatchSize;
-            liveRelevantData.AcceptableProducts = (ushort)(liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            liveRelevantData.AcceptableProducts = (liveRelevantData.ProducedProducts - liveRelevantData.DefectProducts);
+            if (productionRunning)
+            {
+                Task task = Task.Run(() =>
+                {
+                    TimeSpan timeSpan = DateTime.Now.Subtract(startTime);
+                    liveRelevantData.StateDictionary[(int)currentState] += timeSpan;
+                    startTime = DateTime.Now;
+
+                    persistenceFacade.UpdateBatchReport(liveRelevantData);
+                });
+            }
             return liveRelevantData;
         }
 
-        public void UpdateTimeInState(LiveRelevantDataDO liveRelevantDataDO)
-        {
-            if (!liveRelevantDataDO.CurrentState.Equals(currentState))
-            {
-                AmountOfTimeInState(currentState, startTime);
-                startTime = DateTime.Now;
-            }
-        }
-
-        public void AmountOfTimeInState(int currentState, DateTime date)
-        {
-            TimeSpan timeSpan = date.Subtract(DateTime.Now);
-            batchManager.SaveTimeInState(currentState, timeSpan);
-        }
         public bool SaveBatchReport()
         {
-            return persistenceFacade.SaveBatchReport(batchManager.BatchReport);
+            bool success = false;
+            Task task = Task.Run(() =>
+            {
+                success = persistenceFacade.SaveBatchReport(batchManager.CurrentBatch);
+            });
 
+            return success;
         }
 
         public int GetProductMaxSpeed(string productName)
@@ -100,23 +105,19 @@ namespace BeerProductionSystem.BusinessLayer
             return (int)maxSpeed;
         }
 
-        public List<BatchReport> GetAllBatchReports()
+        public List<BatchDO> GetAllBatchReports()
         {
             return persistenceFacade.GetBatchReports();
         }
 
-        public BatchReport GetSpecificReport(int id)
+        public BatchDO GetSpecificReport(int id)
         {
             return persistenceFacade.GetSpecificReport(id);
         }
+
         public int GetEstimatedError(ushort productType, ushort productionSpeed)
         {
             return calculator.CalculateError((ProductType)productType, productionSpeed);
-        }
-
-        public int GetOptimalEquipmentEfficiency()
-        {
-            return calculator.CalculateOptimalEquipmentEffectivness();
         }
 
         public int GetOptimalProductionSpeed(ushort productType)
@@ -128,7 +129,17 @@ namespace BeerProductionSystem.BusinessLayer
         public bool CheckMachineConnection()
         {
             return persistenceFacade.CheckMachineConnection();
+        }
 
+        public int GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType)
+        {
+            return (int)calculator.CalculateTotalOptimalEquipmentEffectiveness(batchList, productType);
+        }
+
+        public int GetProductTypeNumber(string productType)
+        {
+            Enum.TryParse(productType, out ProductType beerType);
+            return (int)beerType;
         }
     }
 }

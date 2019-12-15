@@ -1,9 +1,5 @@
-﻿using System;
+﻿using BeerProductionSystem.DOClasses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeerProductionSystem.DOClasses;
 
 namespace BeerProductionSystem.Aquaintence
 {
@@ -30,16 +26,18 @@ namespace BeerProductionSystem.Aquaintence
         bool SaveBatchReport();
 
         int GetProductMaxSpeed(string productName);
-        
-        List<BatchReport> GetAllBatchReports();
 
-        BatchReport GetSpecificReport(int id);
+        List<BatchDO> GetAllBatchReports();
+
+        BatchDO GetSpecificReport(int id);
 
         int GetEstimatedError(ushort productType, ushort productionSpeed);
 
-        int GetOptimalEquipmentEfficiency();
+        int GetTotalOptimalEquipmentEffectiveness(List<BatchDO> batchList, int productType);
 
         int GetOptimalProductionSpeed(ushort productType);
+
+        int GetProductTypeNumber(string productType);
 
     }
 }

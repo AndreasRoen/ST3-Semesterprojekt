@@ -1,24 +1,27 @@
-﻿using BeerProductionSystem.DOClasses;
+﻿using BeerProductionSystem.BusinessLayer;
+using BeerProductionSystem.DOClasses;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BeerProductionSystem.PresentationLayer
 {
     public partial class UI : Form
     {
-        private List<BatchReport> reports;
+        private List<BatchDO> reports;
+        private BatchReportDataShower batchReportShower;
         public UI()
         {
             InitializeComponent();
-            reports = new List<BatchReport>();
+            reports = new List<BatchDO>();
+            List<Chart> charts = new List<Chart>();
+            charts.Add(chartStates);
+            charts.Add(humidityChart);
+            charts.Add(tempChart);
+            batchReportShower = new BatchReportDataShower(charts);
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -39,6 +42,7 @@ namespace BeerProductionSystem.PresentationLayer
         {
             logicFacade.SendResetCommand();
             BatchProgressBar.Value = 0;
+            UpdateOEELabel();
         }
 
         private void clearBtn_Click(object sender, EventArgs e)
@@ -83,18 +87,28 @@ namespace BeerProductionSystem.PresentationLayer
                     BatchProgressBar.Value = 100;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (!logicFacade.CheckMachineConnection())
+                if (ex is InvalidOperationException || ex is Opc.UaFx.OpcException)
                 {
-                    disconnectedLabel.Visible = true;
-                    tab1.Enabled = false;
-
-                    if (logicFacade.ConnectToMachine(""))
+                    if (!logicFacade.CheckMachineConnection())
                     {
-                        disconnectedLabel.Visible = false;
-                        tab1.Enabled = true;
+                        disconnectedLabel.Visible = true;
+                        disconnectedLabel2.Visible = true;
+                        tabPage.Enabled = false;
+
+                        if (logicFacade.ConnectToMachine(""))
+                        {
+                            disconnectedLabel.Visible = false;
+                            disconnectedLabel2.Visible = false;
+                            tabPage.Enabled = true;
+                        }
                     }
+                    else { Debug.WriteLine(ex.StackTrace); }
+                }
+                else
+                {
+                    throw;
                 }
             }
         }
@@ -125,6 +139,7 @@ namespace BeerProductionSystem.PresentationLayer
             int maxSpeed = logicFacade.GetProductMaxSpeed(selectedProductType);
             // Enum.TryParse(selectedProductType, out ProductMaxSpeed maxSpeed);  //https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
 
+            UpdateOEELabel();
             productionSpeedTrackBar.Maximum = maxSpeed;
             maxProductionSpeedLabel.Text = maxSpeed.ToString();
 
@@ -133,7 +148,16 @@ namespace BeerProductionSystem.PresentationLayer
             {
                 productionSpeedLabel.Text = (maxSpeed).ToString();
             }
+
             SetEstimatedError();
+        }
+
+        private void UpdateOEELabel()
+        {
+            string selectedProductType = productTypeComboBox.SelectedItem.ToString();
+            int productType = logicFacade.GetProductTypeNumber(selectedProductType);
+            List<BatchDO> batchList = logicFacade.GetAllBatchReports();
+            OEELabel.Text = logicFacade.GetTotalOptimalEquipmentEffectiveness(batchList, productType).ToString();
         }
 
         // Making sure all forms close when the user closes the main form
@@ -146,26 +170,23 @@ namespace BeerProductionSystem.PresentationLayer
         {
             reports.Clear();
             int batchId = -1;
-            BatchReport specificReport = null;
+            BatchDO specificReport = null;
 
             if (searchTextBox.Text != null && int.TryParse(searchTextBox.Text, out batchId))
             {
                 specificReport = logicFacade.GetSpecificReport(batchId);
-                //System.Diagnostics.Debug.WriteLine(reports.Count);
-
             }
 
             if (specificReport != null)
             {
                 reports.Add(specificReport);
+                chosenReport.Text = batchReportShower.ShowBatchInfo(specificReport);
             }
             else
             {
                 reports = logicFacade.GetAllBatchReports();
             }
 
-            //TODO removed before release
-            System.Diagnostics.Debug.WriteLine(reports.Count);
 
             List<string> selectedReports = new List<string>();
             for (int i = 0; i < reports.Count; i++)
@@ -179,14 +200,8 @@ namespace BeerProductionSystem.PresentationLayer
         private void ShowBatchReport_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int itemIndex = listBoxBatches.SelectedIndex;
-            BatchReport chosenBatchReport = reports[itemIndex];
-            chosenReport.Text = "Batch ID: " + chosenBatchReport.BatchReportID + "\n" +
-                "Producttype: " + (ProductType)chosenBatchReport.ProductType + "\n" +
-                "Created products: " + chosenBatchReport.TotalAmount + "\n" +
-                "Acceptable products: " + chosenBatchReport.AcceptableAmount + "\n" +
-                "Defective products: " + chosenBatchReport.DefectAmount + "\n" +
-                GetTimeInStates(chosenBatchReport.StateDictionary) + "\n" +
-                GetAllEnvironmentalInfo(chosenBatchReport.EnvironmentalLogs);
+            BatchDO chosenBatchReport = reports[itemIndex];
+            chosenReport.Text = batchReportShower.ShowBatchInfo(chosenBatchReport);
         }
 
         private string GetTimeInStates(Dictionary<int, TimeSpan> timeInStates)
@@ -203,7 +218,7 @@ namespace BeerProductionSystem.PresentationLayer
             return statesTime;
         }
 
-        private string GetAllEnvironmentalInfo(ICollection<EnvironmentalLog> envLogs)
+        private string GetAllEnvironmentalInfo(ICollection<EnvironmentalLogDO> envLogs)
         {
             try
             {
@@ -223,7 +238,7 @@ namespace BeerProductionSystem.PresentationLayer
             return "No environment information.";
         }
 
-        private string GetSpecificLoggingInfo(string description, List<float> loggingList, System.Windows.Forms.DataVisualization.Charting.Chart chart)
+        private string GetSpecificLoggingInfo(string description, List<float> loggingList, Chart chart)
         {
             chart.Visible = true;
             chart.Series[description].Points.Clear();
@@ -238,7 +253,7 @@ namespace BeerProductionSystem.PresentationLayer
             return allInfo;
         }
 
-        private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLog> logs)
+        private List<List<float>> SeperateEnvironmentalLogInfo(ICollection<EnvironmentalLogDO> logs)
         {
             List<List<float>> envLogs = new List<List<float>>();
             List<float> humidity = new List<float>();
@@ -257,6 +272,13 @@ namespace BeerProductionSystem.PresentationLayer
             envLogs.Add(humidity);
             envLogs.Add(temp);
             return envLogs;
+        }
+
+        private void listBoxBatches_MouseClick(object sender, MouseEventArgs e)
+        {
+            int itemIndex = listBoxBatches.SelectedIndex;
+            BatchDO chosenBatchReport = reports[itemIndex];
+            chosenReport.Text = batchReportShower.ShowBatchInfo(chosenBatchReport);
         }
     }
 }

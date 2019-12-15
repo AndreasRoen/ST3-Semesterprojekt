@@ -1,11 +1,5 @@
 ﻿using Opc.UaFx;
 using Opc.UaFx.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
 {
@@ -20,7 +14,7 @@ namespace BeerProductionSystem.PersistenceLayer.ConnectionModule
         // server state was either connected or created, but "created" didn't sound like it wasn't connected
         public bool CheckConnection()
         {
-            var state = AccessPoint.State;
+            OpcClientState state = AccessPoint.State;
             return state == OpcClientState.Connected;
         }
 
